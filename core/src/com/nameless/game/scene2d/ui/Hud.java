@@ -45,6 +45,7 @@ public class Hud extends Group implements InputProcessor {
     private Play playScreen;
 
     public Label timeToNextSpawn;
+    public Label timeHour;
 
     public Hud(final MainGame game, final VirtualController controller, Play playScreen) {
         this.game = game;
@@ -58,6 +59,10 @@ public class Hud extends Group implements InputProcessor {
         timeToNextSpawn = new Label("Time", game.getSkin());
         timeToNextSpawn.setPosition(hud.getViewport().getWorldWidth()/2 - timeToNextSpawn.getWidth()/2,hud.getViewport().getWorldHeight() - 60);
         hud.addActor(timeToNextSpawn);
+
+        timeHour = new Label("12h", game.getSkin());
+        timeHour.setPosition(hud.getViewport().getWorldWidth() - timeHour.getWidth()*2,hud.getViewport().getWorldHeight() - 60);
+        hud.addActor(timeHour);
 
 //        hud.setDebugAll(true);
         table = new Table();

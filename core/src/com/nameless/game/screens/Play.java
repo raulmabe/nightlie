@@ -64,8 +64,9 @@ public class Play extends BasicScreen{
         controller = new VirtualController();
 
         // Spawn Player
-        if(!game.prefs.getBoolean("night")) player = new Player(this,null, map.world, PlayerPos.x, PlayerPos.y);
-        else player = new Player(this,map.rayHandler, map.world, PlayerPos.x, PlayerPos.y);
+        //if(!game.prefs.getBoolean("night")) player = new Player(this,null, map.world, PlayerPos.x, PlayerPos.y);
+        //else
+            player = new Player(this,map.rayHandler, map.world, PlayerPos.x, PlayerPos.y);
 
         PathfindingDebugger.setCamera(cam);
 
@@ -163,6 +164,44 @@ public class Play extends BasicScreen{
         // Debug
 //         fps.log();
         hud.timeToNextSpawn.setText("" + Gdx.graphics.getFramesPerSecond());
+        hud.timeHour.setText("" + (int) calcularHora() + "h");
+    }
+
+    private float calcularHora(){
+        float x = DayNightCycleManager.dayTime;
+        boolean aux = DayNightCycleManager.sum;
+
+        float i = 0.0666666f;
+
+        if(aux){
+            if(x < i) return 0f;
+            else if(x < i*2) return 1f;
+            else if(x < i*3) return 2f;
+            else if(x < i*4) return 3f;
+            else if(x < i*5) return 4f;
+            else if(x < i*6) return 5f;
+            else if(x < i*7) return 6f;
+            else if(x < i*8) return 7f;
+            else if(x < i*9) return 8f;
+            else if(x < i*10) return 9f;
+            else if(x < i*11) return 10f;
+            else if(x > i*11) return 12f;
+        }
+        else{
+            if(x < i) return 0f;
+            else if(x < i*2) return 23f;
+            else if(x < i*3) return 22f;
+            else if(x < i*4) return 21f;
+            else if(x < i*5) return 20f;
+            else if(x < i*6) return 19f;
+            else if(x < i*7) return 18f;
+            else if(x < i*8) return 17f;
+            else if(x < i*9) return 16f;
+            else if(x < i*10) return 15f;
+            else if(x < i*11) return 14f;
+            else if(x > i*11) return 13f;
+        }
+        return 0;
     }
 
     @Override

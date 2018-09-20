@@ -5,16 +5,18 @@ public class DayNightCycleManager {
     /**
      * Day/Night time
      */
-    public static float dayTime = 1;
+    public static float dayTime = 1f;
     public static boolean lightsOpen = false;
-    private boolean sum = false;
+    public static boolean sum = false;
+
+    private static float timeSpeed = 0.00001f;
 
     public DayNightCycleManager() {
     }
 
     public void updateDayTime() {
-        if(sum) dayTime += .00001f;
-        else dayTime -= .00001f;
+        if(sum) dayTime += timeSpeed;
+        else dayTime -= timeSpeed;
 
         if(dayTime >= 1) sum = false;
         else if (dayTime <= .2f) sum = true;
