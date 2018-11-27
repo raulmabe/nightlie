@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.FPSLogger;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -34,6 +35,8 @@ public class Play extends BasicScreen{
     public Player player;
 
     public ArrayList<Zombie> enemies;
+    private int iCamZombie = 0;
+    private boolean camPlayer = true;
 
     FPSLogger fps;
 
@@ -108,20 +111,36 @@ public class Play extends BasicScreen{
 
     }
 
+    private void handleCamera(){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.K) && !enemies.isEmpty()) camPlayer = !camPlayer;
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT) && !camPlayer) ++iCamZombie;
+        if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT) && !camPlayer) --iCamZombie;
+        iCamZombie = MathUtils.clamp(iCamZombie, 0, enemies.size()-1);
+
+        if(camPlayer){
+            cam.position.x = player.getX() + player.getWidth()/2;
+            cam.position.y = player.getY() + player.getHeight()/2;
+        } else{
+            cam.position.x = enemies.get(iCamZombie).getX() + enemies.get(iCamZombie).getWidth()/2;
+            cam.position.y = enemies.get(iCamZombie).getY() + enemies.get(iCamZombie).getHeight()/2;
+        }
+
+
+        if(Gdx.input.isKeyPressed(Input.Keys.UP)) cam.zoom -= 0.1f;
+        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) cam.zoom += 0.1f;
+        cam.update();
+    }
+
     /**
-     * Reorganize by switch game states
+     * It's called every frame
      * @param delta
      */
-
     @Override
     public void render(float delta) {
         super.render(delta);
 //        handleInput();
-        cam.position.x = player.getX() + player.getWidth()/2;
-        cam.position.y = player.getY() + player.getHeight()/2;
-        if(Gdx.input.isKeyPressed(Input.Keys.UP)) cam.zoom -= 0.1f;
-        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) cam.zoom += 0.1f;
-        cam.update();
+        handleCamera();
 
         // Map
         if(state == GAME_RUNNING || state == GAME_WAITING) map.world.step(1/60f, 6, 2);
