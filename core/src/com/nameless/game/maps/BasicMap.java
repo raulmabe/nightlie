@@ -70,7 +70,7 @@ public abstract class BasicMap {
 
         // Box2D
         world = new World(new Vector2(0,0), true);
-        collisionManager = new CollisionManager(world);
+        collisionManager = new CollisionManager();
         world.setContactListener(collisionManager);
         worldRenderer = new Box2DDebugRenderer();
 

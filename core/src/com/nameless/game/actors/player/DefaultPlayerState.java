@@ -1,10 +1,14 @@
 package com.nameless.game.actors.player;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.nameless.game.*;
 import com.nameless.game.actors.Character;
 import com.nameless.game.actors.items.*;
 import com.nameless.game.actors.states.IState;
+import com.nameless.game.flowfield.FlowFieldManager;
+import com.nameless.game.maps.LevelManager;
+import com.nameless.game.pathfinding.PathfindingDebugger;
 
 public class DefaultPlayerState implements IState {
 
@@ -23,6 +27,10 @@ public class DefaultPlayerState implements IState {
 
     @Override
     public void Update(float dt) {
+        FlowFieldManager.calcDistanceForEveryNode(parent.getX() + parent.getWidth()/2,
+                    parent.getY() +parent.getHeight()/2);
+        PathfindingDebugger.drawPositionNode(LevelManager.graph.getNodeByXYFloat( parent.getX() + parent.getWidth()/2,
+                parent.getY() + parent.getHeight()/2), Color.GREEN);
         touchpad.set(parent.play.controller.MovePercentX, parent.play.controller.MovePercentY);
         touchpad2.set(parent.play.controller.TurnPercentX, parent.play.controller.TurnPercentY);
 

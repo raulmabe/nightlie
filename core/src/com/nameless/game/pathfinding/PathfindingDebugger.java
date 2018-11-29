@@ -1,6 +1,7 @@
 package com.nameless.game.pathfinding;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -29,11 +30,11 @@ public class PathfindingDebugger {
         shapeRenderer.end();
     }
 
-    public static void drawPositionNode(Node n){
+    public static void drawPositionNode(Node n, Color color){
         int index = n.getIndex();
         shapeRenderer.setProjectionMatrix(camera.combined);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(1, 0, 0, 1);
+        shapeRenderer.setColor(color);
         shapeRenderer.circle(LevelManager.TILE_WIDTH / 2 + (index % LevelManager.WIDTH_IN_TILES) * LevelManager.TILE_WIDTH,
                 LevelManager.TILE_HEIGHT / 2 + (index / LevelManager.WIDTH_IN_TILES) * LevelManager.TILE_HEIGHT, .5f);
         shapeRenderer.end();

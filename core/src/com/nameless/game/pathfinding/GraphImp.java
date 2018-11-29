@@ -2,12 +2,13 @@ package com.nameless.game.pathfinding;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.pfa.Connection;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedGraph;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.nameless.game.maps.LevelManager;
 
 
 public class GraphImp implements IndexedGraph<Node> {
-    protected Array<Node> nodes = new Array<Node>();
+    public Array<Node> nodes = new Array<Node>();
     protected int capacity;
 
     public GraphImp() {
@@ -30,14 +31,36 @@ public class GraphImp implements IndexedGraph<Node> {
 
     public Node getNodeByXY(int x, int y) {
         int modX = (int) (x / LevelManager.TILE_WIDTH);
-        int modY = (int) (y / LevelManager.TILE_HEIGHT);
+        int modY = (int)(y / LevelManager.TILE_HEIGHT);
 
         return nodes.get((int) (LevelManager.WIDTH_IN_TILES * modY + modX));
+    }
+
+    public Node getNodeByXYFloat(float x, float y) {
+        int modX = MathUtils.round(x);
+        int modY = MathUtils.round(y);
+
+        modX = (int)(modX / LevelManager.TILE_WIDTH);
+        modY = (int)(modY / LevelManager.TILE_HEIGHT);
+
+        return nodes.get((int) (LevelManager.WIDTH_IN_TILES * modY + modX));
+    }
+
+    public int getIndexByXY(float x, float y){
+        int modX = MathUtils.round(x);
+        int modY = MathUtils.round(y);
+
+        modX = (int)(modX / LevelManager.TILE_WIDTH);
+        modY = (int)(modY / LevelManager.TILE_HEIGHT);
+
+        return ((int) (LevelManager.WIDTH_IN_TILES * modY + modX));
     }
 
     public Node getNodeByXYTiles(int x, int y) {
         return nodes.get((int) (LevelManager.WIDTH_IN_TILES * y + x));
     }
+
+    public Node getNode(int index){return nodes.get(index);}
 
     @Override
     public int getIndex(Node node) {

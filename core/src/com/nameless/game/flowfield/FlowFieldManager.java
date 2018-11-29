@@ -13,9 +13,15 @@ public class FlowFieldManager {
 
     static boolean firstTime = true;
 
+    private static void calcFlowForEveryNode(){
+        for(int i = 0; i < LevelManager.graph.getNodeCount(); ++i){
+            if(LevelManager.graph.getNode(i).type == Node.Type.REGULAR) LevelManager.graph.getNode(i).calcFlow();
+        }
+    }
+
 
     public static void calcDistanceForEveryNode(float goalX, float goalY){
-        setGoal(LevelManager.graph.getNodeByXY((int) goalX, (int) goalY));
+        setGoal(LevelManager.graph.getNodeByXYFloat( goalX, goalY));
     }
 
     private static void setGoal(Node n){
@@ -28,25 +34,24 @@ public class FlowFieldManager {
 
         visited.set(n.index, true);
 
-        int distance = 0;
+        n.setDistance(0);
 
         while(queue.size != 0){
             n = queue.first();
             queue.removeFirst();
 
-            n.setDistance(distance);
-            distance ++;
-
             for (Connection<Node> connection: n.connections){
                 Node auxN = connection.getToNode();
                 if(!visited.get(auxN.index)){
-                    auxN.setDistance(distance);
+                    auxN.setDistance(n.getDistance()+1);
                     visited.set(auxN.index, true);
                     queue.addLast(auxN);
                 }
             }
 
         }
+
+        calcFlowForEveryNode();
     }
 
 }

@@ -74,6 +74,8 @@ public class GraphGenerator {
                         Node upRightNode = nodes.get(mapWidth * (y + 1) + (x + 1));
                         //targetNode.createConnection(upRightNode, 14, NodePosFromOtherNode.UPRIGHT);
                     }
+                } else {
+                    targetNode.type = Node.Type.UNWALKABLE;
                 }
             }
         }

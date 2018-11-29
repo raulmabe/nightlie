@@ -1,23 +1,17 @@
 package com.nameless.game.actors.enemies;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.ai.msg.Telegram;
-import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.ai.pfa.PathFinderRequest;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.nameless.game.MathStatic;
 import com.nameless.game.actors.Character;
-import com.nameless.game.actors.enemies.Zombie;
-import com.nameless.game.actors.enemies.ZombieAttackState;
 import com.nameless.game.actors.states.IState;
 import com.nameless.game.maps.LevelManager;
 import com.nameless.game.pathfinding.*;
 
-public class ZombieFollowState implements IState, Pather<Node>{
+public class AStarState implements IState, Pather<Node>{
 
     private Zombie zombie;
 
@@ -33,16 +27,26 @@ public class ZombieFollowState implements IState, Pather<Node>{
     private float targetY = 0;
 
 
+    private float timeToChangePathfinding = 2000000000; // 2 seconds
+    private float timeEntered;
+
+
     @Override
     public void Enter(Character parent) {
         zombie = (Zombie) parent;
         pathFinder = new IndexedAStarPathFinder<Node>(LevelManager.graph, false);
         RequestPath();
         isRequested = false;
+
+        timeEntered = TimeUtils.nanoTime();
     }
 
     @Override
     public void Update(float dt) {
+        if(TimeUtils.nanoTime() - timeEntered > timeToChangePathfinding*2){
+            zombie.ChangeState(new FlowFieldState());
+        }
+
         if(zombie.target != null){
 
             if (zombie.getCanRequestPath() && !isRequested && targetHasMoved() && TimeUtils.nanoTime() - lastRequestTime > 1000000000/2) {

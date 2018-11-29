@@ -20,10 +20,8 @@ public class CollisionManager implements ContactListener {
     public Array<Fixture> fixturesToDestroy;
     public Array<Body> bodiesToDestroy;
 
-    private World world;
 
-    public CollisionManager(World world) {
-        this.world = world;
+    public CollisionManager() {
         bodiesToDestroy = new Array<Body>();
         fixturesToDestroy = new Array<Fixture>();
     }

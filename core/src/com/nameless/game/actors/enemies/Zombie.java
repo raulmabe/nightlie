@@ -12,7 +12,6 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Pool;
 import com.nameless.game.Constants;
-import com.nameless.game.MainGame;
 import com.nameless.game.actors.Character;
 import com.nameless.game.actors.Loot;
 import com.nameless.game.screens.Play;
@@ -65,7 +64,7 @@ public class Zombie extends Character implements Pool.Poolable {
 
         canRequestPath = false;
         setPosition(body.getPosition().x - getWidth()/2, body.getPosition().y - getHeight()/2);
-        ChangeState(new ZombieFollowState());
+        ChangeState(new FlowFieldState());
     }
 
     private void setBox2d() {
@@ -121,10 +120,6 @@ public class Zombie extends Character implements Pool.Poolable {
 
     public Vector2 getVelocity(){
         return new Vector2(SPEED,SPEED);
-    }
-
-    public void TakeDamage(float value, Vector2 impulse) {
-        super.TakeDamage(value, impulse);
     }
 
     @Override

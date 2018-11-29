@@ -8,13 +8,9 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.TimeUtils;
-import com.badlogic.gdx.utils.Timer;
 import com.nameless.game.DayNightCycleManager;
 import com.nameless.game.MainGame;
 import com.nameless.game.VirtualController;
-import com.nameless.game.actors.enemies.Zombie;
-import com.nameless.game.actors.enemies.ZombieFollowState2;
 import com.nameless.game.actors.player.Player;
 import com.nameless.game.flowfield.FlowFieldDebugger;
 import com.nameless.game.flowfield.FlowFieldManager;
@@ -23,8 +19,6 @@ import com.nameless.game.maps.BasicMap;
 import com.nameless.game.maps.TownMap;
 import com.nameless.game.pathfinding.PathfindingDebugger;
 import com.nameless.game.scene2d.ui.Hud;
-
-import java.util.ArrayList;
 
 import static com.nameless.game.Constants.PixelsPerMeter;
 
@@ -71,7 +65,6 @@ public class Play extends BasicScreen{
 
         PathfindingDebugger.setCamera(cam);
         FlowFieldDebugger.setCamera(cam);
-        ZombieFollowState2.setCamera(cam);
 
         waveSpawnManager = new WaveSpawnManager(this);
 
@@ -118,7 +111,7 @@ public class Play extends BasicScreen{
         if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT) && !camPlayer) --iCamZombie;
         iCamZombie = MathUtils.clamp(iCamZombie, 0, waveSpawnManager.zombies.size()-1);
 
-        if(camPlayer){
+        if(camPlayer || waveSpawnManager.zombies.isEmpty()){
             cam.position.x = player.getX() + player.getWidth()/2;
             cam.position.y = player.getY() + player.getHeight()/2;
         } else{
@@ -141,7 +134,7 @@ public class Play extends BasicScreen{
         super.render(delta);
 //        handleInput();
 
-
+/*
         switch (state){
             case GAME_WAITING:
             case GAME_RUNNING:
@@ -166,8 +159,9 @@ public class Play extends BasicScreen{
                 mapHud.draw(stage.getBatch(), 1);
                 stage.getBatch().end();
 
-                //Debug map
-                FlowFieldDebugger.drawDistances(stage.getBatch());
+                //Debug flow field algorithm
+                //FlowFieldDebugger.drawDistances(stage.getBatch());
+                FlowFieldDebugger.drawFlow();
 
                 // Hud
                 hud.update(delta);
@@ -178,13 +172,14 @@ public class Play extends BasicScreen{
                 hud.timeHour.setText("" + (int) calcularHora() + "h");
 
         }
+*/
 
-        /*
         handleCamera();
 
         // Map
         if(state == GAME_RUNNING || state == GAME_WAITING) map.world.step(1/60f, 6, 2);
         map.render(cam);
+        FlowFieldDebugger.drawFlow();
 
         // Stage
         if(state == GAME_RUNNING || state == GAME_WAITING) stage.act(delta);
@@ -201,6 +196,9 @@ public class Play extends BasicScreen{
         mapHud.draw(stage.getBatch(), 1);
         stage.getBatch().end();
 
+
+        //FlowFieldDebugger.drawDistances(stage.getBatch());
+
         // Hud
         hud.update(delta);
 
@@ -211,7 +209,7 @@ public class Play extends BasicScreen{
         // Debug
 //         fps.log();
         hud.timeToNextSpawn.setText("" + Gdx.graphics.getFramesPerSecond());
-        hud.timeHour.setText("" + (int) calcularHora() + "h");*/
+        hud.timeHour.setText("" + (int) calcularHora() + "h");
     }
 
     private float calcularHora(){

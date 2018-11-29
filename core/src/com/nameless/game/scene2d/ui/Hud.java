@@ -21,6 +21,7 @@ import com.nameless.game.MainGame;
 import com.nameless.game.VirtualController;
 import com.nameless.game.Weapons;
 import com.nameless.game.actors.player.Player;
+import com.nameless.game.flowfield.FlowFieldManager;
 import com.nameless.game.screens.Menu;
 import com.nameless.game.screens.Play;
 
@@ -123,8 +124,11 @@ public class Hud extends Group implements InputProcessor {
         hud.act(dt);
         hud.draw();
 
-//        if(touchpad.isTouched()) touchpad.setColor(touchpad.getColor().r, touchpad.getColor().g, touchpad.getColor().b, 1);
-//        else touchpad.setColor(touchpad.getColor().r, touchpad.getColor().g, touchpad.getColor().b, 0);
+        if(touchpad.isTouched()) touchpad.setColor(touchpad.getColor().r, touchpad.getColor().g, touchpad.getColor().b, 1);
+        else touchpad.setColor(touchpad.getColor().r, touchpad.getColor().g, touchpad.getColor().b, 0);
+
+        if(touchpad2.isTouched()) touchpad2.setColor(touchpad2.getColor().r, touchpad2.getColor().g, touchpad2.getColor().b, 1);
+        else touchpad2.setColor(touchpad2.getColor().r, touchpad2.getColor().g, touchpad2.getColor().b, 0);
 
         controller.MovePercentX = touchpad.getKnobPercentX();
         controller.MovePercentY = touchpad.getKnobPercentY();

@@ -17,23 +17,15 @@ public class Node {
 
     private int distance = -1;
 
-    private boolean AmIGoal = false;
-
-    public Vector2 flow = new Vector2();
+    public Vector2 flow;
 
     public Node() {
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if(!(obj instanceof Node)) return false;
-
-        Node o = (Node) obj;
-        return index == o.index;
+        flow = new Vector2(0,0);
     }
 
     public Node(int type) {
         this.type = type;
+        flow = new Vector2(0,0);
     }
 
     public int getIndex() {
@@ -57,21 +49,18 @@ public class Node {
         distanceDown = distanceLeft = distanceRight = distanceUp = distance;
 
         for (Connection<Node> connection: connections) {
-            if(connection instanceof  ConnectionImp){
+            if(connection instanceof  ConnectionImp && connection.getToNode().type == Type.REGULAR){
                 if(((ConnectionImp) connection).getTag() == NodePosFromOtherNode.DOWN) distanceDown = connection.getToNode().getDistance();
                 else if(((ConnectionImp) connection).getTag() == NodePosFromOtherNode.UP) distanceUp = connection.getToNode().getDistance();
                 else if(((ConnectionImp) connection).getTag() == NodePosFromOtherNode.RIGHT) distanceRight = connection.getToNode().getDistance();
                 else if(((ConnectionImp) connection).getTag() == NodePosFromOtherNode.LEFT) distanceLeft = connection.getToNode().getDistance();
             }
+
         }
 
-        flow.y = distanceUp - distanceDown;
+        //flow = new Vector2(distanceLeft - distanceRight, distanceDown - distanceUp);
         flow.x = distanceLeft - distanceRight;
-    }
-
-    public Vector2 getFlow(){
-        if (flow.isZero() || flow == null) calcFlow();
-        return flow;
+        flow.y = distanceDown - distanceUp;
     }
 
     public void setDistance(int dist){
@@ -84,6 +73,15 @@ public class Node {
 
     public static class Type {
         public static final int REGULAR = 1;
-        public static final int NULL = 2;
+        public static final int UNWALKABLE = 2;
+        public static final int NULL = 3;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof Node)) return false;
+
+        Node o = (Node) obj;
+        return index == o.index;
     }
 }

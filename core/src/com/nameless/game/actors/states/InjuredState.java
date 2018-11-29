@@ -4,11 +4,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.nameless.game.MathStatic;
 import com.nameless.game.actors.Character;
-import com.nameless.game.actors.enemies.ZombieFollowState;
 import com.nameless.game.actors.enemies.Zombie;
+import com.nameless.game.actors.enemies.FlowFieldState;
 import com.nameless.game.actors.player.DefaultPlayerState;
 import com.nameless.game.actors.player.Player;
-import com.nameless.game.screens.Play;
 
 public class InjuredState implements IState{
 
@@ -34,7 +33,7 @@ public class InjuredState implements IState{
         parent.setPosition(parent.body.getPosition().x - parent.getWidth()/2, parent.body.getPosition().y - parent.getHeight()/2);
         if(TimeUtils.nanoTime() - enterTime > 200000000){
             if(parent instanceof Player) parent.ChangeState(new DefaultPlayerState());
-            else if(parent instanceof Zombie) parent.ChangeState(new ZombieFollowState());
+            else if(parent instanceof Zombie) parent.ChangeState(new FlowFieldState());
         }
     }
 

@@ -19,7 +19,7 @@ public class Character extends Actor {
 
     public IState currentState;
 
-    public Blinker blinker;
+    protected Blinker blinker;
 
     public boolean setToDestroy = false;
 
