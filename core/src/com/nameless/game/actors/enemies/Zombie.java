@@ -37,6 +37,8 @@ public class Zombie extends Character implements Pool.Poolable {
     public Texture attackSheet;
     public float stateTime;
 
+    private boolean canRequestPath;
+
     public Zombie(Play play, World world, Actor target, float x, float y) {
         super(world, 100,100);
         this.play = play;
@@ -61,9 +63,9 @@ public class Zombie extends Character implements Pool.Poolable {
 
         setBox2d();
 
+        canRequestPath = false;
         setPosition(body.getPosition().x - getWidth()/2, body.getPosition().y - getHeight()/2);
-        currentState = new ZombieFollowState();
-        currentState.Enter(this);
+        ChangeState(new ZombieFollowState());
     }
 
     private void setBox2d() {
@@ -109,8 +111,16 @@ public class Zombie extends Character implements Pool.Poolable {
         world.destroyBody(body);
         if (currentState != null) currentState.Exit();
         currentState = null;
-        play.enemies.remove(this);
+        play.waveSpawnManager.zombies.remove(this);
         return super.remove();
+    }
+
+    public Vector2 getPosition(){
+        return new Vector2(getX(), getY());
+    }
+
+    public Vector2 getVelocity(){
+        return new Vector2(SPEED,SPEED);
     }
 
     public void TakeDamage(float value, Vector2 impulse) {
@@ -120,5 +130,11 @@ public class Zombie extends Character implements Pool.Poolable {
     @Override
     public void reset() {
         HEALTH = 100;
+    }
+
+    public void setCanRequestPath(boolean b){canRequestPath = b;}
+
+    public boolean getCanRequestPath() {
+        return canRequestPath;
     }
 }

@@ -28,6 +28,10 @@ public class MathStatic {
         return sum;
     }
 
+    public static Vector2 V2dividedByF(Vector2 vec, float f){
+        return new Vector2(vec.x / f, vec.y / f);
+    }
+
     public static Vector2 V2xf(Vector2 v, float value){
         return new Vector2(v.x*value, v.y*value);
     }

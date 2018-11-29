@@ -35,6 +35,10 @@ public class GraphImp implements IndexedGraph<Node> {
         return nodes.get((int) (LevelManager.WIDTH_IN_TILES * modY + modX));
     }
 
+    public Node getNodeByXYTiles(int x, int y) {
+        return nodes.get((int) (LevelManager.WIDTH_IN_TILES * y + x));
+    }
+
     @Override
     public int getIndex(Node node) {
         return nodes.indexOf(node, true);

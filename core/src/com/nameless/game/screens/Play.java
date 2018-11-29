@@ -10,12 +10,15 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.Timer;
-import com.nameless.game.Constants;
 import com.nameless.game.DayNightCycleManager;
 import com.nameless.game.MainGame;
 import com.nameless.game.VirtualController;
 import com.nameless.game.actors.enemies.Zombie;
+import com.nameless.game.actors.enemies.ZombieFollowState2;
 import com.nameless.game.actors.player.Player;
+import com.nameless.game.flowfield.FlowFieldDebugger;
+import com.nameless.game.flowfield.FlowFieldManager;
+import com.nameless.game.managers.WaveSpawnManager;
 import com.nameless.game.maps.BasicMap;
 import com.nameless.game.maps.TownMap;
 import com.nameless.game.pathfinding.PathfindingDebugger;
@@ -31,10 +34,9 @@ public class Play extends BasicScreen{
     public final int GAME_WAITING = 2;
     public int state = 0;
 
-    private BasicMap map;
+    public BasicMap map;
     public Player player;
 
-    public ArrayList<Zombie> enemies;
     private int iCamZombie = 0;
     private boolean camPlayer = true;
 
@@ -47,8 +49,7 @@ public class Play extends BasicScreen{
 
     private InputMultiplexer inputMulti;
 
-    private float timeToNextSpawn = TimeUtils.nanoTime();
-    private int round;
+    public WaveSpawnManager waveSpawnManager;
 
     public Play(MainGame game) {
         super(game);
@@ -58,24 +59,23 @@ public class Play extends BasicScreen{
         bg = new Group();
         fg = new Group();
 
-        enemies = new ArrayList<Zombie>();
-
         map = new TownMap(game, 1/PixelsPerMeter);
 
         Vector2 PlayerPos = map.getPositionPlayer();
 
         controller = new VirtualController();
 
-        // Spawn Player
-        //if(!game.prefs.getBoolean("night")) player = new Player(this,null, map.world, PlayerPos.x, PlayerPos.y);
-        //else
-            player = new Player(this,map.rayHandler, map.world, PlayerPos.x, PlayerPos.y);
+        player = new Player(this,map.rayHandler, map.world, PlayerPos.x, PlayerPos.y);
+        FlowFieldManager.calcDistanceForEveryNode(player.getX() + player.getWidth()/2,
+                player.getY() +player.getHeight()/2);
 
         PathfindingDebugger.setCamera(cam);
+        FlowFieldDebugger.setCamera(cam);
+        ZombieFollowState2.setCamera(cam);
+
+        waveSpawnManager = new WaveSpawnManager(this);
 
         hud = new Hud(game, controller, this);
-
-        round = 1;
     }
 
     @Override
@@ -112,18 +112,18 @@ public class Play extends BasicScreen{
     }
 
     private void handleCamera(){
-        if(Gdx.input.isKeyJustPressed(Input.Keys.K) && !enemies.isEmpty()) camPlayer = !camPlayer;
+        if(Gdx.input.isKeyJustPressed(Input.Keys.K) && !waveSpawnManager.zombies.isEmpty()) camPlayer = !camPlayer;
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT) && !camPlayer) ++iCamZombie;
         if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT) && !camPlayer) --iCamZombie;
-        iCamZombie = MathUtils.clamp(iCamZombie, 0, enemies.size()-1);
+        iCamZombie = MathUtils.clamp(iCamZombie, 0, waveSpawnManager.zombies.size()-1);
 
         if(camPlayer){
             cam.position.x = player.getX() + player.getWidth()/2;
             cam.position.y = player.getY() + player.getHeight()/2;
         } else{
-            cam.position.x = enemies.get(iCamZombie).getX() + enemies.get(iCamZombie).getWidth()/2;
-            cam.position.y = enemies.get(iCamZombie).getY() + enemies.get(iCamZombie).getHeight()/2;
+            cam.position.x = waveSpawnManager.zombies.get(iCamZombie).getX() + waveSpawnManager.zombies.get(iCamZombie).getWidth()/2;
+            cam.position.y = waveSpawnManager.zombies.get(iCamZombie).getY() + waveSpawnManager.zombies.get(iCamZombie).getHeight()/2;
         }
 
 
@@ -140,6 +140,46 @@ public class Play extends BasicScreen{
     public void render(float delta) {
         super.render(delta);
 //        handleInput();
+
+
+        switch (state){
+            case GAME_WAITING:
+            case GAME_RUNNING:
+                handleCamera();
+
+                map.world.step(1/60f, 6, 2);
+                stage.act(delta);
+
+                // Spawn control
+                waveSpawnManager.update(delta);
+            case GAME_PAUSED:
+            default:
+                map.render(cam);
+                stage.draw();
+
+                // Render RayCast Light
+                map.renderRayHandler(cam);
+
+                // Render fore layers
+                map.renderForeLayers();mapHud.act(delta);
+                stage.getBatch().begin();
+                mapHud.draw(stage.getBatch(), 1);
+                stage.getBatch().end();
+
+                //Debug map
+                FlowFieldDebugger.drawDistances(stage.getBatch());
+
+                // Hud
+                hud.update(delta);
+
+                // Debug
+//         fps.log();
+                hud.timeToNextSpawn.setText("" + Gdx.graphics.getFramesPerSecond());
+                hud.timeHour.setText("" + (int) calcularHora() + "h");
+
+        }
+
+        /*
         handleCamera();
 
         // Map
@@ -165,25 +205,13 @@ public class Play extends BasicScreen{
         hud.update(delta);
 
         // Spawn control
-        if(enemies.size() == 0 && state != GAME_WAITING){
-            state = GAME_WAITING;
-            timeToNextSpawn = TimeUtils.nanoTime();
-        }
-        if(state == GAME_WAITING){
-            if(TimeUtils.nanoTime() - timeToNextSpawn > 2000000000){
-                round++;
-                WaveSpawn(round);
-            } else{
-//                hud.timeToNextSpawn.setText(""+ (2 - (MathUtils.nanoToSec * (TimeUtils.nanoTime() - timeToNextSpawn))));
-//                hud.timeToNextSpawn.setText("" + round);
-            }
-        }
+        waveSpawnManager.update(delta);
 
 
         // Debug
 //         fps.log();
         hud.timeToNextSpawn.setText("" + Gdx.graphics.getFramesPerSecond());
-        hud.timeHour.setText("" + (int) calcularHora() + "h");
+        hud.timeHour.setText("" + (int) calcularHora() + "h");*/
     }
 
     private float calcularHora(){
@@ -235,28 +263,9 @@ public class Play extends BasicScreen{
     }
 
     public void clearScene() {
-        for (int i = 0; i < enemies.size(); ++i) {
-            enemies.get(i).remove();
-        }
-        enemies.clear();
+        waveSpawnManager.clear();
         game.setScreen(new Menu(game));
     }
 
-    private void WaveSpawn(int round){
-        float delay = .1f; // seconds
-        final Play instance = this;
-//
-        for(int i = 0;i < 10; ++i){  // i < (round*2 + 10)
-            Timer.schedule(new Timer.Task(){
-                @Override
-                public void run() {
-                    Vector2 pos = map.getPositionEnemy();
-                    Zombie zombie = new Zombie(instance, map.world, player, pos.x, pos.y);
-                    enemies.add(zombie);
-                    fg.addActor(zombie);
-                }
-            }, delay * i);
-        }
-        state = GAME_RUNNING;
-    }
+
 }

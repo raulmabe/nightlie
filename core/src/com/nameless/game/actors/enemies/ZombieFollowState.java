@@ -45,11 +45,12 @@ public class ZombieFollowState implements IState, Pather<Node>{
     public void Update(float dt) {
         if(zombie.target != null){
 
-            if (!isRequested && targetHasMoved() && TimeUtils.nanoTime() - lastRequestTime > 1000000000/2) {
+            if (zombie.getCanRequestPath() && !isRequested && targetHasMoved() && TimeUtils.nanoTime() - lastRequestTime > 1000000000/2) {
                 RequestPath();
             }
 
             if(resultPath != null){
+                zombie.setCanRequestPath(false);
                 PathfindingDebugger.drawPath(resultPath);
                 FollowRequestedPath();
             } else GoToTarget();

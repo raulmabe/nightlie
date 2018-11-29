@@ -32,7 +32,7 @@ public class Character extends Actor {
     }
 
     public void ChangeState(IState newState){
-        currentState.Exit();
+        if(currentState != null) currentState.Exit();
         currentState = newState;
         currentState.Enter(this);
     }

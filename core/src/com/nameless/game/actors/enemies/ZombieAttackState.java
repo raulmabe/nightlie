@@ -57,7 +57,7 @@ public class ZombieAttackState implements IState {
                 parent.target.getY() + parent.target.getHeight()/2);
 
         if(MathStatic.getDistancePointToPoint(p1,p2) > parent.RANGE && parent.attackAnim.isAnimationFinished(parent.stateTime)){
-            parent.ChangeState(new ZombieFollowState());
+            parent.ChangeState(new ZombieFollowState2());
         }
 
         parent.setRotation(MathStatic.V2minusV2(p2, p1).angle());

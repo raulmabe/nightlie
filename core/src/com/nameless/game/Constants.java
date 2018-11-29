@@ -31,7 +31,7 @@ public class Constants {
     /**
      * Unit scale for Box2D. 1 meter == 43 pixels
      */
-    public static final float PixelsPerMeter = 43;
+    public static final float PixelsPerMeter =1; //43;
 
     public static Color color1 = new Color(1, 112/255f, 112/255f, 1);
     public static Color color2 = new Color(86/255f, 170/255f, 255/255f, 1);
