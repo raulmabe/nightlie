@@ -29,10 +29,8 @@ public class FlowFieldState implements IState {
 
     @Override
     public void Update(float dt) {
-        if(LevelManager.graph.getIndexByXY( zombie.getX() + zombie.getWidth()/2,
-                zombie.getY() + zombie.getHeight()/2) != actualNode) {
-            actualNode = LevelManager.graph.getIndexByXY( zombie.getX() + zombie.getWidth()/2,
-                    zombie.getY() + zombie.getHeight()/2);
+        if(LevelManager.graph.getIndexByXY( zombie.getCenterX(), zombie.getCenterY()) != actualNode) {
+            actualNode = LevelManager.graph.getIndexByXY( zombie.getCenterX(), zombie.getCenterY());
             timeSinceLastChange = TimeUtils.nanoTime();
         } else if(TimeUtils.nanoTime() - timeSinceLastChange > timeToChangePathfinding*2){
             zombie.ChangeState(new AStarState());

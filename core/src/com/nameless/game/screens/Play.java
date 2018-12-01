@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.nameless.game.Constants;
 import com.nameless.game.DayNightCycleManager;
 import com.nameless.game.MainGame;
 import com.nameless.game.VirtualController;
@@ -60,8 +61,7 @@ public class Play extends BasicScreen{
         controller = new VirtualController();
 
         player = new Player(this,map.rayHandler, map.world, PlayerPos.x, PlayerPos.y);
-        FlowFieldManager.calcDistanceForEveryNode(player.getX() + player.getWidth()/2,
-                player.getY() +player.getHeight()/2);
+        FlowFieldManager.calcDistanceForEveryNode(player.getCenterX(), player.getCenterY());
 
         PathfindingDebugger.setCamera(cam);
         FlowFieldDebugger.setCamera(cam);
@@ -112,11 +112,11 @@ public class Play extends BasicScreen{
         iCamZombie = MathUtils.clamp(iCamZombie, 0, waveSpawnManager.zombies.size()-1);
 
         if(camPlayer || waveSpawnManager.zombies.isEmpty()){
-            cam.position.x = player.getX() + player.getWidth()/2;
-            cam.position.y = player.getY() + player.getHeight()/2;
+            cam.position.x = player.getCenterX();
+            cam.position.y = player.getCenterY();
         } else{
-            cam.position.x = waveSpawnManager.zombies.get(iCamZombie).getX() + waveSpawnManager.zombies.get(iCamZombie).getWidth()/2;
-            cam.position.y = waveSpawnManager.zombies.get(iCamZombie).getY() + waveSpawnManager.zombies.get(iCamZombie).getHeight()/2;
+            cam.position.x = waveSpawnManager.zombies.get(iCamZombie).getCenterX();
+            cam.position.y = waveSpawnManager.zombies.get(iCamZombie).getCenterY();
         }
 
 
@@ -134,7 +134,7 @@ public class Play extends BasicScreen{
         super.render(delta);
 //        handleInput();
 
-/*
+
         switch (state){
             case GAME_WAITING:
             case GAME_RUNNING:
@@ -147,21 +147,25 @@ public class Play extends BasicScreen{
                 waveSpawnManager.update(delta);
             case GAME_PAUSED:
             default:
-                map.render(cam);
+                map.render(cam, (int) (player.getCenterX() - Constants.RENDER_WIDTH/2), (int) (player.getCenterY() - Constants.RENDER_WIDTH/2) ,
+                        Constants.RENDER_WIDTH, Constants.RENDER_WIDTH);
                 stage.draw();
 
                 // Render RayCast Light
                 map.renderRayHandler(cam);
 
                 // Render fore layers
-                map.renderForeLayers();mapHud.act(delta);
+                map.renderForeLayers();
+
+
+                mapHud.act(delta);
                 stage.getBatch().begin();
                 mapHud.draw(stage.getBatch(), 1);
                 stage.getBatch().end();
 
                 //Debug flow field algorithm
-                //FlowFieldDebugger.drawDistances(stage.getBatch());
                 FlowFieldDebugger.drawFlow();
+                //FlowFieldDebugger.drawDistances(stage.getBatch());
 
                 // Hud
                 hud.update(delta);
@@ -172,9 +176,9 @@ public class Play extends BasicScreen{
                 hud.timeHour.setText("" + (int) calcularHora() + "h");
 
         }
-*/
 
-        handleCamera();
+
+   /*     handleCamera();
 
         // Map
         if(state == GAME_RUNNING || state == GAME_WAITING) map.world.step(1/60f, 6, 2);
@@ -209,7 +213,7 @@ public class Play extends BasicScreen{
         // Debug
 //         fps.log();
         hud.timeToNextSpawn.setText("" + Gdx.graphics.getFramesPerSecond());
-        hud.timeHour.setText("" + (int) calcularHora() + "h");
+        hud.timeHour.setText("" + (int) calcularHora() + "h");*/
     }
 
     private float calcularHora(){

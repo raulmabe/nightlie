@@ -1,27 +1,31 @@
 package com.nameless.game.flowfield;
 
 import com.badlogic.gdx.ai.pfa.Connection;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Queue;
+import com.nameless.game.Constants;
+import com.nameless.game.MathStatic;
 import com.nameless.game.maps.LevelManager;
 import com.nameless.game.pathfinding.Node;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class FlowFieldManager {
 
-    static boolean firstTime = true;
+    public static int nodeGoalX;
+    public static int nodeGoalY;
 
     private static void calcFlowForEveryNode(){
-        for(int i = 0; i < LevelManager.graph.getNodeCount(); ++i){
-            if(LevelManager.graph.getNode(i).type == Node.Type.REGULAR) LevelManager.graph.getNode(i).calcFlow();
+        for (int x = getMinX(); x < getMaxX() ; x++) {
+            for (int y = getMinY(); y < getMaxY(); y++) {
+                if(LevelManager.graph.getNodeByXYTiles(x,y).type == Node.Type.REGULAR) LevelManager.graph.getNodeByXYTiles(x,y).calcFlow();
+            }
         }
     }
 
-
     public static void calcDistanceForEveryNode(float goalX, float goalY){
-        setGoal(LevelManager.graph.getNodeByXYFloat( goalX, goalY));
+        FlowFieldManager.nodeGoalX = LevelManager.graph.getNodeByXYFloat(goalX, goalY).getX();
+        FlowFieldManager.nodeGoalY = LevelManager.graph.getNodeByXYFloat(goalX, goalY).getY();
+        setGoal(LevelManager.graph.getNodeByXYTiles( nodeGoalX, nodeGoalY));
     }
 
     private static void setGoal(Node n){
@@ -42,7 +46,9 @@ public class FlowFieldManager {
 
             for (Connection<Node> connection: n.connections){
                 Node auxN = connection.getToNode();
-                if(!visited.get(auxN.index)){
+                if(MathStatic.isBetween(auxN.getX(), getMinX(), getMaxX())
+                        && MathStatic.isBetween(auxN.getY(), getMinY(), getMaxY())
+                        && !visited.get(auxN.index)){
                     auxN.setDistance(n.getDistance()+1);
                     visited.set(auxN.index, true);
                     queue.addLast(auxN);
@@ -52,6 +58,22 @@ public class FlowFieldManager {
         }
 
         calcFlowForEveryNode();
+    }
+
+    public static int getMinX(){
+        return (int) (nodeGoalX - Constants.RENDER_WIDTH/2);
+    }
+
+    public static int getMinY(){
+        return (int) (nodeGoalY - Constants.RENDER_WIDTH/2);
+    }
+
+    public static int getMaxX(){
+        return (int) (nodeGoalX + Constants.RENDER_WIDTH/2);
+    }
+
+    public static int getMaxY(){
+        return (int) (nodeGoalY + Constants.RENDER_WIDTH/2);
     }
 
 }

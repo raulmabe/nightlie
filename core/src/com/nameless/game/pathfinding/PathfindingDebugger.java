@@ -36,7 +36,7 @@ public class PathfindingDebugger {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(color);
         shapeRenderer.circle(LevelManager.TILE_WIDTH / 2 + (index % LevelManager.WIDTH_IN_TILES) * LevelManager.TILE_WIDTH,
-                LevelManager.TILE_HEIGHT / 2 + (index / LevelManager.WIDTH_IN_TILES) * LevelManager.TILE_HEIGHT, .5f);
+                LevelManager.TILE_HEIGHT / 2 + (index / LevelManager.WIDTH_IN_TILES) * LevelManager.TILE_HEIGHT, .3f);
         shapeRenderer.end();
     }
 

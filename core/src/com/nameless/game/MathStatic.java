@@ -64,4 +64,8 @@ public class MathStatic {
         float y = target.y - myPos.y;
         return new Vector2(x,y).nor();
     }
+
+    public static boolean isBetween(float x, float min, float max){
+        return (x >= min && x <= max);
+    }
 }

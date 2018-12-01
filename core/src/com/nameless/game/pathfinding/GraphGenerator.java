@@ -21,8 +21,7 @@ public class GraphGenerator {
         for (int y = 0; y < mapHeight; ++y) {
             for (int x = 0; x < mapWidth; ++x) {
                 // generate a node for each tile so that they all exist when we create connections
-                Node node = new Node();
-                node.type = Node.Type.REGULAR;
+                Node node = new Node(Node.Type.REGULAR, x, y);
                 nodes.add(node);
             }
         }
@@ -44,35 +43,35 @@ public class GraphGenerator {
                 if (target == null) {
                     if (y != 0 && down == null) {
                         Node downNode = nodes.get(mapWidth * (y - 1) + x);
-                        targetNode.createConnection(downNode, 10, NodePosFromOtherNode.DOWN);
+                        targetNode.createConnection(downNode, 10, Node.Relative.DOWN);
                     }
                     if (x != 0 && y != 0 && downLeft == null) {
                         Node downLeftNode = nodes.get(mapWidth * (y - 1) + (x - 1));
-                        //targetNode.createConnection(downLeftNode, 14, NodePosFromOtherNode.DOWNLEFT);
+                        //targetNode.createConnection(downLeftNode, 14, Node.Relative.DOWNLEFT);
                     }
                     if (x != mapWidth - 1 && y != 0 && downRight == null) {
                         Node downRightNode = nodes.get(mapWidth * (y - 1) + (x + 1));
-                        //targetNode.createConnection(downRightNode, 14, NodePosFromOtherNode.DOWNRIGHT);
+                        //targetNode.createConnection(downRightNode, 14, Node.Relative.DOWNRIGHT);
                     }
                     if (x != 0 && left == null) {
                         Node leftNode = nodes.get(mapWidth * y + x - 1);
-                        targetNode.createConnection(leftNode, 10, NodePosFromOtherNode.LEFT);
+                        targetNode.createConnection(leftNode, 10, Node.Relative.LEFT);
                     }
                     if (x != mapWidth - 1 && right == null) {
                         Node rightNode = nodes.get(mapWidth * y + x + 1);
-                        targetNode.createConnection(rightNode, 10, NodePosFromOtherNode.RIGHT);
+                        targetNode.createConnection(rightNode, 10, Node.Relative.RIGHT);
                     }
                     if (y != mapHeight - 1 && up == null) {
                         Node upNode = nodes.get(mapWidth * (y + 1) + x);
-                        targetNode.createConnection(upNode, 10, NodePosFromOtherNode.UP);
+                        targetNode.createConnection(upNode, 10, Node.Relative.UP);
                     }
                     if (x != 0 && y != mapHeight - 1 && upLeft == null) {
                         Node upLeftNode = nodes.get(mapWidth * (y + 1) + (x - 1));
-                        //targetNode.createConnection(upLeftNode, 14, NodePosFromOtherNode.UPLEFT);
+                        //targetNode.createConnection(upLeftNode, 14, Node.Relative.UPLEFT);
                     }
                     if (x != mapWidth - 1 && y != mapHeight - 1 && upRight == null) {
                         Node upRightNode = nodes.get(mapWidth * (y + 1) + (x + 1));
-                        //targetNode.createConnection(upRightNode, 14, NodePosFromOtherNode.UPRIGHT);
+                        //targetNode.createConnection(upRightNode, 14, Node.Relative.UPRIGHT);
                     }
                 } else {
                     targetNode.type = Node.Type.UNWALKABLE;

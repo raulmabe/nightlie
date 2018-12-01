@@ -27,10 +27,9 @@ public class DefaultPlayerState implements IState {
 
     @Override
     public void Update(float dt) {
-        FlowFieldManager.calcDistanceForEveryNode(parent.getX() + parent.getWidth()/2,
-                    parent.getY() +parent.getHeight()/2);
-        PathfindingDebugger.drawPositionNode(LevelManager.graph.getNodeByXYFloat( parent.getX() + parent.getWidth()/2,
-                parent.getY() + parent.getHeight()/2), Color.GREEN);
+        FlowFieldManager.calcDistanceForEveryNode(parent.getCenterX(),
+                    parent.getCenterY());
+
         touchpad.set(parent.play.controller.MovePercentX, parent.play.controller.MovePercentY);
         touchpad2.set(parent.play.controller.TurnPercentX, parent.play.controller.TurnPercentY);
 
@@ -39,7 +38,7 @@ public class DefaultPlayerState implements IState {
 
         // Shoot
         if(!touchpad2.isZero() || parent.play.controller.shoot && parent.weapons[VirtualController.ACTUAL_WEAPON] > 0) {
-            Vector2 MuzzlePosAux = MathStatic.RotateVector2(parent.MuzzlePos, parent.getRotation(), aux.set(parent.getX() + parent.getWidth()/2, parent.getY() + parent.getHeight()/2));
+            Vector2 MuzzlePosAux = MathStatic.RotateVector2(parent.MuzzlePos, parent.getRotation(), aux.set(parent.getCenterX(), parent.getCenterY()));
             switch (VirtualController.ACTUAL_WEAPON){
                 case Weapons.ROCKET:
                     if(System.currentTimeMillis() - parent.play.controller.lastTimeShot > Weapons.ROCKET_DELAY){

@@ -45,7 +45,6 @@ public class Zombie extends Character implements Pool.Poolable {
 
         atlas = play.game.manager.get("players/characters.atlas");
         region = atlas.findRegion("zombie" + Type + "_hold");
-        if(region.getTexture() == null) Gdx.app.log("Zombie", "NULL");
         // Attack animation
         attackSheet = play.game.manager.get("players/anim/zombie" + Type + "_attack.png");
         TextureRegion[][] tmp = TextureRegion.split(attackSheet, attackSheet.getWidth()/3,
@@ -90,7 +89,6 @@ public class Zombie extends Character implements Pool.Poolable {
         super.draw(batch, parentAlpha);
         if(blinker.shouldBlink(Gdx.graphics.getDeltaTime())) return;
 
-        if(region == null) Gdx.app.log("Zombie", "NULL");
         batch.draw(region, getX(), getY(), getOriginX(), getOriginY(), getWidth(),
                 getHeight(), getScaleX(), getScaleY(), getRotation());
     }

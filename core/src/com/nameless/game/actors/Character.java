@@ -38,14 +38,14 @@ public class Character extends Actor {
     }
 
     public void TakeDamage(float value, Vector2 impulse){
-        if(!currentState.equals(InjuredState.class))
+        if(!(currentState instanceof InjuredState))
             ChangeState(new InjuredState());
         HEALTH -= value;
         HEALTH = MathUtils.clamp(HEALTH, 0, 99999999);
         if(HEALTH <= 0){
             setToDestroy = true;
         }
-        blinker.setBlinking(true);
+        this.blinker.setBlinking(true);
         body.applyLinearImpulse(MathStatic.V2xf(impulse, 3.5f), body.getPosition(), true);
     }
 
@@ -53,6 +53,14 @@ public class Character extends Actor {
     public void act(float delta) {
         super.act(delta);
         if(currentState != null) currentState.Update(delta);
+    }
+
+    public float getCenterX(){
+        return getX()+(getWidth()/2);
+    }
+
+    public float getCenterY(){
+        return getY()+(getHeight()/2);
     }
 
     public float getHEALTH() {

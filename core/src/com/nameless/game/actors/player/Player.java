@@ -125,7 +125,7 @@ public class Player extends Character {
     public void act(float delta) {
         super.act(delta);
         flashlight.update(DayNightCycleManager.lightsOpen);
-        MuzzlePos.set(getX() + getWidth()/2, getY() + getHeight()/2)
+        MuzzlePos.set(getCenterX(), getCenterY())
                 .add(getWidth()*1f, -getHeight()/6);
 
         switch (VirtualController.ACTUAL_WEAPON){

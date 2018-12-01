@@ -48,7 +48,7 @@ public class WaveSpawnManager {
         if(parent.state == parent.GAME_WAITING){
             if(TimeUtils.nanoTime() - timeToNextSpawn > TIME_BETWEEN_WAVES){
                 round++;
-                WaveSpawn();
+                //WaveSpawn();
             } else{
                 //parent.hud.timeToNextSpawn.setText(""+ (2 - (MathUtils.nanoToSec * (TimeUtils.nanoTime() - timeToNextSpawn))));
                 //parent.hud.timeToNextSpawn.setText("" + round);

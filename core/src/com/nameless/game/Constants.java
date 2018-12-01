@@ -24,6 +24,11 @@ public class Constants {
     public static final int VIEWPORT_HEIGHT = 600;
 
     /**
+     * The width and height of rendered map
+     */
+    public static final int RENDER_WIDTH = 30;
+
+    /**
      * The padding for the table in every stage.
      */
     public static final int STAGE_PADDING = 20;

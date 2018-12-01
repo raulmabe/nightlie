@@ -7,16 +7,16 @@ public class ConnectionImp implements Connection<Node> {
     private Node toNode;
     private Node fromNode;
     private float cost;
-    private NodePosFromOtherNode tag;
+    private Node.Relative tag;
 
-    public ConnectionImp(Node fromNode, Node toNode, float cost, NodePosFromOtherNode tag) {
+    public ConnectionImp(Node fromNode, Node toNode, float cost, Node.Relative tag) {
         this.fromNode = fromNode;
         this.toNode = toNode;
         this.cost = cost;
         this.tag = tag;
     }
 
-    public NodePosFromOtherNode getTag() {
+    public Node.Relative getTag() {
         return tag;
     }
 

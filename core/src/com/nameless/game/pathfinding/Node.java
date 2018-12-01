@@ -14,6 +14,7 @@ public class Node {
     public Array<Connection<Node>> connections = new Array<Connection<Node>>();
     public int type;
     public int index;
+    private int x, y;
 
     private int distance = -1;
 
@@ -21,10 +22,13 @@ public class Node {
 
     public Node() {
         flow = new Vector2(0,0);
+        x = y = -1;
     }
 
-    public Node(int type) {
+    public Node(int type, int x, int y) {
         this.type = type;
+        this.x = x;
+        this.y = y;
         flow = new Vector2(0,0);
     }
 
@@ -36,7 +40,7 @@ public class Node {
         return connections;
     }
 
-    public void createConnection(Node toNode, float cost, NodePosFromOtherNode tag) {
+    public void createConnection(Node toNode, float cost, Node.Relative tag) {
         connections.add(new ConnectionImp(this, toNode, cost, tag));
     }
 
@@ -50,15 +54,14 @@ public class Node {
 
         for (Connection<Node> connection: connections) {
             if(connection instanceof  ConnectionImp && connection.getToNode().type == Type.REGULAR){
-                if(((ConnectionImp) connection).getTag() == NodePosFromOtherNode.DOWN) distanceDown = connection.getToNode().getDistance();
-                else if(((ConnectionImp) connection).getTag() == NodePosFromOtherNode.UP) distanceUp = connection.getToNode().getDistance();
-                else if(((ConnectionImp) connection).getTag() == NodePosFromOtherNode.RIGHT) distanceRight = connection.getToNode().getDistance();
-                else if(((ConnectionImp) connection).getTag() == NodePosFromOtherNode.LEFT) distanceLeft = connection.getToNode().getDistance();
+                if(((ConnectionImp) connection).getTag() == Node.Relative.DOWN) distanceDown = connection.getToNode().getDistance();
+                else if(((ConnectionImp) connection).getTag() == Node.Relative.UP) distanceUp = connection.getToNode().getDistance();
+                else if(((ConnectionImp) connection).getTag() == Node.Relative.RIGHT) distanceRight = connection.getToNode().getDistance();
+                else if(((ConnectionImp) connection).getTag() == Node.Relative.LEFT) distanceLeft = connection.getToNode().getDistance();
             }
 
         }
 
-        //flow = new Vector2(distanceLeft - distanceRight, distanceDown - distanceUp);
         flow.x = distanceLeft - distanceRight;
         flow.y = distanceDown - distanceUp;
     }
@@ -71,11 +74,9 @@ public class Node {
         return distance;
     }
 
-    public static class Type {
-        public static final int REGULAR = 1;
-        public static final int UNWALKABLE = 2;
-        public static final int NULL = 3;
-    }
+    public int getX(){return x;}
+
+    public int getY(){return y;}
 
     @Override
     public boolean equals(Object obj) {
@@ -83,5 +84,14 @@ public class Node {
 
         Node o = (Node) obj;
         return index == o.index;
+    }
+
+    public static class Type {
+        public static final int REGULAR = 1;
+        public static final int UNWALKABLE = 2;
+    }
+    
+    public enum Relative{
+        UP,RIGHT,DOWN,LEFT
     }
 }

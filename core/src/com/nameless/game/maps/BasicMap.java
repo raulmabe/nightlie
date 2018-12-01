@@ -93,6 +93,19 @@ public abstract class BasicMap {
 //        worldRenderer.render(world, camera.combined);
     }
 
+    public void render (OrthographicCamera camera, int x, int y, int w, int h){
+        tiledMapRenderer.setView(camera.combined, x, y, w, h);
+        tiledMapRenderer.render();
+
+        dayNightCycleManager.updateDayTime();
+        for(PointLight light : lights) light.setActive(DayNightCycleManager.lightsOpen);
+        rayHandler.setAmbientLight(DayNightCycleManager.dayTime);
+
+
+        // Debug
+//        worldRenderer.render(world, camera.combined);
+    }
+
     public void renderForeLayers(){
         tiledMapRenderer.getBatch().begin();
 //        tiledMapRenderer.renderObjects(tiledmap.getLayers().get("Trees1"));
