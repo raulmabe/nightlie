@@ -22,20 +22,18 @@ public class FlowFieldState implements IState {
     @Override
     public void Enter(Character parent) {
         this.zombie = (Zombie) parent;
-        actualNode = LevelManager.graph.getIndexByXY( zombie.getX() + zombie.getWidth()/2,
-                zombie.getY() + zombie.getHeight()/2);
+        actualNode = LevelManager.graph.getIndexByXYEnemy( zombie.getCenterX(), zombie.getCenterY(), zombie.distance);
         timeSinceLastChange = TimeUtils.nanoTime();
     }
 
     @Override
     public void Update(float dt) {
-        if(LevelManager.graph.getIndexByXY( zombie.getCenterX(), zombie.getCenterY()) != actualNode) {
-            actualNode = LevelManager.graph.getIndexByXY( zombie.getCenterX(), zombie.getCenterY());
+        if(LevelManager.graph.getIndexByXYEnemy( zombie.getCenterX(), zombie.getCenterY(), zombie.distance) != actualNode) {
+            actualNode = LevelManager.graph.getIndexByXYEnemy( zombie.getCenterX(), zombie.getCenterY(), zombie.distance);
             timeSinceLastChange = TimeUtils.nanoTime();
         } else if(TimeUtils.nanoTime() - timeSinceLastChange > timeToChangePathfinding*2){
             zombie.ChangeState(new AStarState());
         }
-
         PathfindingDebugger.drawPositionNode(LevelManager.graph.getNode(actualNode), Color.GOLD);
 
         if(!LevelManager.graph.getNode(actualNode).flow.nor().isZero()){

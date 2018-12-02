@@ -8,10 +8,6 @@ import com.badlogic.gdx.ai.pfa.PathFinderRequest;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.ai.sched.LoadBalancingScheduler;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Pool;
-import com.badlogic.gdx.utils.Pools;
-
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.concurrent.*;

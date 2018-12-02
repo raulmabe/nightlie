@@ -1,10 +1,14 @@
 package com.nameless.game.managers;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.Timer;
+import com.nameless.game.Constants;
 import com.nameless.game.actors.enemies.Zombie;
+import com.nameless.game.maps.LevelManager;
+import com.nameless.game.pathfinding.Node;
 import com.nameless.game.screens.Play;
 
 import java.util.ArrayList;
@@ -48,9 +52,12 @@ public class WaveSpawnManager {
         if(parent.state == parent.GAME_WAITING){
             if(TimeUtils.nanoTime() - timeToNextSpawn > TIME_BETWEEN_WAVES){
                 round++;
-                //WaveSpawn();
+                WaveSpawn();
             } else{
+                // Time to next round
                 //parent.hud.timeToNextSpawn.setText(""+ (2 - (MathUtils.nanoToSec * (TimeUtils.nanoTime() - timeToNextSpawn))));
+
+                // Round number
                 //parent.hud.timeToNextSpawn.setText("" + round);
             }
         }
@@ -64,22 +71,29 @@ public class WaveSpawnManager {
     }
 
     private void WaveSpawn(){
-        float delay = .1f; // seconds
-//
-        for(int i = 0;i < 10; ++i){  // i < (round*2 + 10)
-            Timer.schedule(new Timer.Task(){
-                @Override
-                public void run() {
-                    Vector2 pos = parent.map.getPositionEnemy();
-                    Zombie zombie = new Zombie(parent, parent.map.world, parent.player, pos.x, pos.y);
-                    zombies.add(zombie);
-                    parent.fg.addActor(zombie);
-                }
-            }, delay * i);
-        }
-        parent.state = parent.GAME_RUNNING;
+        final float[] delay = {MathUtils.random(.1f, 1f)}; // seconds
 
+        Timer.schedule(new Timer.Task(){
+            @Override
+            public void run() {
+                float ang = MathUtils.random() * 360;
+                if(LevelManager.graph.getNodeByXYFloat(parent.player.getCenterX() + Constants.RENDER_WIDTH * MathUtils.sin(ang),
+                        parent.player.getCenterY()+ Constants.RENDER_WIDTH  * MathUtils.cos(ang)).type == Node.Type.REGULAR)
+                    ang = MathUtils.random() * 360;
+
+                Zombie zombie = new Zombie(parent, parent.map.world, parent.player,
+                        parent.player.getCenterX() + Constants.RENDER_WIDTH * MathUtils.sin(ang),
+                        parent.player.getCenterY()+ Constants.RENDER_WIDTH  * MathUtils.cos(ang));
+                zombies.add(zombie);
+                parent.fg.addActor(zombie);
+                delay[0] = MathUtils.random(.1f, 1f); // seconds
+            }
+        }, delay[0], delay[0], (round*2 + 10));
+
+        parent.state = parent.GAME_RUNNING;
     }
+
+
 
     public void clear(){
         for (int i = 0; i < zombies.size(); ++i) {

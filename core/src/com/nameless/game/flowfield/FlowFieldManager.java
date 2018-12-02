@@ -14,7 +14,7 @@ public class FlowFieldManager {
     public static int nodeGoalX;
     public static int nodeGoalY;
 
-    private static void calcFlowForEveryNode(){
+    private static void calcFlow(){
         for (int x = getMinX(); x < getMaxX() ; x++) {
             for (int y = getMinY(); y < getMaxY(); y++) {
                 if(LevelManager.graph.getNodeByXYTiles(x,y).type == Node.Type.REGULAR) LevelManager.graph.getNodeByXYTiles(x,y).calcFlow();
@@ -54,26 +54,25 @@ public class FlowFieldManager {
                     queue.addLast(auxN);
                 }
             }
-
         }
 
-        calcFlowForEveryNode();
+        calcFlow();
     }
 
     public static int getMinX(){
-        return (int) (nodeGoalX - Constants.RENDER_WIDTH/2);
+        return 0; //(int) (nodeGoalX - Constants.RENDER_WIDTH/3);
     }
 
     public static int getMinY(){
-        return (int) (nodeGoalY - Constants.RENDER_WIDTH/2);
+        return 0; //(int) (nodeGoalY - Constants.RENDER_WIDTH/3);
     }
 
     public static int getMaxX(){
-        return (int) (nodeGoalX + Constants.RENDER_WIDTH/2);
+        return LevelManager.WIDTH_IN_TILES; //(int) (nodeGoalX + Constants.RENDER_WIDTH/3);
     }
 
     public static int getMaxY(){
-        return (int) (nodeGoalY + Constants.RENDER_WIDTH/2);
+        return LevelManager.HEIGHT_IN_TILES; // (nodeGoalY + Constants.RENDER_WIDTH/3);
     }
 
 }

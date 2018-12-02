@@ -19,7 +19,7 @@ public class Character extends Actor {
 
     public IState currentState;
 
-    protected Blinker blinker;
+    public Blinker blinker;
 
     public boolean setToDestroy = false;
 
@@ -40,11 +40,13 @@ public class Character extends Actor {
     public void TakeDamage(float value, Vector2 impulse){
         if(!(currentState instanceof InjuredState))
             ChangeState(new InjuredState());
+
         HEALTH -= value;
         HEALTH = MathUtils.clamp(HEALTH, 0, 99999999);
-        if(HEALTH <= 0){
+
+        if(HEALTH <= 0)
             setToDestroy = true;
-        }
+
         this.blinker.setBlinking(true);
         body.applyLinearImpulse(MathStatic.V2xf(impulse, 3.5f), body.getPosition(), true);
     }

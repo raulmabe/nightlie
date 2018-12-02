@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Pool;
 import com.nameless.game.Constants;
+import com.nameless.game.actors.Blinker;
 import com.nameless.game.actors.Character;
 import com.nameless.game.actors.Loot;
 import com.nameless.game.screens.Play;
@@ -38,6 +39,9 @@ public class Zombie extends Character implements Pool.Poolable {
 
     private boolean canRequestPath;
 
+    public int distance = -1;
+
+
     public Zombie(Play play, World world, Actor target, float x, float y) {
         super(world, 100,100);
         this.play = play;
@@ -55,7 +59,7 @@ public class Zombie extends Character implements Pool.Poolable {
         attackAnim = new Animation<TextureRegion>(0.15f, attackFrames);
         stateTime = 0f;
 
-        setPosition(x/PixelsPerMeter, y/PixelsPerMeter);
+        setPosition(x, y);
         setSize(region.getRegionWidth()/PixelsPerMeter, region.getRegionHeight()/PixelsPerMeter);
         setOrigin(getWidth()/2,getHeight()/2);
 
@@ -89,6 +93,7 @@ public class Zombie extends Character implements Pool.Poolable {
         super.draw(batch, parentAlpha);
         if(blinker.shouldBlink(Gdx.graphics.getDeltaTime())) return;
 
+        batch.setColor(batch.getColor().r, batch.getColor().g, batch.getColor().b, getColor().a);
         batch.draw(region, getX(), getY(), getOriginX(), getOriginY(), getWidth(),
                 getHeight(), getScaleX(), getScaleY(), getRotation());
     }

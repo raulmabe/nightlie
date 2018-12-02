@@ -16,9 +16,13 @@ public class DefaultPlayerState implements IState {
 
     Vector2 touchpad, touchpad2, aux;
 
+    //private int actualNode = 0;
+
     @Override
     public void Enter(Character parent) {
         this.parent = (Player) parent;
+
+        //actualNode = LevelManager.graph.getIndexByXY(parent.getCenterX(), parent.getCenterY());
 
         touchpad = new Vector2(0,0);
         touchpad2 = new Vector2(0,0);
@@ -27,8 +31,13 @@ public class DefaultPlayerState implements IState {
 
     @Override
     public void Update(float dt) {
-        FlowFieldManager.calcDistanceForEveryNode(parent.getCenterX(),
+        /*if(LevelManager.graph.getIndexByXY(parent.getCenterX(), parent.getCenterY()) != actualNode) {
+            FlowFieldManager.calcDistanceForEveryNode(parent.getCenterX(),
                     parent.getCenterY());
+            actualNode = LevelManager.graph.getIndexByXY(parent.getCenterX(), parent.getCenterY());
+        }*/
+        FlowFieldManager.calcDistanceForEveryNode(parent.getCenterX(),
+                parent.getCenterY());
 
         touchpad.set(parent.play.controller.MovePercentX, parent.play.controller.MovePercentY);
         touchpad2.set(parent.play.controller.TurnPercentX, parent.play.controller.TurnPercentY);

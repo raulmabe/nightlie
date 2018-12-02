@@ -2,6 +2,7 @@ package com.nameless.game.flowfield;
 
 import com.badlogic.gdx.ai.pfa.Connection;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Colors;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -47,7 +48,45 @@ public class FlowFieldDebugger {
 
     public static void drawFlow(){
         shapeRenderer.setProjectionMatrix(camera.combined);
+        /*
+        int z = 3;
+        // Draws each sector differently
+        for (int x = 0; x < LevelManager.WIDTH_IN_TILES ; x++) {
+            for (int y = 0; y < LevelManager.HEIGHT_IN_TILES; y++) {
+                switch(y / (LevelManager.HEIGHT_IN_TILES/z) + (x / (LevelManager.WIDTH_IN_TILES/z)) * z ){
+                    case 0:
+                        PathfindingDebugger.drawPositionNode(LevelManager.graph.getNodeByXYTiles(x,y), Color.YELLOW);
+                        break;
+                    case 1:
+                        PathfindingDebugger.drawPositionNode(LevelManager.graph.getNodeByXYTiles(x,y), Color.ORANGE);
+                        break;
+                    case 2:
+                        PathfindingDebugger.drawPositionNode(LevelManager.graph.getNodeByXYTiles(x,y), Color.RED);
+                        break;
+                    case 3:
+                        PathfindingDebugger.drawPositionNode(LevelManager.graph.getNodeByXYTiles(x,y), Color.MAGENTA);
+                        break;
+                    case 4:
+                        PathfindingDebugger.drawPositionNode(LevelManager.graph.getNodeByXYTiles(x,y), Color.CORAL);
+                        break;
+                    case 5:
+                        PathfindingDebugger.drawPositionNode(LevelManager.graph.getNodeByXYTiles(x,y), Color.BLUE);
+                        break;
+                    case 6:
+                        PathfindingDebugger.drawPositionNode(LevelManager.graph.getNodeByXYTiles(x,y), Color.CYAN);
+                        break;
+                    case 7:
+                        PathfindingDebugger.drawPositionNode(LevelManager.graph.getNodeByXYTiles(x,y), Color.GREEN);
+                        break;
+                    case 8:
+                        PathfindingDebugger.drawPositionNode(LevelManager.graph.getNodeByXYTiles(x,y), Color.LIME);
+                        break;
+                    default:
+                        PathfindingDebugger.drawPositionNode(LevelManager.graph.getNodeByXYTiles(x,y), Color.BLACK);
 
+                }
+            }
+        }*/
 
          // Draws every nodes
         for (Node node :  LevelManager.graph.nodes) {

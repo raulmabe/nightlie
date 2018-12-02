@@ -159,12 +159,13 @@ public class Play extends BasicScreen{
 
 
                 mapHud.act(delta);
+
                 stage.getBatch().begin();
                 mapHud.draw(stage.getBatch(), 1);
                 stage.getBatch().end();
 
-                //Debug flow field algorithm
-                FlowFieldDebugger.drawFlow();
+                // Debug flow field algorithm
+                //FlowFieldDebugger.drawFlow();
                 //FlowFieldDebugger.drawDistances(stage.getBatch());
 
                 // Hud
@@ -177,13 +178,13 @@ public class Play extends BasicScreen{
 
         }
 
-
-   /*     handleCamera();
+/*
+        handleCamera();
 
         // Map
         if(state == GAME_RUNNING || state == GAME_WAITING) map.world.step(1/60f, 6, 2);
         map.render(cam);
-        FlowFieldDebugger.drawFlow();
+//        FlowFieldDebugger.drawFlow();
 
         // Stage
         if(state == GAME_RUNNING || state == GAME_WAITING) stage.act(delta);

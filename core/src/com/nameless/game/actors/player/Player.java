@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.nameless.game.*;
+import com.nameless.game.actors.Blinker;
 import com.nameless.game.actors.Character;
 import com.nameless.game.actors.items.Flashlight;
 import com.nameless.game.scene2d.ui.HealthBar;
@@ -113,8 +114,8 @@ public class Player extends Character {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+        super.draw(batch, parentAlpha);
         if(blinker.shouldBlink(Gdx.graphics.getDeltaTime())) return;
-
 
         batch.setColor(batch.getColor().r, batch.getColor().g, batch.getColor().b, getColor().a);
         batch.draw(region, getX(), getY(), getOriginX(), getOriginY(), region.getRegionWidth()/PixelsPerMeter,

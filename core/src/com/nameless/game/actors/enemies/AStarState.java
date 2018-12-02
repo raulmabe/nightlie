@@ -160,6 +160,7 @@ public class AStarState implements IState, Pather<Node>{
 //        Gdx.app.log(this.toString(), "Got a path back");
         if (request != null && request.pathFound) {
             resultPath = (GraphPathImp) request.resultPath;
+            zombie.distance = resultPath.getCount();
 //            Gdx.app.log(this.toString(), "" + resultPath.getCount());
         }
         isRequested = false;
