@@ -77,13 +77,18 @@ public class WaveSpawnManager {
             @Override
             public void run() {
                 float ang = MathUtils.random() * 360;
-                if(LevelManager.graph.getNodeByXYFloat(parent.player.getCenterX() + Constants.RENDER_WIDTH * MathUtils.sin(ang),
-                        parent.player.getCenterY()+ Constants.RENDER_WIDTH  * MathUtils.cos(ang)).type == Node.Type.REGULAR)
-                    ang = MathUtils.random() * 360;
+                float x = parent.player.getCenterX() + Constants.RENDER_WIDTH * MathUtils.sin(ang);
+                float y = parent.player.getCenterY()+ Constants.RENDER_WIDTH  * MathUtils.cos(ang);
 
-                Zombie zombie = new Zombie(parent, parent.map.world, parent.player,
-                        parent.player.getCenterX() + Constants.RENDER_WIDTH * MathUtils.sin(ang),
-                        parent.player.getCenterY()+ Constants.RENDER_WIDTH  * MathUtils.cos(ang));
+                while(x < 0 || y < 0 || x > LevelManager.WIDTH_IN_PIXELS || y > LevelManager.HEIGHT_IN_PIXELS ||
+                        LevelManager.graph.getNodeByXYFloat(parent.player.getCenterX() + Constants.RENDER_WIDTH * MathUtils.sin(ang),
+                        parent.player.getCenterY()+ Constants.RENDER_WIDTH  * MathUtils.cos(ang)).type != Node.Type.REGULAR){
+                    ang = MathUtils.random() * 360;
+                    x = parent.player.getCenterX() + Constants.RENDER_WIDTH * MathUtils.sin(ang);
+                    y = parent.player.getCenterY()+ Constants.RENDER_WIDTH  * MathUtils.cos(ang);
+                }
+
+                Zombie zombie = new Zombie(parent, parent.map.world, parent.player,x,y);
                 zombies.add(zombie);
                 parent.fg.addActor(zombie);
                 delay[0] = MathUtils.random(.1f, 1f); // seconds

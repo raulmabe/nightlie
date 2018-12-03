@@ -28,13 +28,15 @@ public class CollisionManager implements ContactListener {
 
     @Override
     public void beginContact(Contact contact) {
+        Fixture fixtureA = contact.getFixtureA(), fixtureB = contact.getFixtureB();
+
         // Loot
-        if(contact.getFixtureA().getBody().getUserData() instanceof Loot && contact.getFixtureB().getBody().getUserData() instanceof Player){
-            ((Loot) contact.getFixtureA().getBody().getUserData()).setToDestroy = true;
-            ((Player) contact.getFixtureB().getBody().getUserData()).LootCollected();
-        } else if(contact.getFixtureA().getBody().getUserData() instanceof Player && contact.getFixtureB().getBody().getUserData() instanceof Loot){
-            ((Loot) contact.getFixtureB().getBody().getUserData()).setToDestroy = true;
-            ((Player) contact.getFixtureA().getBody().getUserData()).LootCollected();
+        if(fixtureA.getBody().getUserData() instanceof Loot && fixtureB.getBody().getUserData() instanceof Player){
+            ((Loot) fixtureA.getBody().getUserData()).setToDestroy = true;
+            ((Player) fixtureB.getBody().getUserData()).LootCollected();
+        } else if(fixtureA.getBody().getUserData() instanceof Player && fixtureB.getBody().getUserData() instanceof Loot){
+            ((Loot) fixtureB.getBody().getUserData()).setToDestroy = true;
+            ((Player) fixtureA.getBody().getUserData()).LootCollected();
         }
     }
 
@@ -54,8 +56,8 @@ public class CollisionManager implements ContactListener {
         strain(fixtureA, impulse);
         strain(fixtureB, impulse);
 
-        if(contact.getFixtureA().getBody().getUserData() instanceof RocketBullet){
-            if(contact.getFixtureB().getBody().getUserData() instanceof Character) {
+        if(fixtureA.getBody().getUserData() instanceof RocketBullet){
+            if(fixtureB.getBody().getUserData() instanceof Character) {
                 Vector2 p1 = ((RocketBullet) contact.getFixtureA().getBody().getUserData()).p1;
                 Vector2 p2 = ((RocketBullet) contact.getFixtureA().getBody().getUserData()).p2;
                 ((Character) contact.getFixtureB().getBody().getUserData()).TakeDamage(Weapons.ROCKET_DAMAGE, MathStatic.V2minusV2(p2, p1).nor());

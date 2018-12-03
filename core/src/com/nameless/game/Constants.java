@@ -65,8 +65,8 @@ public class Constants {
     public final static short ENEMY_BIT = 0x0004;
     public final static short BULLET_BIT = 0x008;
     public final static short LOW_FURNITURES_BIT = 0x0010;
-
-    public final static short EVERYTHING_BIT = NEUTRAL_BIT | PLAYER_BIT | ENEMY_BIT | BULLET_BIT | LOW_FURNITURES_BIT;
+    public final static short OBSTACLES_BIT = 0x0020;
+    public final static short EVERYTHING_BIT = OBSTACLES_BIT | NEUTRAL_BIT | PLAYER_BIT | ENEMY_BIT | BULLET_BIT | LOW_FURNITURES_BIT;
 
     public static short everyOthersBit(short myCategory){
         return (short) (EVERYTHING_BIT ^ myCategory);

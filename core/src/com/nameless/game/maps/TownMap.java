@@ -49,8 +49,8 @@ public class TownMap extends BasicMap {
 
             roundShape.setRadius(circle.radius *unitScale);
             fdef.shape = roundShape;
-            fdef.filter.categoryBits = Constants.NEUTRAL_BIT;
-            fdef.filter.maskBits = Constants.everyOthersBit(Constants.NEUTRAL_BIT);
+            fdef.filter.categoryBits = Constants.OBSTACLES_BIT;
+            fdef.filter.maskBits = Constants.everyOthersBit(Constants.OBSTACLES_BIT);
             body.createFixture(fdef);
         }
 
@@ -119,8 +119,8 @@ public class TownMap extends BasicMap {
 
             roundShape.setRadius(circle.radius*unitScale);
             fdef.shape = roundShape;
-            fdef.filter.categoryBits = Constants.NEUTRAL_BIT;
-            fdef.filter.maskBits = Constants.everyOthersBit(Constants.NEUTRAL_BIT);
+            fdef.filter.categoryBits = Constants.OBSTACLES_BIT;
+            fdef.filter.maskBits = Constants.everyOthersBit(Constants.OBSTACLES_BIT);
             body.createFixture(fdef);
         }
         for(MapObject object : tiledmap.getLayers().get("AllCollisions").getObjects().getByType(RectangleMapObject.class)){
@@ -133,8 +133,8 @@ public class TownMap extends BasicMap {
 
             shape.setAsBox((rect.getWidth() / 2)*unitScale , (rect.getHeight() / 2 )*unitScale);
             fdef.shape = shape;
-            fdef.filter.categoryBits = Constants.NEUTRAL_BIT;
-            fdef.filter.maskBits = Constants.everyOthersBit(Constants.NEUTRAL_BIT);
+            fdef.filter.categoryBits = Constants.OBSTACLES_BIT;
+            fdef.filter.maskBits = Constants.everyOthersBit(Constants.OBSTACLES_BIT);
             body.createFixture(fdef);
         }
         roundShape.dispose();

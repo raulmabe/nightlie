@@ -94,8 +94,8 @@ public class FlowFieldDebugger {
         }
 
         // Draws only nodes updating
-        for (int x = FlowFieldManager.getMinX(); x <= FlowFieldManager.getMaxX() ; x++) {
-            for (int y = FlowFieldManager.getMinY(); y <= FlowFieldManager.getMaxY(); y++) {
+        for (int x = FlowFieldManager.getMinX(); x < FlowFieldManager.getMaxX() ; x++) {
+            for (int y = FlowFieldManager.getMinY(); y < FlowFieldManager.getMaxY(); y++) {
                 if(!LevelManager.graph.getNodeByXYTiles(x,y).flow.isZero())
                     PathfindingDebugger.drawPositionNode(LevelManager.graph.getNodeByXYTiles(x,y), Color.BLACK);
             }
@@ -109,8 +109,8 @@ public class FlowFieldDebugger {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setColor(Color.RED);
 
-        for (int x = FlowFieldManager.getMinX(); x <= FlowFieldManager.getMaxX() ; x++) {
-            for (int y = FlowFieldManager.getMinY(); y <= FlowFieldManager.getMaxY(); y++) {
+        for (int x = FlowFieldManager.getMinX(); x < FlowFieldManager.getMaxX() ; x++) {
+            for (int y = FlowFieldManager.getMinY(); y < FlowFieldManager.getMaxY(); y++) {
                 if(!LevelManager.graph.getNodeByXYTiles(x,y).flow.isZero()) {
                     shapeRenderer.line(x * LevelManager.TILE_WIDTH + LevelManager.TILE_WIDTH/2,
                             y * LevelManager.TILE_HEIGHT + LevelManager.TILE_HEIGHT/2,

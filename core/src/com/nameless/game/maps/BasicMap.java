@@ -63,8 +63,8 @@ public abstract class BasicMap {
         LevelManager.HEIGHT_IN_TILES = tiledmap.getProperties().get("map_size", int.class);
         LevelManager.TILE_WIDTH = (float)tiledmap.getProperties().get("tile_size", int.class);
         LevelManager.TILE_HEIGHT = (float)tiledmap.getProperties().get("tile_size", int.class);
-        LevelManager.WIDTH_IN_PIXELS = LevelManager.WIDTH_IN_TILES * LevelManager.TILE_WIDTH;
-        LevelManager.HEIGHT_IN_PIXELS = LevelManager.HEIGHT_IN_TILES * LevelManager.TILE_HEIGHT;
+        LevelManager.WIDTH_IN_PIXELS = LevelManager.WIDTH_IN_TILES * LevelManager.TILE_WIDTH * unitScale;
+        LevelManager.HEIGHT_IN_PIXELS = LevelManager.HEIGHT_IN_TILES * LevelManager.TILE_HEIGHT * unitScale;
         LevelManager.unitScale = unitScale;
         LevelManager.loadGraph(tiledmap);
 
@@ -90,7 +90,7 @@ public abstract class BasicMap {
 
 
         // Debug
-//        worldRenderer.render(world, camera.combined);
+       //worldRenderer.render(world, camera.combined);
     }
 
     public void render (OrthographicCamera camera, int x, int y, int w, int h){
@@ -103,7 +103,7 @@ public abstract class BasicMap {
 
 
         // Debug
-//        worldRenderer.render(world, camera.combined);
+        //worldRenderer.render(world, camera.combined);
     }
 
     public void renderForeLayers(){

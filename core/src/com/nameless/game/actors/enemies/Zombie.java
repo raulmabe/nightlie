@@ -6,12 +6,14 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Pool;
 import com.nameless.game.Constants;
+import com.nameless.game.MathStatic;
 import com.nameless.game.actors.Blinker;
 import com.nameless.game.actors.Character;
 import com.nameless.game.actors.Loot;
@@ -83,8 +85,9 @@ public class Zombie extends Character implements Pool.Poolable {
 
         fdef.shape = shape;
         fdef.filter.categoryBits = Constants.ENEMY_BIT;
-        fdef.filter.maskBits = Constants.EVERYTHING_BIT;;
+        fdef.filter.maskBits = Constants.EVERYTHING_BIT;
         body.createFixture(fdef);
+
         shape.dispose();
     }
 
@@ -135,4 +138,5 @@ public class Zombie extends Character implements Pool.Poolable {
     public boolean getCanRequestPath() {
         return canRequestPath;
     }
+
 }
