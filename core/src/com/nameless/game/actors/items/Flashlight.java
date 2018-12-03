@@ -16,7 +16,7 @@ public class Flashlight {
         coneLight = new ConeLight(rayHandler, 100, Color.BLACK, 20, 2, 2, rotation+90, 30);
         coneLight.attachToBody(body, 0, offSetY/PixelsPerMeter, rotation);
         coneLight.setSoftnessLength(0f);
-        coneLight.setContactFilter(Constants.LOW_FURNITURES_BIT, (short) 0x0000, (short) (Constants.NEUTRAL_BIT | Constants.ENEMY_BIT | Constants.PLAYER_BIT));
+        coneLight.setContactFilter(Constants.LOW_FURNITURES_BIT, (short) 0x0000, (short) (Constants.OBSTACLES_BIT | Constants.NEUTRAL_BIT | Constants.ENEMY_BIT | Constants.PLAYER_BIT));
         coneLight.setActive(true);
     }
 

@@ -18,12 +18,13 @@ public class FlowFieldState implements IState {
     private float timeToChangePathfinding = 2000000000; // 2 seconds
     private float timeSinceLastChange;
 
-
     @Override
     public void Enter(Character parent) {
         this.zombie = (Zombie) parent;
         actualNode = LevelManager.graph.getIndexByXYEnemy( zombie.getCenterX(), zombie.getCenterY(), zombie.distance);
+
         timeSinceLastChange = TimeUtils.nanoTime();
+
     }
 
     @Override

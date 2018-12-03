@@ -167,7 +167,7 @@ public abstract class BasicMap {
         light.attachToBody(body);
         light.setSoftnessLength(0f);
         light.setActive(true);
-        light.setContactFilter(Constants.LOW_FURNITURES_BIT, (short) 0x0000, (short) (Constants.NEUTRAL_BIT | Constants.ENEMY_BIT | Constants.PLAYER_BIT));
+        light.setContactFilter(Constants.LOW_FURNITURES_BIT, (short) 0x0000, (short) (Constants.OBSTACLES_BIT | Constants.ENEMY_BIT | Constants.PLAYER_BIT));
         lights.add(light);
     }
 

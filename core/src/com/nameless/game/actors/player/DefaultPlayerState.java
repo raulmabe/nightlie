@@ -17,12 +17,13 @@ public class DefaultPlayerState implements IState {
     Vector2 touchpad, touchpad2, aux;
 
     //private int actualNode = 0;
+    private int actualSector = 0;
 
     @Override
     public void Enter(Character parent) {
         this.parent = (Player) parent;
 
-        //actualNode = LevelManager.graph.getIndexByXY(parent.getCenterX(), parent.getCenterY());
+        actualSector = LevelManager.graph.getNodeByXYFloat(parent.getCenterX(), parent.getCenterY()).sector;
 
         touchpad = new Vector2(0,0);
         touchpad2 = new Vector2(0,0);
@@ -31,13 +32,13 @@ public class DefaultPlayerState implements IState {
 
     @Override
     public void Update(float dt) {
-        /*if(LevelManager.graph.getIndexByXY(parent.getCenterX(), parent.getCenterY()) != actualNode) {
+        if(LevelManager.graph.getNodeByXYFloat(parent.getCenterX(), parent.getCenterY()).sector != actualSector) {
+            actualSector = LevelManager.graph.getNodeByXYFloat(parent.getCenterX(), parent.getCenterY()).sector;
             FlowFieldManager.calcDistanceForEveryNode(parent.getCenterX(),
                     parent.getCenterY());
-            actualNode = LevelManager.graph.getIndexByXY(parent.getCenterX(), parent.getCenterY());
-        }*/
-        FlowFieldManager.calcDistanceForEveryNode(parent.getCenterX(),
-                parent.getCenterY());
+        } else {
+            FlowFieldManager.calcDistanceForMySector(parent.getCenterX(), parent.getCenterY());
+        }
 
         touchpad.set(parent.play.controller.MovePercentX, parent.play.controller.MovePercentY);
         touchpad2.set(parent.play.controller.TurnPercentX, parent.play.controller.TurnPercentY);

@@ -165,7 +165,7 @@ public class Play extends BasicScreen{
                 stage.getBatch().end();
 
                 // Debug flow field algorithm
-                //FlowFieldDebugger.drawFlow();
+                FlowFieldDebugger.drawFlow();
                 //FlowFieldDebugger.drawDistances(stage.getBatch());
 
                 // Hud

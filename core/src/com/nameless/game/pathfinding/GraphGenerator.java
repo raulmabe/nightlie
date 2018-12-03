@@ -21,7 +21,7 @@ public class GraphGenerator {
         for (int y = 0; y < mapHeight; ++y) {
             for (int x = 0; x < mapWidth; ++x) {
                 // generate a node for each tile so that they all exist when we create connections
-                Node node = new Node(Node.Type.REGULAR, x, y);
+                Node node = new Node(Node.Type.REGULAR, x, y, y / (LevelManager.HEIGHT_IN_TILES/4) + (x / (LevelManager.WIDTH_IN_TILES/4)) * 4);
                 nodes.add(node);
             }
         }

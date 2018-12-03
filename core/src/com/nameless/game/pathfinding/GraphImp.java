@@ -16,6 +16,8 @@ public class GraphImp implements IndexedGraph<Node> {
     public int maxDistancedEnemy = -1;
     public Vector2 nodeMaxDistancedZombie = new Vector2(0,0);
 
+
+
     public GraphImp(Array<Node> nodes) {
         this.nodes = nodes;
 

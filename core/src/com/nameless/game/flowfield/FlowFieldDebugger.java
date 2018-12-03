@@ -48,8 +48,8 @@ public class FlowFieldDebugger {
 
     public static void drawFlow(){
         shapeRenderer.setProjectionMatrix(camera.combined);
-        /*
-        int z = 3;
+/*
+        int z = 4;
         // Draws each sector differently
         for (int x = 0; x < LevelManager.WIDTH_IN_TILES ; x++) {
             for (int y = 0; y < LevelManager.HEIGHT_IN_TILES; y++) {
@@ -90,14 +90,21 @@ public class FlowFieldDebugger {
 
          // Draws every nodes
         for (Node node :  LevelManager.graph.nodes) {
-            if(!node.flow.isZero()) PathfindingDebugger.drawPositionNode(node, Color.DARK_GRAY);
+            if(!node.flow.isZero())
+                PathfindingDebugger.drawPositionNode(node, Color.LIGHT_GRAY);
+
         }
+
 
         // Draws only nodes updating
         for (int x = FlowFieldManager.getMinX(); x < FlowFieldManager.getMaxX() ; x++) {
             for (int y = FlowFieldManager.getMinY(); y < FlowFieldManager.getMaxY(); y++) {
-                if(!LevelManager.graph.getNodeByXYTiles(x,y).flow.isZero())
-                    PathfindingDebugger.drawPositionNode(LevelManager.graph.getNodeByXYTiles(x,y), Color.BLACK);
+                if(!LevelManager.graph.getNodeByXYTiles(x,y).flow.isZero()){
+                    if(LevelManager.graph.getNodeByXYTiles(x,y).sector == FlowFieldManager.activeSector)
+                        PathfindingDebugger.drawPositionNode(LevelManager.graph.getNodeByXYTiles(x,y), Color.WHITE);
+                    else
+                        PathfindingDebugger.drawPositionNode(LevelManager.graph.getNodeByXYTiles(x,y), Color.BLACK);
+                }
             }
         }
 
@@ -119,6 +126,7 @@ public class FlowFieldDebugger {
                 }
             }
         }
+
 
         shapeRenderer.end();
     }
