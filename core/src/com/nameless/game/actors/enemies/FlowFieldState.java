@@ -1,6 +1,7 @@
 package com.nameless.game.actors.enemies;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.nameless.game.MathStatic;
@@ -29,13 +30,15 @@ public class FlowFieldState implements IState {
 
     @Override
     public void Update(float dt) {
-        if(LevelManager.graph.getIndexByXYEnemy( zombie.getCenterX(), zombie.getCenterY(), zombie.distance) != actualNode) {
-            actualNode = LevelManager.graph.getIndexByXYEnemy( zombie.getCenterX(), zombie.getCenterY(), zombie.distance);
+        if(LevelManager.graph.getIndexByXYEnemy( zombie.getCenterX() - .5f * MathUtils.cos(zombie.direction.angleRad()),
+                zombie.getCenterY() - .5f * MathUtils.sin(zombie.direction.angleRad()), zombie.distance) != actualNode) {
+            actualNode = LevelManager.graph.getIndexByXYEnemy( zombie.getCenterX() - .5f * MathUtils.cos(zombie.direction.angleRad()),
+                    zombie.getCenterY() - .5f * MathUtils.sin(zombie.direction.angleRad()), zombie.distance);
             timeSinceLastChange = TimeUtils.nanoTime();
         } else if(TimeUtils.nanoTime() - timeSinceLastChange > timeToChangePathfinding*2){
             zombie.ChangeState(new AStarState());
         }
-        PathfindingDebugger.drawPositionNode(LevelManager.graph.getNode(actualNode), Color.GOLD);
+        //PathfindingDebugger.drawPositionNode(LevelManager.graph.getNode(actualNode), Color.GOLD);
 
         if(!LevelManager.graph.getNode(actualNode).flow.nor().isZero()){
             zombie.direction = LevelManager.graph.getNode(actualNode).flow.nor();

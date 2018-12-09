@@ -8,8 +8,10 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.nameless.game.Constants;
 import com.nameless.game.MathStatic;
@@ -85,7 +87,7 @@ public class RocketBullet extends BasicBullet {
 
         fdef.shape = shape;
         fdef.filter.categoryBits = Constants.BULLET_BIT;
-        fdef.filter.maskBits = Constants.PLAYER_BIT | Constants.ENEMY_BIT | Constants.NEUTRAL_BIT;
+        fdef.filter.maskBits = Constants.OBSTACLES_BIT | Constants.PLAYER_BIT | Constants.ENEMY_BIT | Constants.NEUTRAL_BIT;
         body.createFixture(fdef);
         shape.dispose();
     }
@@ -94,6 +96,8 @@ public class RocketBullet extends BasicBullet {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
+
+        batch.setColor(batch.getColor().r, batch.getColor().g, batch.getColor().b, getColor().a);
         switch (currentState){
             case NORMAL:
                 batch.end();

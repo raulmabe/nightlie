@@ -99,6 +99,7 @@ public class MainGame extends Game {
 		// Load Maps
 		manager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
 		manager.load("tmx/town_map.tmx", TiledMap.class);
+		manager.load("tmx/town_map_final.tmx", TiledMap.class);
 
 
 		// Load sounds

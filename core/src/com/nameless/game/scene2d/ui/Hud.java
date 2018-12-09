@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.nameless.game.Constants;
 import com.nameless.game.MainGame;
@@ -54,7 +55,8 @@ public class Hud extends Group implements InputProcessor {
         this.playScreen = playScreen;
 
         camera = new OrthographicCamera();
-        viewport = new FitViewport(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT, camera);
+        viewport = new ScreenViewport(camera);
+        ((ScreenViewport) viewport).setUnitsPerPixel(0.5f);
         hud = new Stage(viewport, game.getBatch());
 
         timeToNextSpawn = new Label("Time", game.getSkin());
@@ -117,6 +119,12 @@ public class Hud extends Group implements InputProcessor {
             }
         });
         return dialog;
+    }
+
+    public void pause(){
+        ConfirmDialog dialog = askQuit();
+        table.add(dialog).expand().fillX().align(Align.center);
+        hud.addActor(table);
     }
 
     public void update(float dt){

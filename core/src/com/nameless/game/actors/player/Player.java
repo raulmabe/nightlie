@@ -17,6 +17,8 @@ import com.nameless.game.scene2d.ui.WeaponInfo;
 import com.nameless.game.screens.Menu;
 import com.nameless.game.screens.Play;
 
+import static com.nameless.game.Constants.ENEMY_BIT;
+import static com.nameless.game.Constants.ENEMY_OBSTACLES_BIT;
 import static com.nameless.game.Constants.PixelsPerMeter;
 
 
@@ -107,7 +109,7 @@ public class Player extends Character {
 
         fdef.shape = shape;
         fdef.filter.categoryBits = Constants.PLAYER_BIT;
-        fdef.filter.maskBits = Constants.EVERYTHING_BIT;;
+        fdef.filter.maskBits = Constants.everyOthersBit(ENEMY_OBSTACLES_BIT);
         body.createFixture(fdef);
         shape.dispose();
     }

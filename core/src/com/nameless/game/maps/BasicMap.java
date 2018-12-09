@@ -93,7 +93,7 @@ public abstract class BasicMap {
        //worldRenderer.render(world, camera.combined);
     }
 
-    public void render (OrthographicCamera camera, int x, int y, int w, int h){
+    public void render(OrthographicCamera camera, int x, int y, int w, int h){
         tiledMapRenderer.setView(camera.combined, x, y, w, h);
         tiledMapRenderer.render();
 
@@ -106,12 +106,30 @@ public abstract class BasicMap {
         //worldRenderer.render(world, camera.combined);
     }
 
-    public void renderForeLayers(){
+    public void renderWalls(OrthographicCamera camera, int x, int y, int w, int h){
+        tiledMapRenderer.setView(camera.combined, x, y, w, h);
         tiledMapRenderer.getBatch().begin();
-//        tiledMapRenderer.renderObjects(tiledmap.getLayers().get("Trees1"));
-//        tiledMapRenderer.renderObjects(tiledmap.getLayers().get("Trees2"));
+        tiledMapRenderer.renderTileLayer((TiledMapTileLayer) tiledmap.getLayers().get("Walls"));
+        tiledMapRenderer.getBatch().end();
+    }
+
+    public void renderTreesLayers(OrthographicCamera camera, int x, int y, int w, int h){
+        tiledMapRenderer.setView(camera.combined, x, y, w, h);
+        tiledMapRenderer.getBatch().begin();
+
         tiledMapRenderer.renderLightsObject(tiledmap.getLayers().get("Trees1"), DayNightCycleManager.dayTime);
         tiledMapRenderer.renderLightsObject(tiledmap.getLayers().get("Trees2"), DayNightCycleManager.dayTime);
+
+        tiledMapRenderer.getBatch().end();
+    }
+
+    public void renderTreesLayers(OrthographicCamera camera){
+        tiledMapRenderer.setView(camera);
+        tiledMapRenderer.getBatch().begin();
+
+        tiledMapRenderer.renderLightsObject(tiledmap.getLayers().get("Trees1"), DayNightCycleManager.dayTime);
+        tiledMapRenderer.renderLightsObject(tiledmap.getLayers().get("Trees2"), DayNightCycleManager.dayTime);
+
         tiledMapRenderer.getBatch().end();
     }
 
@@ -133,21 +151,6 @@ public abstract class BasicMap {
             }
         }
         return vec;
-    }
-
-    public Vector2 getPositionEnemy(){
-        int i = 0;
-        Vector2[] positions = new Vector2[10];
-        for(MapObject object : tiledmap.getLayers().get("ActorPosition").getObjects().getByType(RectangleMapObject.class)){
-            if(object.getProperties().containsKey("enemy")) {
-                positions[i] = new Vector2(0,0);
-                positions[i].x = ((RectangleMapObject) object).getRectangle().x+ MathUtils.random(0, ((RectangleMapObject) object).getRectangle().width);
-                positions[i].y = ((RectangleMapObject) object).getRectangle().y + MathUtils.random(0, ((RectangleMapObject) object).getRectangle().height);
-                i++;
-            }
-        }
-        int x = MathUtils.random(0,i-1);
-        return positions[x];
     }
 
     public int getWidth() {

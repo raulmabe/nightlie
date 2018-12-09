@@ -1,6 +1,7 @@
 package com.nameless.game.actors.player;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.nameless.game.*;
 import com.nameless.game.actors.Character;
@@ -45,6 +46,9 @@ public class DefaultPlayerState implements IState {
 
         if(touchpad2.angle() != 0) parent.setRotation(touchpad2.angle());
         else if(touchpad.angle() != 0) parent.setRotation(touchpad.angle());
+
+        if(touchpad2.angle() != 0 && touchpad.angle() != 0) parent.SPEED *= .5f;
+        else parent.SPEED = 300;
 
         // Shoot
         if(!touchpad2.isZero() || parent.play.controller.shoot && parent.weapons[VirtualController.ACTUAL_WEAPON] > 0) {

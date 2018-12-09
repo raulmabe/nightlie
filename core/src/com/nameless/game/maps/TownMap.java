@@ -17,7 +17,7 @@ import com.nameless.game.MainGame;
 public class TownMap extends BasicMap {
 
     public TownMap(MainGame game, float unitScale) {
-        super(game, "tmx/town_map.tmx", unitScale);
+        super(game, "tmx/town_map_final.tmx", unitScale);
 
         /*
         Must have layers:
@@ -106,6 +106,22 @@ public class TownMap extends BasicMap {
 
         }
 
+        for(MapObject object : tiledmap.getLayers().get("EnemyCollisions").getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
+            bdef.type = BodyDef.BodyType.StaticBody;
+            bdef.position.set((rect.getX() + rect.getWidth() / 2)*unitScale, (rect.getY() + rect.getHeight() / 2)*unitScale );
+
+            body = world.createBody(bdef);
+
+            shape.setAsBox((rect.getWidth() / 2 )*unitScale, (rect.getHeight() / 2 )*unitScale);
+            fdef.shape = shape;
+            fdef.filter.categoryBits = Constants.ENEMY_OBSTACLES_BIT;
+            fdef.filter.maskBits = Constants.ENEMY_BIT;
+            body.createFixture(fdef);
+
+        }
+
         // Layer 11 - Everyone collisions
         for(MapObject object : tiledmap.getLayers().get("AllCollisions").getObjects().getByType(EllipseMapObject.class)){
             Ellipse ellipse;
@@ -125,6 +141,7 @@ public class TownMap extends BasicMap {
         }
         for(MapObject object : tiledmap.getLayers().get("AllCollisions").getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
 
             bdef.type = BodyDef.BodyType.StaticBody;
             bdef.position.set((rect.getX() + rect.getWidth() / 2) *unitScale, (rect.getY() + rect.getHeight() / 2)*unitScale );

@@ -92,6 +92,8 @@ public class GrenadeBullet extends BasicBullet {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
+
+        batch.setColor(batch.getColor().r, batch.getColor().g, batch.getColor().b, getColor().a);
         switch (currentState){
             case NORMAL:
                 batch.end();
@@ -110,6 +112,7 @@ public class GrenadeBullet extends BasicBullet {
                 batch.begin();
                 break;
             case EXPLOSION:
+            default:
                 batch.draw(region,getX()-getWidth()/2,getY()-getHeight()/2,getWidth(),getHeight());
         }
     }

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -36,7 +37,7 @@ public abstract class BasicScreen implements Screen{
     /**
      * Common Viewport.
      */
-    protected Viewport viewport = null;
+    public Viewport viewport = null;
 
     /**
      * Common table.
@@ -51,8 +52,11 @@ public abstract class BasicScreen implements Screen{
 
     @Override
     public void resize(int width, int height) {
-//        cam.setToOrtho(false, width, height);
-        stage.getViewport().update(width, height);
+        //cam.setToOrtho(false, width/2, height/2);
+
+       // viewport.update(width,height);
+
+        stage.getViewport().update(width, height,true);
     }
 
     public void load() {
@@ -83,6 +87,7 @@ public abstract class BasicScreen implements Screen{
         Gdx.gl.glClearColor(.25f, .25f, .4f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         cam.update();
+        stage.getViewport().apply();
         game.getBatch().setProjectionMatrix(cam.combined);
 
         //stage.act(delta);
@@ -94,18 +99,21 @@ public abstract class BasicScreen implements Screen{
     public void show() {
         if (cam == null) {
             cam = new OrthographicCamera();
+            cam.setToOrtho(false, Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
         }
 
         if (viewport == null) {
             //viewport = new FitViewport(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT, cam);
-            //viewport = new FitViewport(MainGame.width, MainGame.height, cam);
-            viewport = new FitViewport(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT, cam);
-//            viewport = new ScreenViewport(cam);
+            //viewport = new ExtendViewport(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT,0,0,cam);
+            viewport = new ScreenViewport(cam);
+            ((ScreenViewport) viewport).setUnitsPerPixel(.5f);
+            //viewport = new ScreenViewport( cam);
         }
 
 
         if (stage == null) {
             stage = new Stage(viewport, game.getBatch());
+            //stage.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         }
 
 

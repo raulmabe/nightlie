@@ -243,7 +243,8 @@ public class Menu extends BasicScreen {
 
         if(map == null) {
             map = new TownMap(game, 1f);
-            camMap = new OrthographicCamera(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
+            //camMap = new OrthographicCamera(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
+            camMap = new OrthographicCamera(viewport.getWorldWidth(), viewport.getWorldHeight());
             camMap.setToOrtho(false, Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
             camMap.position.x += 10*Constants.PixelsPerMeter;
             camMap.position.y += 10*Constants.PixelsPerMeter;
@@ -279,8 +280,10 @@ public class Menu extends BasicScreen {
         // Render RayHandler
         map.renderRayHandler(camMap);
 
+        viewport.apply();
+
         // Render fore layers
-        map.renderForeLayers();
+        map.renderTreesLayers(camMap);
 
         switch (state) {
             case SETTINGS:

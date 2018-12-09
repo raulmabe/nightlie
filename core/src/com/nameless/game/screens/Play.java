@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.nameless.game.Constants;
 import com.nameless.game.DayNightCycleManager;
 import com.nameless.game.MainGame;
@@ -51,6 +52,7 @@ public class Play extends BasicScreen{
         inputMulti = new InputMultiplexer();
         mapHud = new Group();
         mapHud.setScale(1/PixelsPerMeter);
+
         bg = new Group();
         fg = new Group();
 
@@ -68,7 +70,6 @@ public class Play extends BasicScreen{
 
         waveSpawnManager = new WaveSpawnManager(this);
 
-        hud = new Hud(game, controller, this);
     }
 
     @Override
@@ -79,6 +80,9 @@ public class Play extends BasicScreen{
 
     @Override
     public void setUpInterface(Table table) {
+        hud = new Hud(game, controller, this);
+        ((ScreenViewport) viewport).setUnitsPerPixel(1/(PixelsPerMeter*2));
+
         fg.addActor(player);
         stage.addActor(bg);
         stage.addActor(fg);
@@ -90,18 +94,12 @@ public class Play extends BasicScreen{
         viewport.setWorldSize(viewport.getWorldWidth()/PixelsPerMeter, viewport.getWorldHeight()/PixelsPerMeter);
 
         fps = new FPSLogger();
-//        stage.setDebugAll(true);
-//
-//        float delay = 1f;
-//
-//        Timer.schedule(new Timer.Task(){
-//            @Override
-//            public void run() {
-//                player.TakeDamage(1000,new Vector2(0,0));
-//            }
-//        }, delay);
+    }
 
-
+    @Override
+    public void pause() {
+        super.pause();
+        hud.pause();
     }
 
     private void handleCamera(){
@@ -132,77 +130,34 @@ public class Play extends BasicScreen{
     @Override
     public void render(float delta) {
         super.render(delta);
-//        handleInput();
-
-
-        switch (state){
-            case GAME_WAITING:
-            case GAME_RUNNING:
-                handleCamera();
-
-                map.world.step(1/60f, 6, 2);
-                stage.act(delta);
-
-                // Spawn control
-                waveSpawnManager.update(delta);
-            case GAME_PAUSED:
-            default:
-                map.render(cam, (int) (player.getCenterX() - Constants.RENDER_WIDTH/2), (int) (player.getCenterY() - Constants.RENDER_WIDTH/2) ,
-                        Constants.RENDER_WIDTH, Constants.RENDER_WIDTH);
-                stage.draw();
-
-                // Render RayCast Light
-                map.renderRayHandler(cam);
-
-                // Render fore layers
-                map.renderForeLayers();
-
-
-                mapHud.act(delta);
-
-                stage.getBatch().begin();
-                mapHud.draw(stage.getBatch(), 1);
-                stage.getBatch().end();
-
-                // Debug flow field algorithm
-                FlowFieldDebugger.drawFlow();
-                //FlowFieldDebugger.drawDistances(stage.getBatch());
-
-                // Hud
-                hud.update(delta);
-
-                // Debug
-//         fps.log();
-                hud.timeToNextSpawn.setText("" + Gdx.graphics.getFramesPerSecond());
-                hud.timeHour.setText("" + (int) calcularHora() + "h");
-
-        }
-
-/*
         handleCamera();
 
         // Map
         if(state == GAME_RUNNING || state == GAME_WAITING) map.world.step(1/60f, 6, 2);
-        map.render(cam);
-//        FlowFieldDebugger.drawFlow();
+        map.render(cam, (int) (player.getCenterX() - Constants.RENDER_WIDTH/2), (int) (player.getCenterY() - Constants.RENDER_WIDTH/2) ,
+                Constants.RENDER_WIDTH, Constants.RENDER_WIDTH);
+        //FlowFieldDebugger.drawFlow();
 
         // Stage
         if(state == GAME_RUNNING || state == GAME_WAITING) stage.act(delta);
         stage.draw();
 
+        map.renderWalls(cam, (int) (player.getCenterX() - Constants.RENDER_WIDTH/2), (int) (player.getCenterY() - Constants.RENDER_WIDTH/2) ,
+                Constants.RENDER_WIDTH, Constants.RENDER_WIDTH);
+
         // Render RayCast Light
         map.renderRayHandler(cam);
 
+        viewport.apply();
+
         // Render fore layers
-        map.renderForeLayers();
+        map.renderTreesLayers(cam, (int) (player.getCenterX() - Constants.RENDER_WIDTH/2), (int) (player.getCenterY() - Constants.RENDER_WIDTH/2) ,
+                Constants.RENDER_WIDTH, Constants.RENDER_WIDTH);
 
         mapHud.act(delta);
         stage.getBatch().begin();
         mapHud.draw(stage.getBatch(), 1);
         stage.getBatch().end();
-
-
-        //FlowFieldDebugger.drawDistances(stage.getBatch());
 
         // Hud
         hud.update(delta);
@@ -214,7 +169,7 @@ public class Play extends BasicScreen{
         // Debug
 //         fps.log();
         hud.timeToNextSpawn.setText("" + Gdx.graphics.getFramesPerSecond());
-        hud.timeHour.setText("" + (int) calcularHora() + "h");*/
+        hud.timeHour.setText("" + (int) calcularHora() + "h");
     }
 
     private float calcularHora(){
