@@ -124,7 +124,11 @@ public class PathfindingManager {
                 dispatcher.update();
                 requestDispatcher.update();
 
-                scheduler.run((long) (1* 1/MathUtils.nanoToSec));
+                try {
+                    scheduler.run((long) (1* 1/MathUtils.nanoToSec));
+                }catch (Exception e){
+                    return;
+                }
 
                 Iterator<PathFinderRequest> iterator = completedRequestQueue.iterator();
 

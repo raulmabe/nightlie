@@ -77,7 +77,7 @@ public class Player extends Character {
         setPosition(x/PixelsPerMeter, y/PixelsPerMeter);
         setSize(atlas.findRegion(Constants.character + "_stand").getRegionWidth()/PixelsPerMeter,
                 atlas.findRegion(Constants.character + "_stand").getRegionWidth()/PixelsPerMeter);
-        setOrigin(getWidth()/2,getHeight()/2);
+        setOrigin(getWidth()/2,getHeight()/1.6f);
         MuzzlePos = new Vector2(getX() + getWidth()/2, getY() + getHeight()/2)
                 .add(getWidth()*1.5f, -getHeight()/6);
 
@@ -120,7 +120,7 @@ public class Player extends Character {
         if(blinker.shouldBlink(Gdx.graphics.getDeltaTime())) return;
 
         batch.setColor(batch.getColor().r, batch.getColor().g, batch.getColor().b, getColor().a);
-        batch.draw(region, getX(), getY(), getOriginX(), getOriginY(), region.getRegionWidth()/PixelsPerMeter,
+        batch.draw(region, getX(), getY(), getOriginX(),getOriginY(), region.getRegionWidth()/PixelsPerMeter,
                 region.getRegionHeight()/PixelsPerMeter, getScaleX(), getScaleY(), getRotation());
     }
 

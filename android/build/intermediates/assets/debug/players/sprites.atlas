@@ -1,0 +1,1124 @@
+sprites.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+hitman1_grenade
+  rotate: false
+  xy: 451, 137
+  size: 39, 44
+  orig: 39, 44
+  offset: 0, 0
+  index: -1
+hitman1_gun
+  rotate: false
+  xy: 112, 460
+  size: 49, 44
+  orig: 49, 44
+  offset: 0, 0
+  index: -1
+hitman1_hold
+  rotate: false
+  xy: 534, 368
+  size: 35, 44
+  orig: 35, 44
+  offset: 0, 0
+  index: -1
+hitman1_machine
+  rotate: false
+  xy: 56, 321
+  size: 54, 44
+  orig: 54, 44
+  offset: 0, 0
+  index: -1
+hitman1_punch
+  rotate: false
+  xy: 571, 322
+  size: 35, 44
+  orig: 35, 44
+  offset: 0, 0
+  index: -1
+hitman1_reload
+  rotate: false
+  xy: 451, 183
+  size: 39, 44
+  orig: 39, 44
+  offset: 0, 0
+  index: -1
+hitman1_rocket
+  rotate: false
+  xy: 316, 138
+  size: 46, 44
+  orig: 46, 44
+  offset: 0, 0
+  index: -1
+hitman1_shotgun
+  rotate: false
+  xy: 316, 412
+  size: 45, 44
+  orig: 45, 44
+  offset: 0, 0
+  index: -1
+hitman1_silencer
+  rotate: false
+  xy: 165, 276
+  size: 49, 44
+  orig: 49, 44
+  offset: 0, 0
+  index: -1
+hitman1_stand
+  rotate: false
+  xy: 608, 92
+  size: 33, 44
+  orig: 33, 44
+  offset: 0, 0
+  index: -1
+hitman2_grenade
+  rotate: false
+  xy: 452, 276
+  size: 39, 44
+  orig: 39, 44
+  offset: 0, 0
+  index: -1
+hitman2_gun
+  rotate: false
+  xy: 113, 92
+  size: 49, 44
+  orig: 49, 44
+  offset: 0, 0
+  index: -1
+hitman2_hold
+  rotate: false
+  xy: 571, 46
+  size: 35, 44
+  orig: 35, 44
+  offset: 0, 0
+  index: -1
+hitman2_machine
+  rotate: false
+  xy: 0, 276
+  size: 54, 44
+  orig: 54, 44
+  offset: 0, 0
+  index: -1
+hitman2_punch
+  rotate: false
+  xy: 608, 412
+  size: 35, 44
+  orig: 35, 44
+  offset: 0, 0
+  index: -1
+hitman2_reload
+  rotate: false
+  xy: 491, 414
+  size: 39, 44
+  orig: 39, 44
+  offset: 0, 0
+  index: -1
+hitman2_rocket
+  rotate: false
+  xy: 267, 322
+  size: 46, 44
+  orig: 46, 44
+  offset: 0, 0
+  index: -1
+hitman2_shotgun
+  rotate: false
+  xy: 316, 0
+  size: 45, 44
+  orig: 45, 44
+  offset: 0, 0
+  index: -1
+hitman2_silencer
+  rotate: false
+  xy: 164, 46
+  size: 49, 44
+  orig: 49, 44
+  offset: 0, 0
+  index: -1
+hitman2_stand
+  rotate: false
+  xy: 608, 138
+  size: 33, 44
+  orig: 33, 44
+  offset: 0, 0
+  index: -1
+manBlue_grenade
+  rotate: false
+  xy: 451, 92
+  size: 39, 43
+  orig: 39, 43
+  offset: 0, 0
+  index: -1
+manBlue_gun
+  rotate: false
+  xy: 164, 92
+  size: 49, 43
+  orig: 49, 43
+  offset: 0, 0
+  index: -1
+manBlue_hold
+  rotate: false
+  xy: 608, 321
+  size: 35, 43
+  orig: 35, 43
+  offset: 0, 0
+  index: -1
+manBlue_machine
+  rotate: false
+  xy: 56, 413
+  size: 54, 43
+  orig: 54, 43
+  offset: 0, 0
+  index: -1
+manBlue_punch
+  rotate: false
+  xy: 492, 184
+  size: 35, 43
+  orig: 35, 43
+  offset: 0, 0
+  index: -1
+manBlue_reload
+  rotate: false
+  xy: 410, 368
+  size: 39, 43
+  orig: 39, 43
+  offset: 0, 0
+  index: -1
+manBlue_rocket
+  rotate: false
+  xy: 217, 229
+  size: 46, 43
+  orig: 46, 43
+  offset: 0, 0
+  index: -1
+manBlue_shotgun
+  rotate: false
+  xy: 315, 367
+  size: 45, 43
+  orig: 45, 43
+  offset: 0, 0
+  index: -1
+manBlue_silencer
+  rotate: false
+  xy: 165, 414
+  size: 49, 43
+  orig: 49, 43
+  offset: 0, 0
+  index: -1
+manBlue_stand
+  rotate: false
+  xy: 643, 46
+  size: 33, 43
+  orig: 33, 43
+  offset: 0, 0
+  index: -1
+manBrown_grenade
+  rotate: false
+  xy: 363, 276
+  size: 39, 43
+  orig: 39, 43
+  offset: 0, 0
+  index: -1
+manBrown_gun
+  rotate: false
+  xy: 166, 229
+  size: 49, 43
+  orig: 49, 43
+  offset: 0, 0
+  index: -1
+manBrown_hold
+  rotate: false
+  xy: 608, 276
+  size: 35, 43
+  orig: 35, 43
+  offset: 0, 0
+  index: -1
+manBrown_machine
+  rotate: false
+  xy: 56, 276
+  size: 54, 43
+  orig: 54, 43
+  offset: 0, 0
+  index: -1
+manBrown_punch
+  rotate: false
+  xy: 452, 414
+  size: 35, 43
+  orig: 35, 43
+  offset: 0, 0
+  index: -1
+manBrown_reload
+  rotate: false
+  xy: 363, 413
+  size: 39, 43
+  orig: 39, 43
+  offset: 0, 0
+  index: -1
+manBrown_rocket
+  rotate: false
+  xy: 315, 276
+  size: 46, 43
+  orig: 46, 43
+  offset: 0, 0
+  index: -1
+manBrown_shotgun
+  rotate: false
+  xy: 316, 46
+  size: 45, 43
+  orig: 45, 43
+  offset: 0, 0
+  index: -1
+manBrown_silencer
+  rotate: false
+  xy: 215, 46
+  size: 49, 43
+  orig: 49, 43
+  offset: 0, 0
+  index: -1
+manBrown_stand
+  rotate: false
+  xy: 643, 137
+  size: 33, 43
+  orig: 33, 43
+  offset: 0, 0
+  index: -1
+manOld_grenade
+  rotate: false
+  xy: 409, 459
+  size: 39, 44
+  orig: 39, 44
+  offset: 0, 0
+  index: -1
+manOld_gun
+  rotate: false
+  xy: 166, 183
+  size: 49, 44
+  orig: 49, 44
+  offset: 0, 0
+  index: -1
+manOld_hold
+  rotate: false
+  xy: 571, 368
+  size: 35, 44
+  orig: 35, 44
+  offset: 0, 0
+  index: -1
+manOld_machine
+  rotate: false
+  xy: 0, 414
+  size: 54, 44
+  orig: 54, 44
+  offset: 0, 0
+  index: -1
+manOld_punch
+  rotate: false
+  xy: 608, 366
+  size: 35, 44
+  orig: 35, 44
+  offset: 0, 0
+  index: -1
+manOld_reload
+  rotate: false
+  xy: 451, 322
+  size: 39, 44
+  orig: 39, 44
+  offset: 0, 0
+  index: -1
+manOld_rocket
+  rotate: false
+  xy: 267, 230
+  size: 46, 44
+  orig: 46, 44
+  offset: 0, 0
+  index: -1
+manOld_shotgun
+  rotate: false
+  xy: 363, 367
+  size: 45, 44
+  orig: 45, 44
+  offset: 0, 0
+  index: -1
+manOld_silencer
+  rotate: false
+  xy: 215, 137
+  size: 49, 44
+  orig: 49, 44
+  offset: 0, 0
+  index: -1
+manOld_stand
+  rotate: false
+  xy: 644, 182
+  size: 33, 44
+  orig: 33, 44
+  offset: 0, 0
+  index: -1
+manRed_grenade
+  rotate: false
+  xy: 410, 322
+  size: 39, 44
+  orig: 39, 44
+  offset: 0, 0
+  index: -1
+manRed_gun
+  rotate: false
+  xy: 215, 91
+  size: 49, 44
+  orig: 49, 44
+  offset: 0, 0
+  index: -1
+manRed_hold
+  rotate: false
+  xy: 571, 414
+  size: 35, 44
+  orig: 35, 44
+  offset: 0, 0
+  index: -1
+manRed_machine
+  rotate: false
+  xy: 0, 322
+  size: 54, 44
+  orig: 54, 44
+  offset: 0, 0
+  index: -1
+manRed_punch
+  rotate: false
+  xy: 571, 92
+  size: 35, 44
+  orig: 35, 44
+  offset: 0, 0
+  index: -1
+manRed_reload
+  rotate: false
+  xy: 451, 0
+  size: 39, 44
+  orig: 39, 44
+  offset: 0, 0
+  index: -1
+manRed_rocket
+  rotate: false
+  xy: 315, 230
+  size: 46, 44
+  orig: 46, 44
+  offset: 0, 0
+  index: -1
+manRed_shotgun
+  rotate: false
+  xy: 315, 321
+  size: 45, 44
+  orig: 45, 44
+  offset: 0, 0
+  index: -1
+manRed_silencer
+  rotate: false
+  xy: 215, 0
+  size: 49, 44
+  orig: 49, 44
+  offset: 0, 0
+  index: -1
+manRed_stand
+  rotate: false
+  xy: 645, 228
+  size: 33, 44
+  orig: 33, 44
+  offset: 0, 0
+  index: -1
+robot1_grenade
+  rotate: false
+  xy: 450, 230
+  size: 39, 44
+  orig: 39, 44
+  offset: 0, 0
+  index: -1
+robot1_gun
+  rotate: false
+  xy: 214, 459
+  size: 49, 44
+  orig: 49, 44
+  offset: 0, 0
+  index: -1
+robot1_hold
+  rotate: false
+  xy: 607, 460
+  size: 35, 44
+  orig: 35, 44
+  offset: 0, 0
+  index: -1
+robot1_machine
+  rotate: false
+  xy: 56, 367
+  size: 54, 44
+  orig: 54, 44
+  offset: 0, 0
+  index: -1
+robot1_punch
+  rotate: false
+  xy: 571, 138
+  size: 35, 44
+  orig: 35, 44
+  offset: 0, 0
+  index: -1
+robot1_reload
+  rotate: false
+  xy: 450, 459
+  size: 39, 44
+  orig: 39, 44
+  offset: 0, 0
+  index: -1
+robot1_rocket
+  rotate: false
+  xy: 267, 184
+  size: 46, 44
+  orig: 46, 44
+  offset: 0, 0
+  index: -1
+robot1_shotgun
+  rotate: false
+  xy: 315, 458
+  size: 45, 44
+  orig: 45, 44
+  offset: 0, 0
+  index: -1
+robot1_silencer
+  rotate: false
+  xy: 216, 274
+  size: 49, 44
+  orig: 49, 44
+  offset: 0, 0
+  index: -1
+robot1_stand
+  rotate: false
+  xy: 644, 458
+  size: 33, 44
+  orig: 33, 44
+  offset: 0, 0
+  index: -1
+robot2_grenade
+  rotate: false
+  xy: 410, 184
+  size: 39, 44
+  orig: 39, 44
+  offset: 0, 0
+  index: -1
+robot2_gun
+  rotate: false
+  xy: 216, 320
+  size: 49, 44
+  orig: 49, 44
+  offset: 0, 0
+  index: -1
+robot2_hold
+  rotate: false
+  xy: 570, 184
+  size: 35, 44
+  orig: 35, 44
+  offset: 0, 0
+  index: -1
+robot2_machine
+  rotate: false
+  xy: 0, 368
+  size: 54, 44
+  orig: 54, 44
+  offset: 0, 0
+  index: -1
+robot2_punch
+  rotate: false
+  xy: 570, 460
+  size: 35, 44
+  orig: 35, 44
+  offset: 0, 0
+  index: -1
+robot2_reload
+  rotate: false
+  xy: 451, 46
+  size: 39, 44
+  orig: 39, 44
+  offset: 0, 0
+  index: -1
+robot2_rocket
+  rotate: false
+  xy: 315, 92
+  size: 46, 44
+  orig: 46, 44
+  offset: 0, 0
+  index: -1
+robot2_shotgun
+  rotate: false
+  xy: 362, 321
+  size: 45, 44
+  orig: 45, 44
+  offset: 0, 0
+  index: -1
+robot2_silencer
+  rotate: false
+  xy: 165, 368
+  size: 49, 44
+  orig: 49, 44
+  offset: 0, 0
+  index: -1
+robot2_stand
+  rotate: false
+  xy: 645, 274
+  size: 33, 44
+  orig: 33, 44
+  offset: 0, 0
+  index: -1
+soldier1_grenade
+  rotate: false
+  xy: 364, 138
+  size: 42, 44
+  orig: 42, 44
+  offset: 0, 0
+  index: -1
+soldier1_gun
+  rotate: false
+  xy: 59, 138
+  size: 52, 44
+  orig: 52, 44
+  offset: 0, 0
+  index: -1
+soldier1_hold
+  rotate: false
+  xy: 492, 46
+  size: 38, 44
+  orig: 38, 44
+  offset: 0, 0
+  index: -1
+soldier1_machine
+  rotate: false
+  xy: 0, 138
+  size: 57, 44
+  orig: 57, 44
+  offset: 0, 0
+  index: -1
+soldier1_punch
+  rotate: false
+  xy: 531, 460
+  size: 37, 44
+  orig: 37, 44
+  offset: 0, 0
+  index: -1
+soldier1_reload
+  rotate: false
+  xy: 363, 92
+  size: 42, 44
+  orig: 42, 44
+  offset: 0, 0
+  index: -1
+soldier1_rocket
+  rotate: false
+  xy: 165, 322
+  size: 49, 44
+  orig: 49, 44
+  offset: 0, 0
+  index: -1
+soldier1_shotgun
+  rotate: false
+  xy: 266, 412
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+soldier1_silencer
+  rotate: false
+  xy: 59, 0
+  size: 52, 44
+  orig: 52, 44
+  offset: 0, 0
+  index: -1
+soldier1_stand
+  rotate: false
+  xy: 533, 276
+  size: 36, 44
+  orig: 36, 44
+  offset: 0, 0
+  index: -1
+soldier2_grenade
+  rotate: false
+  xy: 407, 92
+  size: 42, 44
+  orig: 42, 44
+  offset: 0, 0
+  index: -1
+soldier2_gun
+  rotate: false
+  xy: 112, 184
+  size: 52, 44
+  orig: 52, 44
+  offset: 0, 0
+  index: -1
+soldier2_hold
+  rotate: false
+  xy: 491, 460
+  size: 38, 44
+  orig: 38, 44
+  offset: 0, 0
+  index: -1
+soldier2_machine
+  rotate: false
+  xy: 0, 46
+  size: 57, 44
+  orig: 57, 44
+  offset: 0, 0
+  index: -1
+soldier2_punch
+  rotate: false
+  xy: 532, 92
+  size: 37, 44
+  orig: 37, 44
+  offset: 0, 0
+  index: -1
+soldier2_reload
+  rotate: false
+  xy: 407, 0
+  size: 42, 44
+  orig: 42, 44
+  offset: 0, 0
+  index: -1
+soldier2_rocket
+  rotate: false
+  xy: 164, 137
+  size: 49, 44
+  orig: 49, 44
+  offset: 0, 0
+  index: -1
+soldier2_shotgun
+  rotate: false
+  xy: 216, 412
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+soldier2_silencer
+  rotate: false
+  xy: 112, 230
+  size: 52, 44
+  orig: 52, 44
+  offset: 0, 0
+  index: -1
+soldier2_stand
+  rotate: false
+  xy: 532, 184
+  size: 36, 44
+  orig: 36, 44
+  offset: 0, 0
+  index: -1
+survivor1_grenade
+  rotate: false
+  xy: 407, 230
+  size: 41, 44
+  orig: 41, 44
+  offset: 0, 0
+  index: -1
+survivor1_gun
+  rotate: false
+  xy: 112, 276
+  size: 51, 44
+  orig: 51, 44
+  offset: 0, 0
+  index: -1
+survivor1_hold
+  rotate: false
+  xy: 532, 138
+  size: 37, 44
+  orig: 37, 44
+  offset: 0, 0
+  index: -1
+survivor1_machine
+  rotate: false
+  xy: 0, 230
+  size: 56, 44
+  orig: 56, 44
+  offset: 0, 0
+  index: -1
+survivor1_punch
+  rotate: false
+  xy: 532, 46
+  size: 37, 44
+  orig: 37, 44
+  offset: 0, 0
+  index: -1
+survivor1_reload
+  rotate: false
+  xy: 408, 138
+  size: 41, 44
+  orig: 41, 44
+  offset: 0, 0
+  index: -1
+survivor1_rocket
+  rotate: false
+  xy: 217, 183
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+survivor1_shotgun
+  rotate: false
+  xy: 267, 138
+  size: 47, 44
+  orig: 47, 44
+  offset: 0, 0
+  index: -1
+survivor1_silencer
+  rotate: false
+  xy: 112, 322
+  size: 51, 44
+  orig: 51, 44
+  offset: 0, 0
+  index: -1
+survivor1_stand
+  rotate: false
+  xy: 571, 0
+  size: 35, 44
+  orig: 35, 44
+  offset: 0, 0
+  index: -1
+survivor2_grenade
+  rotate: false
+  xy: 409, 413
+  size: 41, 44
+  orig: 41, 44
+  offset: 0, 0
+  index: -1
+survivor2_gun
+  rotate: false
+  xy: 112, 368
+  size: 51, 44
+  orig: 51, 44
+  offset: 0, 0
+  index: -1
+survivor2_hold
+  rotate: false
+  xy: 532, 414
+  size: 37, 44
+  orig: 37, 44
+  offset: 0, 0
+  index: -1
+survivor2_machine
+  rotate: false
+  xy: 0, 184
+  size: 56, 44
+  orig: 56, 44
+  offset: 0, 0
+  index: -1
+survivor2_punch
+  rotate: false
+  xy: 532, 0
+  size: 37, 44
+  orig: 37, 44
+  offset: 0, 0
+  index: -1
+survivor2_reload
+  rotate: false
+  xy: 409, 276
+  size: 41, 44
+  orig: 41, 44
+  offset: 0, 0
+  index: -1
+survivor2_rocket
+  rotate: false
+  xy: 266, 46
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+survivor2_shotgun
+  rotate: false
+  xy: 266, 92
+  size: 47, 44
+  orig: 47, 44
+  offset: 0, 0
+  index: -1
+survivor2_silencer
+  rotate: false
+  xy: 112, 414
+  size: 51, 44
+  orig: 51, 44
+  offset: 0, 0
+  index: -1
+survivor2_stand
+  rotate: false
+  xy: 608, 0
+  size: 35, 44
+  orig: 35, 44
+  offset: 0, 0
+  index: -1
+womanGreen_grenade
+  rotate: false
+  xy: 363, 46
+  size: 42, 44
+  orig: 42, 44
+  offset: 0, 0
+  index: -1
+womanGreen_gun
+  rotate: false
+  xy: 58, 184
+  size: 52, 44
+  orig: 52, 44
+  offset: 0, 0
+  index: -1
+womanGreen_hold
+  rotate: false
+  xy: 493, 275
+  size: 38, 44
+  orig: 38, 44
+  offset: 0, 0
+  index: -1
+womanGreen_machine
+  rotate: false
+  xy: 0, 92
+  size: 57, 44
+  orig: 57, 44
+  offset: 0, 0
+  index: -1
+womanGreen_punch
+  rotate: false
+  xy: 492, 92
+  size: 38, 44
+  orig: 38, 44
+  offset: 0, 0
+  index: -1
+womanGreen_reload
+  rotate: false
+  xy: 363, 230
+  size: 42, 44
+  orig: 42, 44
+  offset: 0, 0
+  index: -1
+womanGreen_rocket
+  rotate: false
+  xy: 216, 366
+  size: 49, 44
+  orig: 49, 44
+  offset: 0, 0
+  index: -1
+womanGreen_shotgun
+  rotate: false
+  xy: 266, 0
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+womanGreen_silencer
+  rotate: false
+  xy: 59, 46
+  size: 52, 44
+  orig: 52, 44
+  offset: 0, 0
+  index: -1
+womanGreen_stand
+  rotate: false
+  xy: 533, 322
+  size: 36, 44
+  orig: 36, 44
+  offset: 0, 0
+  index: -1
+womanOld_grenade
+  rotate: false
+  xy: 407, 46
+  size: 42, 44
+  orig: 42, 44
+  offset: 0, 0
+  index: -1
+womanOld_gun
+  rotate: false
+  xy: 58, 230
+  size: 52, 44
+  orig: 52, 44
+  offset: 0, 0
+  index: -1
+womanOld_hold
+  rotate: false
+  xy: 492, 0
+  size: 38, 44
+  orig: 38, 44
+  offset: 0, 0
+  index: -1
+womanOld_machine
+  rotate: false
+  xy: 0, 0
+  size: 57, 44
+  orig: 57, 44
+  offset: 0, 0
+  index: -1
+womanOld_punch
+  rotate: false
+  xy: 492, 138
+  size: 38, 44
+  orig: 38, 44
+  offset: 0, 0
+  index: -1
+womanOld_reload
+  rotate: false
+  xy: 363, 0
+  size: 42, 44
+  orig: 42, 44
+  offset: 0, 0
+  index: -1
+womanOld_rocket
+  rotate: false
+  xy: 163, 460
+  size: 49, 44
+  orig: 49, 44
+  offset: 0, 0
+  index: -1
+womanOld_shotgun
+  rotate: false
+  xy: 265, 458
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+womanOld_silencer
+  rotate: false
+  xy: 59, 92
+  size: 52, 44
+  orig: 52, 44
+  offset: 0, 0
+  index: -1
+womanOld_stand
+  rotate: false
+  xy: 533, 230
+  size: 36, 44
+  orig: 36, 44
+  offset: 0, 0
+  index: -1
+zombie1_grenade
+  rotate: false
+  xy: 492, 322
+  size: 39, 44
+  orig: 39, 44
+  offset: 0, 0
+  index: -1
+zombie1_gun
+  rotate: false
+  xy: 164, 0
+  size: 49, 44
+  orig: 49, 44
+  offset: 0, 0
+  index: -1
+zombie1_hold
+  rotate: false
+  xy: 608, 230
+  size: 35, 44
+  orig: 35, 44
+  offset: 0, 0
+  index: -1
+zombie1_machine
+  rotate: false
+  xy: 56, 458
+  size: 54, 44
+  orig: 54, 44
+  offset: 0, 0
+  index: -1
+zombie1_punch
+  rotate: false
+  xy: 607, 184
+  size: 35, 44
+  orig: 35, 44
+  offset: 0, 0
+  index: -1
+zombie1_reload
+  rotate: false
+  xy: 493, 368
+  size: 39, 44
+  orig: 39, 44
+  offset: 0, 0
+  index: -1
+zombie1_rocket
+  rotate: false
+  xy: 267, 276
+  size: 46, 44
+  orig: 46, 44
+  offset: 0, 0
+  index: -1
+zombie1_shotgun
+  rotate: false
+  xy: 362, 458
+  size: 45, 44
+  orig: 45, 44
+  offset: 0, 0
+  index: -1
+zombie1_silencer
+  rotate: false
+  xy: 113, 46
+  size: 49, 44
+  orig: 49, 44
+  offset: 0, 0
+  index: -1
+zombie1_stand
+  rotate: false
+  xy: 643, 91
+  size: 33, 44
+  orig: 33, 44
+  offset: 0, 0
+  index: -1
+zombie2_grenade
+  rotate: false
+  xy: 452, 368
+  size: 39, 44
+  orig: 39, 44
+  offset: 0, 0
+  index: -1
+zombie2_gun
+  rotate: false
+  xy: 113, 138
+  size: 49, 44
+  orig: 49, 44
+  offset: 0, 0
+  index: -1
+zombie2_hold
+  rotate: false
+  xy: 571, 276
+  size: 35, 44
+  orig: 35, 44
+  offset: 0, 0
+  index: -1
+zombie2_machine
+  rotate: false
+  xy: 0, 460
+  size: 54, 44
+  orig: 54, 44
+  offset: 0, 0
+  index: -1
+zombie2_punch
+  rotate: false
+  xy: 571, 230
+  size: 35, 44
+  orig: 35, 44
+  offset: 0, 0
+  index: -1
+zombie2_reload
+  rotate: false
+  xy: 491, 229
+  size: 39, 44
+  orig: 39, 44
+  offset: 0, 0
+  index: -1
+zombie2_rocket
+  rotate: false
+  xy: 315, 184
+  size: 46, 44
+  orig: 46, 44
+  offset: 0, 0
+  index: -1
+zombie2_shotgun
+  rotate: false
+  xy: 363, 184
+  size: 45, 44
+  orig: 45, 44
+  offset: 0, 0
+  index: -1
+zombie2_silencer
+  rotate: false
+  xy: 113, 0
+  size: 49, 44
+  orig: 49, 44
+  offset: 0, 0
+  index: -1
+zombie2_stand
+  rotate: false
+  xy: 608, 46
+  size: 33, 44
+  orig: 33, 44
+  offset: 0, 0
+  index: -1

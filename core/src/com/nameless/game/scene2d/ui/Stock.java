@@ -1,6 +1,8 @@
 package com.nameless.game.scene2d.ui;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -14,18 +16,23 @@ public class Stock extends Table {
 
     private ImageButton pistolButton, uziButton, shotgunButton, grenadeButton, rocketButton;
 
+    private ShapeRenderer shaper;
+
+    private int SIZE_ICONS = 75;
+
     public Stock(MainGame game) {
+        shaper = new ShapeRenderer();
 
         buildButtons(game);
 
         setFillParent(true);
         pad(Constants.STAGE_PADDING);
         align(Align.bottom);
-        add(pistolButton).size(75,75);
-        add(uziButton).size(75,75);
-        add(shotgunButton).size(75,75);
-        add(grenadeButton).size(75,75);
-        add(rocketButton).size(75,75);
+        add(pistolButton).size(SIZE_ICONS);
+        add(uziButton).size(SIZE_ICONS);
+        add(shotgunButton).size(SIZE_ICONS);
+        add(grenadeButton).size(SIZE_ICONS);
+        add(rocketButton).size(SIZE_ICONS);
         EnableWeapon(VirtualController.ACTUAL_WEAPON);
     }
 
@@ -103,6 +110,34 @@ public class Stock extends Table {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
+        batch.end();
+
+        shaper.setProjectionMatrix(batch.getProjectionMatrix());
+
+        shaper.begin(ShapeRenderer.ShapeType.Line);
+        shaper.setColor(Color.WHITE);
+
+        switch (VirtualController.ACTUAL_WEAPON){
+            case Weapons.ROCKET:
+                shaper.box(rocketButton.getX(), rocketButton.getY(), 0, SIZE_ICONS,SIZE_ICONS,0);
+                break;
+            case Weapons.GRENADE:
+                shaper.box(grenadeButton.getX(), grenadeButton.getY(), 0, SIZE_ICONS,SIZE_ICONS,0);
+                break;
+            case Weapons.SHOTGUN:
+                shaper.box(shotgunButton.getX(), shotgunButton.getY(), 0, SIZE_ICONS,SIZE_ICONS,0);
+                break;
+            case Weapons.UZI:
+                shaper.box(uziButton.getX(), uziButton.getY(), 0, SIZE_ICONS,SIZE_ICONS,0);
+                break;
+            case Weapons.PISTOL:
+                shaper.box(pistolButton.getX(), pistolButton.getY(), 0, SIZE_ICONS,SIZE_ICONS,0);
+                break;
+            default:
+        }
+        shaper.end();
+
+        batch.begin();
     }
 
     @Override

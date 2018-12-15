@@ -76,11 +76,6 @@ public class UziBullet extends BasicBullet {
         shaper.begin(ShapeRenderer.ShapeType.Line);
         shaper.line(p1,p2);
         shaper.end();
-//
-//        shaper.begin(ShapeRenderer.ShapeType.Filled);
-//        shaper.setColor(Color.SCARLET);
-//        shaper.circle(p3.x, p3.y, 1, 50);
-//        shaper.end();
 
         batch.begin();
     }
