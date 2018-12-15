@@ -1,5 +1,6 @@
 package com.nameless.game.screens;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
@@ -21,6 +22,8 @@ import com.nameless.game.maps.BasicMap;
 import com.nameless.game.maps.TownMap;
 import com.nameless.game.pathfinding.PathfindingDebugger;
 import com.nameless.game.scene2d.ui.Hud;
+import com.nameless.game.scene2d.ui.HudMobile;
+import com.nameless.game.scene2d.ui.HudPC;
 
 import static com.nameless.game.Constants.PixelsPerMeter;
 
@@ -80,7 +83,17 @@ public class Play extends BasicScreen{
 
     @Override
     public void setUpInterface(Table table) {
-        hud = new Hud(game, controller, this);
+        switch(Gdx.app.getType()) {
+            case Android:
+            case iOS:
+                hud = new HudMobile(game, controller, this);
+                break;
+            case Desktop:
+            case WebGL:
+            case HeadlessDesktop:
+            default:
+                hud = new HudPC(game, controller, this);
+        }
         ((ScreenViewport) viewport).setUnitsPerPixel(1/(PixelsPerMeter*2));
 
         fg.addActor(player);
@@ -88,7 +101,7 @@ public class Play extends BasicScreen{
         stage.addActor(fg);
 
         inputMulti.addProcessor(hud.hud);
-        inputMulti.addProcessor(hud);
+        if(hud instanceof HudPC) inputMulti.addProcessor((HudPC) hud);
         Gdx.input.setInputProcessor(inputMulti);
 
         viewport.setWorldSize(viewport.getWorldWidth()/PixelsPerMeter, viewport.getWorldHeight()/PixelsPerMeter);

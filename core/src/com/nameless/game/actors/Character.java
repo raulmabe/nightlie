@@ -11,6 +11,7 @@ import com.nameless.game.actors.states.IState;
 import com.nameless.game.actors.states.InjuredState;
 
 public class Character extends Actor {
+    public float INI_SPEED;
     public float SPEED;
     public float HEALTH;
 
@@ -25,6 +26,7 @@ public class Character extends Actor {
 
     public Character(World world,float SPEED, float HEALTH) {
         this.world = world;
+        this.INI_SPEED = SPEED;
         this.SPEED = SPEED;
         this.HEALTH = HEALTH;
 

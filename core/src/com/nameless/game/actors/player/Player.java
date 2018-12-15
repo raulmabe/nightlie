@@ -41,7 +41,7 @@ public class Player extends Character {
     private WeaponInfo weaponInfo;
 
     public Player(Play play, RayHandler rayHandler, World world, float x, float y) {
-        super(world, 300 * (43/Constants.PixelsPerMeter), 999999999);
+        super(world, 300, 999999999);
         this.play = play;
         MAX_HEALTH = HEALTH;
 

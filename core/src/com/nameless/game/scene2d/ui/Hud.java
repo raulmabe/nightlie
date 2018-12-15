@@ -30,7 +30,7 @@ import com.nameless.game.screens.Play;
  * Created by Raul on 17/06/2017.
  */
 
-public class Hud extends Group implements InputProcessor {
+public class Hud extends Group{
 
     public Stage hud;
     private Viewport viewport;
@@ -40,11 +40,9 @@ public class Hud extends Group implements InputProcessor {
 
     private final Table table;
 
-    private Touchpad touchpad, touchpad2;
-
     private MainGame game;
-    private VirtualController controller;
-    private Play playScreen;
+    protected VirtualController controller;
+    protected Play playScreen;
 
     public Label timeToNextSpawn;
     public Label timeHour;
@@ -85,20 +83,8 @@ public class Hud extends Group implements InputProcessor {
         });
         hud.addActor(quit);
 
-
-
-        touchpad = new Touchpad(10, game.getSkin());
-        touchpad.setBounds(35, 15, 300, 300);
-        touchpad.setColor(touchpad.getColor().r, touchpad.getColor().g, touchpad.getColor().b, 1);
-        hud.addActor(touchpad);
-
         Stock stock = new Stock(game);
         hud.addActor(stock);
-
-        touchpad2 = new Touchpad(10, game.getSkin());
-        touchpad2.setBounds(hud.getViewport().getWorldWidth() - 300 - 35, 15, 300, 300);
-        touchpad2.setColor(touchpad2.getColor().r, touchpad2.getColor().g, touchpad2.getColor().b, 1);
-        hud.addActor(touchpad2);
     }
 
     private ConfirmDialog askQuit() {
@@ -131,18 +117,6 @@ public class Hud extends Group implements InputProcessor {
         camera.update();
         hud.act(dt);
         hud.draw();
-
-        if(touchpad.isTouched()) touchpad.setColor(touchpad.getColor().r, touchpad.getColor().g, touchpad.getColor().b, 1);
-        else touchpad.setColor(touchpad.getColor().r, touchpad.getColor().g, touchpad.getColor().b, 0);
-
-        if(touchpad2.isTouched()) touchpad2.setColor(touchpad2.getColor().r, touchpad2.getColor().g, touchpad2.getColor().b, 1);
-        else touchpad2.setColor(touchpad2.getColor().r, touchpad2.getColor().g, touchpad2.getColor().b, 0);
-
-        controller.MovePercentX = touchpad.getKnobPercentX();
-        controller.MovePercentY = touchpad.getKnobPercentY();
-
-        controller.TurnPercentX = touchpad2.getKnobPercentX();
-        controller.TurnPercentY = touchpad2.getKnobPercentY();
     }
 
     public void dispose(){
@@ -153,47 +127,4 @@ public class Hud extends Group implements InputProcessor {
         hud.getViewport().update(width,height);
     }
 
-    @Override
-    public boolean keyDown(int keycode) {
-        if(keycode == Input.Keys.SPACE) controller.shoot = true;
-        return true;
-    }
-
-    @Override
-    public boolean keyUp(int keycode) {
-        if(keycode == Input.Keys.SPACE) controller.shoot = false;
-        if(keycode == Input.Keys.F) {
-            if(controller.Light_on) controller.Light_on = false;
-            else controller.Light_on = true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {return false;}
-
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
-
-    @Override
-    public boolean scrolled(int amount) {
-        return false;
-    }
 }

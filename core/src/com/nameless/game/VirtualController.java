@@ -3,6 +3,8 @@ package com.nameless.game;
 
 public class VirtualController {
 
+    public boolean mouseMoving = false;
+
     public boolean shoot = false;
     public long lastTimeShot = 0;
 

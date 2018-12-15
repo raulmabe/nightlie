@@ -45,10 +45,10 @@ public class DefaultPlayerState implements IState {
         touchpad2.set(parent.play.controller.TurnPercentX, parent.play.controller.TurnPercentY);
 
         if(touchpad2.angle() != 0) parent.setRotation(touchpad2.angle());
-        else if(touchpad.angle() != 0) parent.setRotation(touchpad.angle());
+        else if(!touchpad.isZero() && !parent.play.controller.mouseMoving) parent.setRotation(touchpad.angle());
 
-        if(touchpad2.angle() != 0 && touchpad.angle() != 0) parent.SPEED *= .5f;
-        else parent.SPEED = 300;
+        if(parent.play.controller.shoot) parent.SPEED = parent.INI_SPEED * .66f;
+        else parent.SPEED = parent.INI_SPEED;
 
         // Shoot
         if(!touchpad2.isZero() || parent.play.controller.shoot && parent.weapons[VirtualController.ACTUAL_WEAPON] > 0) {
