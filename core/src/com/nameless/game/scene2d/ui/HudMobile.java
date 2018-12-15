@@ -9,8 +9,8 @@ public class HudMobile extends Hud {
 
     private Touchpad touchpad, touchpad2;
 
-    public HudMobile(MainGame game, VirtualController controller, Play playScreen) {
-        super(game, controller, playScreen);
+    public HudMobile(MainGame game, Play playScreen) {
+        super(game, playScreen);
 
         touchpad2 = new Touchpad(10, game.getSkin());
         touchpad2.setBounds(hud.getViewport().getWorldWidth() - 300 - 35, 15, 300, 300);
@@ -32,5 +32,6 @@ public class HudMobile extends Hud {
 
         controller.TurnPercentX = touchpad2.getKnobPercentX();
         controller.TurnPercentY = touchpad2.getKnobPercentY();
+        controller.shoot = (touchpad2.getKnobPercentX() != 0 || touchpad2.getKnobPercentY() != 0);
     }
 }

@@ -60,11 +60,11 @@ public class Character extends Actor {
     }
 
     public float getCenterX(){
-        return getX()+(getWidth()/2);
+        return getX()+getOriginX();
     }
 
     public float getCenterY(){
-        return getY()+(getHeight()/2);
+        return getY()+getOriginY();
     }
 
     public float getHEALTH() {

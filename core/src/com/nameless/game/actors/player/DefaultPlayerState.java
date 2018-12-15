@@ -44,14 +44,14 @@ public class DefaultPlayerState implements IState {
         touchpad.set(parent.play.controller.MovePercentX, parent.play.controller.MovePercentY);
         touchpad2.set(parent.play.controller.TurnPercentX, parent.play.controller.TurnPercentY);
 
-        if(touchpad2.angle() != 0) parent.setRotation(touchpad2.angle());
-        else if(!touchpad.isZero() && !parent.play.controller.mouseMoving) parent.setRotation(touchpad.angle());
+        if(!touchpad2.isZero()) parent.setRotation(touchpad2.angle());
+        else if(!touchpad.isZero()) parent.setRotation(touchpad.angle());
 
         if(parent.play.controller.shoot) parent.SPEED = parent.INI_SPEED * .66f;
         else parent.SPEED = parent.INI_SPEED;
 
         // Shoot
-        if(!touchpad2.isZero() || parent.play.controller.shoot && parent.weapons[VirtualController.ACTUAL_WEAPON] > 0) {
+        if(parent.play.controller.shoot && parent.weapons[VirtualController.ACTUAL_WEAPON] > 0) {
             Vector2 MuzzlePosAux = MathStatic.RotateVector2(parent.MuzzlePos, parent.getRotation(), aux.set(parent.getCenterX(), parent.getCenterY()));
             switch (VirtualController.ACTUAL_WEAPON){
                 case Weapons.ROCKET:

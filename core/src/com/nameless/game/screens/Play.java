@@ -63,7 +63,7 @@ public class Play extends BasicScreen{
 
         Vector2 PlayerPos = map.getPositionPlayer();
 
-        controller = new VirtualController();
+        controller = VirtualController.getInstance();
 
         player = new Player(this,map.rayHandler, map.world, PlayerPos.x, PlayerPos.y);
         FlowFieldManager.calcDistanceForEveryNode(player.getCenterX(), player.getCenterY());
@@ -86,13 +86,13 @@ public class Play extends BasicScreen{
         switch(Gdx.app.getType()) {
             case Android:
             case iOS:
-                hud = new HudMobile(game, controller, this);
+                hud = new HudMobile(game, this);
                 break;
             case Desktop:
             case WebGL:
             case HeadlessDesktop:
             default:
-                hud = new HudPC(game, controller, this);
+                hud = new HudPC(game, this);
         }
         ((ScreenViewport) viewport).setUnitsPerPixel(1/(PixelsPerMeter*2));
 

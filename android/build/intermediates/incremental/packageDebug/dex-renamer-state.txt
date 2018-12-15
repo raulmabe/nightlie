@@ -1,7 +1,7 @@
-#Sat Dec 15 16:41:59 CET 2018
-base.0=/Users/raulmateobeneyto/Documents/nightlie/android/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_fa449c4a45463e00b389f5b7791076d34c4b3c75
+#Sat Dec 15 18:53:14 CET 2018
+base.0=/Users/raulmateobeneyto/Documents/nightlie/android/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_c34eee9abc2aeea57bcf8bfca92d451a08d9f33b
 renamed.1=classes.dex
 renamed.0=classes2.dex
-file.1=/Users/raulmateobeneyto/Documents/nightlie/android/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_c34eee9abc2aeea57bcf8bfca92d451a08d9f33b/classes.dex
-base.1=/Users/raulmateobeneyto/Documents/nightlie/android/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_c34eee9abc2aeea57bcf8bfca92d451a08d9f33b
-file.0=/Users/raulmateobeneyto/Documents/nightlie/android/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_fa449c4a45463e00b389f5b7791076d34c4b3c75/classes.dex
+file.1=/Users/raulmateobeneyto/Documents/nightlie/android/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_fa449c4a45463e00b389f5b7791076d34c4b3c75/classes.dex
+base.1=/Users/raulmateobeneyto/Documents/nightlie/android/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_fa449c4a45463e00b389f5b7791076d34c4b3c75
+file.0=/Users/raulmateobeneyto/Documents/nightlie/android/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_c34eee9abc2aeea57bcf8bfca92d451a08d9f33b/classes.dex

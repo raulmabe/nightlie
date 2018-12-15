@@ -3,6 +3,7 @@ package com.nameless.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
+import com.nameless.game.maps.LevelManager;
 
 public class Constants {
 

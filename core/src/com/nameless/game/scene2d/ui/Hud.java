@@ -47,10 +47,11 @@ public class Hud extends Group{
     public Label timeToNextSpawn;
     public Label timeHour;
 
-    public Hud(final MainGame game, final VirtualController controller, Play playScreen) {
+    public Hud(final MainGame game, Play playScreen) {
         this.game = game;
-        this.controller = controller;
         this.playScreen = playScreen;
+
+        controller = VirtualController.getInstance();
 
         camera = new OrthographicCamera();
         viewport = new ScreenViewport(camera);

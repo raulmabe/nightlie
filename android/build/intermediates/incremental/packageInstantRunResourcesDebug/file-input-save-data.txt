@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Sat Dec 15 16:41:49 CET 2018
+#Sat Dec 15 18:53:02 CET 2018
 25.file=/Users/raulmateobeneyto/Documents/nightlie/android/build/intermediates/assets/debug/fonts/normal.fnt
 41.base=/Users/raulmateobeneyto/Documents/nightlie/android/build/intermediates/assets/debug
 25.base=/Users/raulmateobeneyto/Documents/nightlie/android/build/intermediates/assets/debug

@@ -3,7 +3,8 @@ package com.nameless.game;
 
 public class VirtualController {
 
-    public boolean mouseMoving = false;
+    // static variable single_instance of type Singleton
+    private static VirtualController single_instance = null;
 
     public boolean shoot = false;
     public long lastTimeShot = 0;
@@ -20,4 +21,13 @@ public class VirtualController {
     public float CamY = 0;
 
     public static int ACTUAL_WEAPON = 5;
+
+    // static method to create instance of Singleton class
+    public static VirtualController getInstance()
+    {
+        if (single_instance == null)
+            single_instance = new VirtualController();
+
+        return single_instance;
+    }
 }
