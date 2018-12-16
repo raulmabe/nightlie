@@ -42,7 +42,6 @@ public abstract class BasicMap {
 
 
     public RayHandler rayHandler = null;
-    private DayNightCycleManager dayNightCycleManager;
     private ArrayList<PointLight> lights;
 
     public World world;
@@ -75,7 +74,6 @@ public abstract class BasicMap {
         worldRenderer = new Box2DDebugRenderer();
 
         rayHandler = new RayHandler(world);
-        dayNightCycleManager = new DayNightCycleManager();
         rayHandler.setAmbientLight(DayNightCycleManager.dayTime);
         lights = new ArrayList<PointLight>();
     }
@@ -132,6 +130,9 @@ public abstract class BasicMap {
     }
 
     public void dispose (){
+        for (PointLight light: lights) {
+            light.dispose();
+        }
         tiledmap.dispose();
         tiledMapRenderer.dispose();
         world.dispose();

@@ -40,8 +40,11 @@ public class Player extends Character {
     private HealthBar healthbar;
     private WeaponInfo weaponInfo;
 
+    public RayHandler rayHandler;
+
     public Player(Play play, RayHandler rayHandler, World world, float x, float y) {
         super(world, 300, 999999999);
+        this.rayHandler = rayHandler;
         this.play = play;
         MAX_HEALTH = HEALTH;
 

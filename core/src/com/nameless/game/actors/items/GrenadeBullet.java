@@ -1,5 +1,7 @@
 package com.nameless.game.actors.items;
 
+import box2dLight.PointLight;
+import box2dLight.RayHandler;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -38,9 +40,13 @@ public class GrenadeBullet extends BasicBullet {
 
     private float time = TimeUtils.nanoTime();
 
-    public GrenadeBullet(Play play, World world, float x, float y, float angle) {
+    private PointLight light;
+    private RayHandler rayHandler;
+
+    public GrenadeBullet(Play play, RayHandler rayHandler, World world, float x, float y, float angle) {
         super( Weapons.GRENADE_DAMAGE,3,.25f, .25f);
         this.world = world;
+        this.rayHandler = rayHandler;
 
         setRotation(angle);
         setPosition(x,y);
@@ -129,7 +135,10 @@ public class GrenadeBullet extends BasicBullet {
         } else{ // currentState == Explosion
             stateTime += delta;
             region = explodeAnim.getKeyFrame(stateTime, false);
-            if(explodeAnim.isAnimationFinished(stateTime)) dispose();
+            if(explodeAnim.isAnimationFinished(stateTime)) {
+                light.remove();
+                dispose();
+            }
         }
     }
 
@@ -137,6 +146,11 @@ public class GrenadeBullet extends BasicBullet {
         currentState = EXPLOSION;
         setSize(region.getRegionWidth()*2/Constants.PixelsPerMeter, region.getRegionHeight()*2/Constants.PixelsPerMeter);
         world.destroyBody(body);
+
+        light = new PointLight(rayHandler, 20, new Color(1f,.8f,.5f,.65f), 10, getX(),getY());
+        light.setSoftnessLength(0f);
+        light.setActive(true);
+        light.setContactFilter(Constants.LOW_FURNITURES_BIT, (short) 0x0000, (short) (Constants.OBSTACLES_BIT));
 
 
         // Raycast

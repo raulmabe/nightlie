@@ -40,7 +40,6 @@ public class MainGame extends Game {
 		// Create Preferences
 		prefs = Gdx.app.getPreferences("nameless");
 		Constants.character = prefs.getString("skin","manBlue");
-		DayNightCycleManager.dayTime = prefs.getFloat("dayTime", 1f);
 
 		// Load first screen
 		setScreen(new Loading(this));
@@ -123,7 +122,6 @@ public class MainGame extends Game {
 		manager.dispose();
 		skin.dispose();
 		prefs.putString("skin",Constants.character);
-		prefs.putFloat("dayTime", DayNightCycleManager.dayTime);
 		prefs.flush();
 	}
 

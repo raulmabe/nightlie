@@ -64,7 +64,7 @@ public class DefaultPlayerState implements IState {
                     break;
                 case Weapons.GRENADE:
                     if(System.currentTimeMillis() - parent.play.controller.lastTimeShot > Weapons.GRENADE_DELAY){
-                        GrenadeBullet bullet = new GrenadeBullet(parent.play, parent.world, MuzzlePosAux.x,MuzzlePosAux.y, parent.getRotation());
+                        GrenadeBullet bullet = new GrenadeBullet(parent.play, parent.rayHandler,parent.world, MuzzlePosAux.x,MuzzlePosAux.y, parent.getRotation());
                         parent.play.bg.addActor(bullet);
                         parent.weapons[VirtualController.ACTUAL_WEAPON]--;
                         if(parent.weapons[VirtualController.ACTUAL_WEAPON] == 0) parent.region = parent.atlas.findRegion(Constants.character + "_punch");
