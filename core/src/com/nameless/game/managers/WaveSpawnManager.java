@@ -1,8 +1,6 @@
 package com.nameless.game.managers;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.Timer;
 import com.nameless.game.Constants;
@@ -18,10 +16,6 @@ import java.util.ArrayList;
 public class WaveSpawnManager implements IObserver, ISubject{
     private ArrayList<IObserver> observers;
     public final float TIME_BETWEEN_WAVES = 2000000000;
-    public final float TIME_BETWEEN_ZOMBIES_PATH_REQUEST = 200000000;
-
-    private float timeBetweenPathRequest;
-    private int index;
 
     public ArrayList<Zombie> zombies;
 
@@ -29,53 +23,38 @@ public class WaveSpawnManager implements IObserver, ISubject{
 
     private float timeToNextSpawn;
     private int round;
+    private boolean alreadyFinnished = false;
 
     public WaveSpawnManager(Play parent) {
         this.parent = parent;
         observers = new ArrayList<IObserver>();
         zombies = new ArrayList<Zombie>();
-        timeBetweenPathRequest= TimeUtils.nanoTime();
         timeToNextSpawn= TimeUtils.nanoTime();
         round = 0;
     }
 
     public void update(float delta){
-        if(parent.state == parent.GAME_RUNNING && zombies.size() != 0 &&
-                TimeUtils.nanoTime() - timeBetweenPathRequest > TIME_BETWEEN_ZOMBIES_PATH_REQUEST) {
-            zombieSearchPath();
-        }
-
         if(parent.state != parent.GAME_WAITING)
             timeToNextSpawn = TimeUtils.nanoTime();
 
 
-        if(zombies.size() == 0 && parent.state != parent.GAME_WAITING ){
+        if(zombies.isEmpty() && parent.state != parent.GAME_WAITING ){
             parent.state = parent.GAME_WAITING;
-            timeBetweenPathRequest = TimeUtils.nanoTime();
         }
+
         if(parent.state == parent.GAME_WAITING){
-            if(TimeUtils.nanoTime() - timeToNextSpawn > TIME_BETWEEN_WAVES){
-                round++;
+            if(TimeUtils.nanoTime() - timeToNextSpawn > TIME_BETWEEN_WAVES*2)
                 WaveSpawn();
-            } else{
-                // Time to next round
-                //parent.hud.timeToNextSpawn.setText(""+ (2 - (MathUtils.nanoToSec * (TimeUtils.nanoTime() - timeToNextSpawn))));
 
-                // Round number
-                //parent.hud.timeToNextSpawn.setText("" + round);
-            }
         }
-    }
-
-    private void zombieSearchPath() {
-        index++;
-        if(index >= zombies.size()) index = 0;
-
-        zombies.get(index).setCanRequestPath(true);
     }
 
     private void WaveSpawn(){
-        sendMessage(false);
+        round++;
+        alreadyFinnished = false;
+        sendMessage(type.ROUND_START);
+
+        parent.state = parent.GAME_RUNNING;
 
         final float[] delay = {MathUtils.random(.1f, 1f)}; // seconds
 
@@ -99,10 +78,9 @@ public class WaveSpawnManager implements IObserver, ISubject{
                 zombie.attach(WaveSpawnManager.this);
                 parent.fg.addActor(zombie);
                 delay[0] = MathUtils.random(.1f, 1f); // seconds
+                System.out.println("Zombies: " + zombies.size());
             }
-        }, delay[0], delay[0], (round*2 + 10));
-
-        parent.state = parent.GAME_RUNNING;
+        }, 0, delay[0], (round*2 + 20));
     }
 
 
@@ -118,8 +96,10 @@ public class WaveSpawnManager implements IObserver, ISubject{
     public void handleMessage(Object obj, ISubject.type type) {
         if(type == ISubject.type.ZOMBIE_DEAD){
             zombies.remove(obj);
-            if(zombies.size() < 11)
-                sendMessage(true);
+            if(zombies.size() < 11 && !alreadyFinnished){
+                sendMessage(ISubject.type.ROUND_FINNISH);
+                alreadyFinnished = true;
+            }
         }
     }
 
@@ -133,14 +113,9 @@ public class WaveSpawnManager implements IObserver, ISubject{
         observers.remove(o);
     }
 
-    @Override
-    public void sendMessage() {
-        System.out.println("WaveSpawner: WTF");
-    }
-
-    private void sendMessage(boolean day) {
+    private void sendMessage(ISubject.type type) {
         for (IObserver o : observers) {
-            o.handleMessage(day, ISubject.type.ALARM_DIA);
+            o.handleMessage(round, type);
         }
     }
 }

@@ -49,13 +49,12 @@ public class AStarState implements IState, Pather<Node>{
 
         if(zombie.target != null){
 
-            if (zombie.getCanRequestPath() && !isRequested && targetHasMoved() && TimeUtils.nanoTime() - lastRequestTime > 1000000000/2) {
+            if (!isRequested && targetHasMoved() && TimeUtils.nanoTime() - lastRequestTime > 1000000000/2) {
                 RequestPath();
             }
 
             if(resultPath != null){
-                zombie.setCanRequestPath(false);
-                PathfindingDebugger.drawPath(resultPath);
+                //PathfindingDebugger.drawPath(resultPath);
                 FollowRequestedPath();
             } else GoToTarget();
         }

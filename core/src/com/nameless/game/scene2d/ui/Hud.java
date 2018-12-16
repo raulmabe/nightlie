@@ -4,9 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
@@ -14,13 +16,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.nameless.game.Constants;
-import com.nameless.game.MainGame;
-import com.nameless.game.VirtualController;
-import com.nameless.game.Weapons;
+import com.nameless.game.*;
 import com.nameless.game.actors.player.Player;
 import com.nameless.game.flowfield.FlowFieldManager;
 import com.nameless.game.screens.Menu;
@@ -30,7 +30,7 @@ import com.nameless.game.screens.Play;
  * Created by Raul on 17/06/2017.
  */
 
-public class Hud extends Group{
+public class Hud extends Group implements IObserver {
 
     public Stage hud;
     private Viewport viewport;
@@ -47,6 +47,8 @@ public class Hud extends Group{
     public Label timeToNextSpawn;
     public Label timeHour;
 
+    private Label roundStart;
+
     public Hud(final MainGame game, Play playScreen) {
         this.game = game;
         this.playScreen = playScreen;
@@ -57,6 +59,12 @@ public class Hud extends Group{
         viewport = new ScreenViewport(camera);
         ((ScreenViewport) viewport).setUnitsPerPixel(0.5f);
         hud = new Stage(viewport, game.getBatch());
+
+        roundStart = new Label("null", game.getSkin());
+        roundStart.setPosition(hud.getViewport().getWorldWidth()/2 - roundStart.getWidth()/2,
+                hud.getViewport().getWorldHeight()/1.5f - roundStart.getHeight()/2);
+        roundStart.setFontScale(1.5f);
+        roundStart.setAlignment(Align.center);
 
         timeToNextSpawn = new Label("Time", game.getSkin());
         timeToNextSpawn.setPosition(hud.getViewport().getWorldWidth()/2 - timeToNextSpawn.getWidth()/2,hud.getViewport().getWorldHeight() - 60);
@@ -128,4 +136,24 @@ public class Hud extends Group{
         hud.getViewport().update(width,height);
     }
 
+    @Override
+    public void handleMessage(Object o, ISubject.type type) {
+        if(type == ISubject.type.ROUND_START){
+            hud.addActor(roundStart);
+
+            roundStart.setText("Night " + o);
+
+            roundStart.setPosition(hud.getViewport().getWorldWidth()/2 - roundStart.getWidth()/2,
+                    hud.getViewport().getWorldHeight());
+            roundStart.addAction(Actions.moveTo(hud.getViewport().getWorldWidth()/2 - roundStart.getWidth()/2,
+                    hud.getViewport().getWorldHeight()/1.5f - roundStart.getHeight()/2, .5f));
+
+            Timer.schedule(new Timer.Task(){
+                @Override
+                public void run() {
+                    roundStart.remove();
+                }
+            }, 3.5f);
+        }
+    }
 }

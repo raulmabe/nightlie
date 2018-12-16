@@ -5,11 +5,11 @@ import com.nameless.game.MainGame;
 import com.nameless.game.VirtualController;
 import com.nameless.game.screens.Play;
 
-public class HudMobile extends Hud {
+public class HudMobileInput extends Hud {
 
     private Touchpad touchpad, touchpad2;
 
-    public HudMobile(MainGame game, Play playScreen) {
+    public HudMobileInput(MainGame game, Play playScreen) {
         super(game, playScreen);
 
         touchpad2 = new Touchpad(10, game.getSkin());

@@ -56,10 +56,8 @@ public class DayNightCycleManager implements IObserver{
 
     @Override
     public void handleMessage(Object o, ISubject.type type) {
-        if(type == ISubject.type.ALARM_DIA){
-            if((Boolean) o) makeSunrise();
-            else makeSunset();
-        }
+        if(type == ISubject.type.ROUND_FINNISH) makeSunrise();
+        else if(type == ISubject.type.ROUND_START) makeSunset();
     }
 
     // static method to create instance of Singleton class

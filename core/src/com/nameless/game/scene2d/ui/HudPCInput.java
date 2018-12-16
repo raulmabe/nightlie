@@ -9,8 +9,8 @@ import com.nameless.game.VirtualController;
 import com.nameless.game.screens.Play;
 import net.dermetfan.utils.math.MathUtils;
 
-public class HudPC extends Hud implements InputProcessor {
-    public HudPC(MainGame game, Play playScreen) {
+public class HudPCInput extends Hud implements InputProcessor {
+    public HudPCInput(MainGame game, Play playScreen) {
         super(game, playScreen);
     }
 

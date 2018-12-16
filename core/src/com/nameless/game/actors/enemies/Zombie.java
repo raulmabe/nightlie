@@ -45,8 +45,6 @@ public class Zombie extends Character implements Pool.Poolable, ISubject {
     public Texture attackSheet;
     public float stateTime;
 
-    private boolean canRequestPath;
-
     public int distance = -1;
 
 
@@ -74,7 +72,6 @@ public class Zombie extends Character implements Pool.Poolable, ISubject {
 
         setBox2d();
 
-        canRequestPath = false;
         setPosition(body.getPosition().x - getWidth()/2, body.getPosition().y - getHeight()/2);
         ChangeState(new FlowFieldState());
     }
@@ -140,12 +137,6 @@ public class Zombie extends Character implements Pool.Poolable, ISubject {
         HEALTH = 100;
     }
 
-    public void setCanRequestPath(boolean b){canRequestPath = b;}
-
-    public boolean getCanRequestPath() {
-        return canRequestPath;
-    }
-
     @Override
     public void attach(IObserver o) {
         observers.add(o);
@@ -156,7 +147,6 @@ public class Zombie extends Character implements Pool.Poolable, ISubject {
         observers.remove(o);
     }
 
-    @Override
     public void sendMessage() {
         for (IObserver obs : observers) {
             obs.handleMessage(this, type.ZOMBIE_DEAD);

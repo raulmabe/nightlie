@@ -1,6 +1,5 @@
 package com.nameless.game.screens;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
@@ -22,8 +21,8 @@ import com.nameless.game.maps.BasicMap;
 import com.nameless.game.maps.TownMap;
 import com.nameless.game.pathfinding.PathfindingDebugger;
 import com.nameless.game.scene2d.ui.Hud;
-import com.nameless.game.scene2d.ui.HudMobile;
-import com.nameless.game.scene2d.ui.HudPC;
+import com.nameless.game.scene2d.ui.HudMobileInput;
+import com.nameless.game.scene2d.ui.HudPCInput;
 
 import static com.nameless.game.Constants.PixelsPerMeter;
 
@@ -71,11 +70,6 @@ public class Play extends BasicScreen{
 
         PathfindingDebugger.setCamera(cam);
         FlowFieldDebugger.setCamera(cam);
-
-        waveSpawnManager = new WaveSpawnManager(this);
-        dayManager = DayNightCycleManager.getInstance();
-        waveSpawnManager.attach(dayManager);
-
     }
 
     @Override
@@ -89,14 +83,19 @@ public class Play extends BasicScreen{
         switch(Gdx.app.getType()) {
             case Android:
             case iOS:
-                hud = new HudMobile(game, this);
+                hud = new HudMobileInput(game, this);
                 break;
             case Desktop:
             case WebGL:
             case HeadlessDesktop:
             default:
-                hud = new HudPC(game, this);
+                hud = new HudPCInput(game, this);
         }
+        waveSpawnManager = new WaveSpawnManager(this);
+        dayManager = DayNightCycleManager.getInstance();
+        waveSpawnManager.attach(dayManager);
+        waveSpawnManager.attach(hud);
+
         ((ScreenViewport) viewport).setUnitsPerPixel(1/(PixelsPerMeter*2));
 
         fg.addActor(player);
@@ -104,7 +103,7 @@ public class Play extends BasicScreen{
         stage.addActor(fg);
 
         inputMulti.addProcessor(hud.hud);
-        if(hud instanceof HudPC) inputMulti.addProcessor((HudPC) hud);
+        if(hud instanceof HudPCInput) inputMulti.addProcessor((HudPCInput) hud);
         Gdx.input.setInputProcessor(inputMulti);
 
         viewport.setWorldSize(viewport.getWorldWidth()/PixelsPerMeter, viewport.getWorldHeight()/PixelsPerMeter);
