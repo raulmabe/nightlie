@@ -48,7 +48,8 @@ public class Play extends BasicScreen{
 
     private InputMultiplexer inputMulti;
 
-    public WaveSpawnManager waveSpawnManager;
+    private WaveSpawnManager waveSpawnManager;
+    private DayNightCycleManager dayManager;
 
     public Play(MainGame game) {
         super(game);
@@ -72,6 +73,8 @@ public class Play extends BasicScreen{
         FlowFieldDebugger.setCamera(cam);
 
         waveSpawnManager = new WaveSpawnManager(this);
+        dayManager = DayNightCycleManager.getInstance();
+        waveSpawnManager.attach(dayManager);
 
     }
 

@@ -6,6 +6,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.Timer;
 import com.nameless.game.Constants;
+import com.nameless.game.IObserver;
+import com.nameless.game.ISubject;
 import com.nameless.game.actors.enemies.Zombie;
 import com.nameless.game.maps.LevelManager;
 import com.nameless.game.pathfinding.Node;
@@ -13,7 +15,8 @@ import com.nameless.game.screens.Play;
 
 import java.util.ArrayList;
 
-public class WaveSpawnManager {
+public class WaveSpawnManager implements IObserver, ISubject{
+    private ArrayList<IObserver> observers;
     public final float TIME_BETWEEN_WAVES = 2000000000;
     public final float TIME_BETWEEN_ZOMBIES_PATH_REQUEST = 200000000;
 
@@ -29,6 +32,7 @@ public class WaveSpawnManager {
 
     public WaveSpawnManager(Play parent) {
         this.parent = parent;
+        observers = new ArrayList<IObserver>();
         zombies = new ArrayList<Zombie>();
         timeBetweenPathRequest= TimeUtils.nanoTime();
         timeToNextSpawn= TimeUtils.nanoTime();
@@ -71,6 +75,8 @@ public class WaveSpawnManager {
     }
 
     private void WaveSpawn(){
+        sendMessage(false);
+
         final float[] delay = {MathUtils.random(.1f, 1f)}; // seconds
 
         Timer.schedule(new Timer.Task(){
@@ -90,6 +96,7 @@ public class WaveSpawnManager {
 
                 Zombie zombie = new Zombie(parent, parent.map.world, parent.player,x,y);
                 zombies.add(zombie);
+                zombie.attach(WaveSpawnManager.this);
                 parent.fg.addActor(zombie);
                 delay[0] = MathUtils.random(.1f, 1f); // seconds
             }
@@ -105,5 +112,35 @@ public class WaveSpawnManager {
             zombies.get(i).remove();
         }
         zombies.clear();
+    }
+
+    @Override
+    public void handleMessage(Object obj, ISubject.type type) {
+        if(type == ISubject.type.ZOMBIE_DEAD){
+            zombies.remove(obj);
+            if(zombies.size() < 11)
+                sendMessage(true);
+        }
+    }
+
+    @Override
+    public void attach(IObserver o) {
+        if(!observers.contains(o)) observers.add(o);
+    }
+
+    @Override
+    public void dettach(IObserver o) {
+        observers.remove(o);
+    }
+
+    @Override
+    public void sendMessage() {
+        System.out.println("WaveSpawner: WTF");
+    }
+
+    private void sendMessage(boolean day) {
+        for (IObserver o : observers) {
+            o.handleMessage(day, ISubject.type.ALARM_DIA);
+        }
     }
 }

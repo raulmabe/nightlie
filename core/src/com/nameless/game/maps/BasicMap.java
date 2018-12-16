@@ -84,7 +84,7 @@ public abstract class BasicMap {
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
 
-        dayNightCycleManager.updateDayTime();
+        //dayNightCycleManager.updateDayTime();
         for(PointLight light : lights) light.setActive(DayNightCycleManager.lightsOpen);
         rayHandler.setAmbientLight(DayNightCycleManager.dayTime);
 
@@ -97,7 +97,7 @@ public abstract class BasicMap {
         tiledMapRenderer.setView(camera.combined, x, y, w, h);
         tiledMapRenderer.render();
 
-        dayNightCycleManager.updateDayTime();
+        //dayNightCycleManager.updateDayTime();
         for(PointLight light : lights) light.setActive(DayNightCycleManager.lightsOpen);
         rayHandler.setAmbientLight(DayNightCycleManager.dayTime);
 

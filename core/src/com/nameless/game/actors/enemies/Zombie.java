@@ -13,15 +13,21 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Pool;
 import com.nameless.game.Constants;
+import com.nameless.game.IObserver;
+import com.nameless.game.ISubject;
 import com.nameless.game.MathStatic;
 import com.nameless.game.actors.Blinker;
 import com.nameless.game.actors.Character;
 import com.nameless.game.actors.Loot;
 import com.nameless.game.screens.Play;
 
+import java.util.ArrayList;
+
 import static com.nameless.game.Constants.PixelsPerMeter;
 
-public class Zombie extends Character implements Pool.Poolable {
+public class Zombie extends Character implements Pool.Poolable, ISubject {
+    private ArrayList<IObserver> observers;
+
     public static final float RANGE = 1.5f;
 
     public final int Type = MathUtils.random(1,2);
@@ -48,6 +54,7 @@ public class Zombie extends Character implements Pool.Poolable {
         super(world, 100,100);
         this.play = play;
         this.target = target;
+        observers = new ArrayList<IObserver>();
 
         atlas = play.game.manager.get("players/characters.atlas");
         region = atlas.findRegion("zombie" + Type + "_hold");
@@ -116,7 +123,7 @@ public class Zombie extends Character implements Pool.Poolable {
         world.destroyBody(body);
         if (currentState != null) currentState.Exit();
         currentState = null;
-        play.waveSpawnManager.zombies.remove(this);
+        sendMessage();
         return super.remove();
     }
 
@@ -139,4 +146,20 @@ public class Zombie extends Character implements Pool.Poolable {
         return canRequestPath;
     }
 
+    @Override
+    public void attach(IObserver o) {
+        observers.add(o);
+    }
+
+    @Override
+    public void dettach(IObserver o) {
+        observers.remove(o);
+    }
+
+    @Override
+    public void sendMessage() {
+        for (IObserver obs : observers) {
+            obs.handleMessage(this, type.ZOMBIE_DEAD);
+        }
+    }
 }
