@@ -103,6 +103,7 @@ public class Hud extends Group implements IObserver {
             @Override
             public void ok() {
                 //Sonido
+                playScreen.clearScene();
                 game.setScreen(new Menu(game));
             }
 

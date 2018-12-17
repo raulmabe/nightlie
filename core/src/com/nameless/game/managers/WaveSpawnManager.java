@@ -15,7 +15,9 @@ import java.util.ArrayList;
 
 public class WaveSpawnManager implements IObserver, ISubject{
     private ArrayList<IObserver> observers;
-    public final float TIME_BETWEEN_WAVES = 2000000000;
+    private final float TIME_BETWEEN_WAVES = 2000000000;
+
+    private Timer timer;
 
     public ArrayList<Zombie> zombies;
 
@@ -31,6 +33,7 @@ public class WaveSpawnManager implements IObserver, ISubject{
         zombies = new ArrayList<Zombie>();
         timeToNextSpawn= TimeUtils.nanoTime();
         round = 0;
+        timer = new Timer();
     }
 
     public void update(float delta){
@@ -58,7 +61,9 @@ public class WaveSpawnManager implements IObserver, ISubject{
 
         final float[] delay = {MathUtils.random(.1f, 1f)}; // seconds
 
-        Timer.schedule(new Timer.Task(){
+        System.out.println("Round");
+
+        timer.scheduleTask(new Timer.Task(){
             @Override
             public void run() {
                 float ang = MathUtils.random() * 360;
@@ -81,15 +86,6 @@ public class WaveSpawnManager implements IObserver, ISubject{
                 System.out.println("Zombies: " + zombies.size());
             }
         }, 0, delay[0], (round*2 + 20));
-    }
-
-
-
-    public void clear(){
-        for (int i = 0; i < zombies.size(); ++i) {
-            zombies.get(i).remove();
-        }
-        zombies.clear();
     }
 
     @Override
@@ -117,5 +113,23 @@ public class WaveSpawnManager implements IObserver, ISubject{
         for (IObserver o : observers) {
             o.handleMessage(round, type);
         }
+    }
+
+    public void clearScene(){
+        timer.clear();
+        sendMessage(type.ROUND_FINNISH);
+
+        for (int i = 0; i < zombies.size(); ++i) {
+            zombies.get(i).remove();
+        }
+        zombies.clear();
+    }
+
+    public void pause() {
+        timer.stop();
+    }
+
+    public void resume(){
+        timer.start();
     }
 }

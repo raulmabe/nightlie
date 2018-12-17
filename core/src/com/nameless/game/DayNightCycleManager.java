@@ -56,6 +56,7 @@ public class DayNightCycleManager implements IObserver{
 
     @Override
     public void handleMessage(Object o, ISubject.type type) {
+        Timer.instance().clear();
         if(type == ISubject.type.ROUND_FINNISH) makeSunrise();
         else if(type == ISubject.type.ROUND_START) makeSunset();
     }
