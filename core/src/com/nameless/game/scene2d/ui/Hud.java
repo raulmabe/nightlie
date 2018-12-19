@@ -118,6 +118,7 @@ public class Hud extends Group implements IObserver {
     }
 
     public void pause(){
+        playScreen.state = playScreen.GAME_PAUSED;
         ConfirmDialog dialog = askQuit();
         table.add(dialog).expand().fillX().align(Align.center);
         hud.addActor(table);

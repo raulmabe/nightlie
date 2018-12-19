@@ -56,7 +56,7 @@ public class DefaultPlayerState implements IState {
             switch (VirtualController.ACTUAL_WEAPON){
                 case Weapons.ROCKET:
                     if(System.currentTimeMillis() - parent.play.controller.lastTimeShot > Weapons.ROCKET_DELAY){
-                        RocketBullet bullet = new RocketBullet(parent.play, parent.world, MuzzlePosAux.x, MuzzlePosAux.y, parent.getRotation());
+                        RocketBullet bullet = new RocketBullet(parent.play, parent.rayHandler, parent.world, MuzzlePosAux.x, MuzzlePosAux.y, parent.getRotation());
                         parent.play.bg.addActor(bullet);
                         parent.weapons[VirtualController.ACTUAL_WEAPON]--;
                         parent.play.controller.lastTimeShot = System.currentTimeMillis();

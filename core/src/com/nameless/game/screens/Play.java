@@ -114,8 +114,10 @@ public class Play extends BasicScreen{
     @Override
     public void pause() {
         super.pause();
-        waveSpawnManager.pause();
-        hud.pause();
+        if(state != GAME_PAUSED){
+            hud.pause();
+            waveSpawnManager.pause();
+        }
     }
 
     private void handleCamera(){

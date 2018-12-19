@@ -1,5 +1,7 @@
 package com.nameless.game.actors.items;
 
+import box2dLight.PointLight;
+import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -42,10 +44,14 @@ public class RocketBullet extends BasicBullet {
     public Vector2 p1, p2;
     private float angle;
 
-    public RocketBullet(Play play, World world, float x, float y, float angle) {
+    private PointLight light;
+    private RayHandler rayHandler;
+
+    public RocketBullet(Play play, RayHandler rayHandler, World world, float x, float y, float angle) {
         super(Weapons.ROCKET_DAMAGE,3,.25f, .25f);
         this.world = world;
         this.angle = angle;
+        this.rayHandler = rayHandler;
 
         shaper = new ShapeRenderer();
 
@@ -127,7 +133,10 @@ public class RocketBullet extends BasicBullet {
             case EXPLOSION:
                 stateTime += delta;
                 region = explodeAnim.getKeyFrame(stateTime, false);
-                if(explodeAnim.isAnimationFinished(stateTime)) dispose();
+                if(explodeAnim.isAnimationFinished(stateTime)) {
+                    light.remove();
+                    dispose();
+                }
                 break;
         }
         if(setToDestroy) explode();
@@ -140,6 +149,12 @@ public class RocketBullet extends BasicBullet {
         setSize(region.getRegionWidth()*2/Constants.PixelsPerMeter, region.getRegionHeight()*2/Constants.PixelsPerMeter);
         world.destroyBody(body);
         body = null;
+
+
+        light = new PointLight(rayHandler, 20, new Color(1f,.8f,.5f,.65f), 10, getX(),getY());
+        light.setSoftnessLength(0f);
+        light.setActive(true);
+        light.setContactFilter(Constants.LOW_FURNITURES_BIT, (short) 0x0000, (short) (Constants.OBSTACLES_BIT));
 
         // Raycast
         final Vector2 p1;

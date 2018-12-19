@@ -18,15 +18,31 @@ public class HudPCInput extends Hud implements InputProcessor {
     public boolean keyDown(int keycode) {
         if(keycode == Input.Keys.W){
             controller.MovePercentY = 1;
+            if(!controller.shoot){
+                controller.TurnPercentX = 0;
+                controller.TurnPercentY = 0;
+            }
         }
         if(keycode == Input.Keys.A){
             controller.MovePercentX = -1;
+            if(!controller.shoot){
+                controller.TurnPercentX = 0;
+                controller.TurnPercentY = 0;
+            }
         }
         if(keycode == Input.Keys.S){
             controller.MovePercentY = -1;
+            if(!controller.shoot){
+                controller.TurnPercentX = 0;
+                controller.TurnPercentY = 0;
+            }
         }
         if(keycode == Input.Keys.D){
             controller.MovePercentX = 1;
+            if(!controller.shoot){
+                controller.TurnPercentX = 0;
+                controller.TurnPercentY = 0;
+            }
         }
         return false;
     }
