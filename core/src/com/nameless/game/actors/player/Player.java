@@ -14,6 +14,7 @@ import com.nameless.game.actors.Character;
 import com.nameless.game.actors.items.Flashlight;
 import com.nameless.game.scene2d.ui.HealthBar;
 import com.nameless.game.scene2d.ui.WeaponInfo;
+import com.nameless.game.screens.BasicPlay;
 import com.nameless.game.screens.Menu;
 import com.nameless.game.screens.Play;
 
@@ -37,9 +38,6 @@ public class Player extends Character {
 
     public Vector2 MuzzlePos;
 
-    private HealthBar healthbar;
-    private WeaponInfo weaponInfo;
-
     public RayHandler rayHandler;
 
     public Player(Play play, RayHandler rayHandler, World world, float x, float y) {
@@ -56,7 +54,7 @@ public class Player extends Character {
         weapons[Weapons.GRENADE] = Weapons.GRENADE_CAPACITY;
         weapons[Weapons.ROCKET] = Weapons.ROCKET_CAPACITY;
 
-        atlas = play.game.manager.get("players/sprites.atlas");
+        atlas = MainGame.manager.get("players/sprites.atlas");
         switch (VirtualController.ACTUAL_WEAPON){
             case Weapons.ROCKET:
                 region = atlas.findRegion(Constants.character + "_rocket");
@@ -92,8 +90,8 @@ public class Player extends Character {
         currentState = new DefaultPlayerState();
         currentState.Enter(this);
 
-        healthbar = new HealthBar(this);
-        weaponInfo = new WeaponInfo(this);
+        HealthBar healthbar = new HealthBar(this);
+        WeaponInfo weaponInfo = new WeaponInfo(this);
         play.mapHud.addActor(healthbar);
         play.mapHud.addActor(weaponInfo);
 

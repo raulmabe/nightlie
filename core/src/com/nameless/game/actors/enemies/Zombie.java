@@ -12,10 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Pool;
-import com.nameless.game.Constants;
-import com.nameless.game.IObserver;
-import com.nameless.game.ISubject;
-import com.nameless.game.MathStatic;
+import com.nameless.game.*;
 import com.nameless.game.actors.Blinker;
 import com.nameless.game.actors.Character;
 import com.nameless.game.actors.Loot;
@@ -32,8 +29,6 @@ public class Zombie extends Character implements Pool.Poolable, ISubject {
 
     public final int Type = MathUtils.random(1,2);
 
-    private Play play;
-
     public TextureAtlas atlas;
     public TextureRegion region = null;
 
@@ -47,6 +42,8 @@ public class Zombie extends Character implements Pool.Poolable, ISubject {
 
     public int distance = -1;
 
+    private Play play;
+
 
     public Zombie(Play play, World world, Actor target, float x, float y) {
         super(world, 100,100);
@@ -54,10 +51,10 @@ public class Zombie extends Character implements Pool.Poolable, ISubject {
         this.target = target;
         observers = new ArrayList<IObserver>();
 
-        atlas = play.game.manager.get("players/characters.atlas");
+        atlas = MainGame.manager.get("players/characters.atlas");
         region = atlas.findRegion("zombie" + Type + "_hold");
         // Attack animation
-        attackSheet = play.game.manager.get("players/anim/zombie" + Type + "_attack.png");
+        attackSheet = MainGame.manager.get("players/anim/zombie" + Type + "_attack.png");
         TextureRegion[][] tmp = TextureRegion.split(attackSheet, attackSheet.getWidth()/3,
                 attackSheet.getHeight());
         TextureRegion[] attackFrames = new TextureRegion[3];
@@ -114,7 +111,7 @@ public class Zombie extends Character implements Pool.Poolable, ISubject {
     @Override
     public boolean remove() {
         if(MathUtils.randomBoolean( .15f)){
-            Loot loot = new Loot(play.game,world, getX(), getY());
+            Loot loot = new Loot(world, getX(), getY());
             play.bg.addActor(loot);
         }
         world.destroyBody(body);

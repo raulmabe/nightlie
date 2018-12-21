@@ -23,6 +23,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.nameless.game.*;
 import com.nameless.game.actors.player.Player;
 import com.nameless.game.flowfield.FlowFieldManager;
+import com.nameless.game.screens.BasicPlay;
 import com.nameless.game.screens.Menu;
 import com.nameless.game.screens.Play;
 

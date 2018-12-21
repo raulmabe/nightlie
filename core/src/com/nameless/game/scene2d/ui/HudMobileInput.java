@@ -3,6 +3,7 @@ package com.nameless.game.scene2d.ui;
 import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
 import com.nameless.game.MainGame;
 import com.nameless.game.VirtualController;
+import com.nameless.game.screens.BasicPlay;
 import com.nameless.game.screens.Play;
 
 public class HudMobileInput extends Hud {

@@ -6,6 +6,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.nameless.game.MainGame;
 import com.nameless.game.VirtualController;
+import com.nameless.game.screens.BasicPlay;
 import com.nameless.game.screens.Play;
 import net.dermetfan.utils.math.MathUtils;
 

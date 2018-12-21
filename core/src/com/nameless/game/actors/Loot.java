@@ -26,7 +26,7 @@ public class Loot extends Actor {
 
     public boolean setToDestroy = false;
 
-    public Loot(MainGame game, World world, float x, float y) {
+    public Loot(World world, float x, float y) {
         this.world = world;
         shaper = new ShapeRenderer();
 

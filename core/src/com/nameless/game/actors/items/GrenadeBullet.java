@@ -13,11 +13,13 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.nameless.game.Constants;
+import com.nameless.game.MainGame;
 import com.nameless.game.MathStatic;
 import com.nameless.game.Weapons;
 import com.nameless.game.actors.Character;
 import com.nameless.game.actors.enemies.Zombie;
 import com.nameless.game.actors.player.Player;
+import com.nameless.game.screens.BasicPlay;
 import com.nameless.game.screens.Play;
 
 public class GrenadeBullet extends BasicBullet {
@@ -43,7 +45,7 @@ public class GrenadeBullet extends BasicBullet {
     private PointLight light;
     private RayHandler rayHandler;
 
-    public GrenadeBullet(Play play, RayHandler rayHandler, World world, float x, float y, float angle) {
+    public GrenadeBullet(RayHandler rayHandler, World world, float x, float y, float angle) {
         super( Weapons.GRENADE_DAMAGE,3,.25f, .25f);
         this.world = world;
         this.rayHandler = rayHandler;
@@ -63,7 +65,7 @@ public class GrenadeBullet extends BasicBullet {
 
 
         // Explode animation
-        explodeSheet = play.game.manager.get("players/anim/explosion.png");
+        explodeSheet = MainGame.manager.get("players/anim/explosion.png");
         TextureRegion[][] tmp = TextureRegion.split(explodeSheet, explodeSheet.getWidth()/5,
                 explodeSheet.getHeight());
         TextureRegion[] attackFrames = new TextureRegion[5];

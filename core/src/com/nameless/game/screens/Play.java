@@ -20,9 +20,7 @@ import com.nameless.game.managers.WaveSpawnManager;
 import com.nameless.game.maps.BasicMap;
 import com.nameless.game.maps.TownMap;
 import com.nameless.game.pathfinding.PathfindingDebugger;
-import com.nameless.game.scene2d.ui.Hud;
-import com.nameless.game.scene2d.ui.HudMobileInput;
-import com.nameless.game.scene2d.ui.HudPCInput;
+import com.nameless.game.scene2d.ui.*;
 
 import static com.nameless.game.Constants.PixelsPerMeter;
 
@@ -65,7 +63,7 @@ public class Play extends BasicScreen{
 
         controller = VirtualController.getInstance();
 
-        player = new Player(this,map.rayHandler, map.world, PlayerPos.x, PlayerPos.y);
+        player = new Player(this, map.rayHandler, map.world, PlayerPos.x, PlayerPos.y);
         FlowFieldManager.calcDistanceForEveryNode(player.getCenterX(), player.getCenterY());
 
         PathfindingDebugger.setCamera(cam);
