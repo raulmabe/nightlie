@@ -27,7 +27,7 @@ public class Player extends Character {
 
     public float MAX_HEALTH;
 
-    public Play play;
+    public BasicPlay play;
 
     public TextureAtlas atlas;
     public TextureRegion region;
@@ -40,7 +40,7 @@ public class Player extends Character {
 
     public RayHandler rayHandler;
 
-    public Player(Play play, RayHandler rayHandler, World world, float x, float y) {
+    public Player(BasicPlay play, RayHandler rayHandler, World world, float x, float y) {
         super(world, 300, 999999999);
         this.rayHandler = rayHandler;
         this.play = play;

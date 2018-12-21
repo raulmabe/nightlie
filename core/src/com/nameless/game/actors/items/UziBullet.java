@@ -23,7 +23,7 @@ public class UziBullet extends BasicBullet {
     private ShapeRenderer shaper;
     private World world;
 
-    private Vector2 p1, p2, p3;
+    private Vector2 p1, p2;
 
     public UziBullet(World world, float x, float y, float angle) {
         super(Weapons.UZI_DAMAGE,24,.25f, .25f);
@@ -36,19 +36,18 @@ public class UziBullet extends BasicBullet {
         setPosition(x,y);
         p1 = new Vector2(x,y);
         p2 = MathStatic.RotateVector2(new Vector2(getX()+RANGE, getY()), angle, p1);
-        p3 = new Vector2(0,0);
 
         setOrigin(getWidth()/2,getHeight()/2);
 
         setRaycast();
 
-        float delay = .05f; // seconds
-        Timer.schedule(new Timer.Task(){
+        Timer timer = new Timer();
+        timer.scheduleTask(new Timer.Task(){
             @Override
             public void run() {
                 dispose();
             }
-        }, delay);
+        }, .05f);
     }
 
     private void setRaycast(){
@@ -58,9 +57,7 @@ public class UziBullet extends BasicBullet {
                 if(fixture.getBody().getUserData() instanceof Zombie){
                     ((Zombie) fixture.getBody().getUserData()).TakeDamage(DAMAGE, MathStatic.V2minusV2(p2,p1).nor());
                 }
-//                p2 = point;
-                p3 = point;
-//                Gdx.app.log("Normal", "" + normal);
+                //p2 = point;
                 return fraction;
             }
         };
@@ -83,12 +80,14 @@ public class UziBullet extends BasicBullet {
     @Override
     public void act(float delta) {
         super.act(delta);
-        p1 = new Vector2(getX(), getY());
+        p1.x = getX();
+        p1.y = getY();
     }
 
     public void dispose(){
-        remove();
+        System.out.println("Disposed " + this);
         shaper.dispose();
+        remove();
     }
 }
 

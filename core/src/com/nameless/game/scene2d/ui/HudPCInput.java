@@ -11,7 +11,7 @@ import com.nameless.game.screens.Play;
 import net.dermetfan.utils.math.MathUtils;
 
 public class HudPCInput extends Hud implements InputProcessor {
-    public HudPCInput(MainGame game, Play playScreen) {
+    public HudPCInput(MainGame game, BasicPlay playScreen) {
         super(game, playScreen);
     }
 

@@ -47,13 +47,13 @@ public class ShotgunBullet extends BasicBullet {
 
         setRaycast();
 
-        float delay = .05f; // seconds
-            Timer.schedule(new Timer.Task(){
-                @Override
-                public void run() {
-                   dispose();
-                }
-            }, delay);
+        Timer timer = new Timer();
+        timer.scheduleTask(new Timer.Task(){
+            @Override
+            public void run() {
+                dispose();
+            }
+        }, .05f);
     }
 
     private void setRaycast(){
@@ -62,9 +62,7 @@ public class ShotgunBullet extends BasicBullet {
             public float reportRayFixture(Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
                 if(fixture.getBody().getUserData() instanceof Zombie){
                     ((Zombie) fixture.getBody().getUserData()).TakeDamage(DAMAGE, MathStatic.V2minusV2(point,p1).nor());
-
                 }
-
                 return fraction;
             }
         };
@@ -91,7 +89,8 @@ public class ShotgunBullet extends BasicBullet {
     @Override
     public void act(float delta) {
         super.act(delta);
-        p1 = new Vector2(getX(), getY());
+        p1.x = getX();
+        p1.y = getY();
     }
 
     public void dispose(){

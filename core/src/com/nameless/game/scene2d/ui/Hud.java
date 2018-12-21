@@ -43,14 +43,14 @@ public class Hud extends Group implements IObserver {
 
     private MainGame game;
     protected VirtualController controller;
-    protected Play playScreen;
+    protected BasicPlay playScreen;
 
     public Label timeToNextSpawn;
     public Label timeHour;
 
     private Label roundStart;
 
-    public Hud(final MainGame game, Play playScreen) {
+    public Hud(final MainGame game, BasicPlay playScreen) {
         this.game = game;
         this.playScreen = playScreen;
 

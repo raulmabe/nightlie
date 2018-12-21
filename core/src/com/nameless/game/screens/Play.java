@@ -24,119 +24,35 @@ import com.nameless.game.scene2d.ui.*;
 
 import static com.nameless.game.Constants.PixelsPerMeter;
 
-public class Play extends BasicScreen{
-    public final int GAME_RUNNING = 0;
-    public final int GAME_PAUSED = 1;
-    public final int GAME_WAITING = 2;
-    public int state = 0;
-
-    public BasicMap map;
-    public Player player;
-
-    private int iCamZombie = 0;
-    private boolean camPlayer = true;
-
-    FPSLogger fps;
-
-    public VirtualController controller;
-
-    public Group mapHud, bg,fg;
-    public Hud hud;
-
-    private InputMultiplexer inputMulti;
+public class Play extends BasicPlay{
 
     private WaveSpawnManager waveSpawnManager;
     private DayNightCycleManager dayManager;
 
     public Play(MainGame game) {
         super(game);
-        inputMulti = new InputMultiplexer();
-        mapHud = new Group();
-        mapHud.setScale(1/PixelsPerMeter);
-
-        bg = new Group();
-        fg = new Group();
-
-        map = new TownMap(game, 1/PixelsPerMeter);
-
-        Vector2 PlayerPos = map.getPositionPlayer();
-
-        controller = VirtualController.getInstance();
-
-        player = new Player(this, map.rayHandler, map.world, PlayerPos.x, PlayerPos.y);
-        FlowFieldManager.calcDistanceForEveryNode(player.getCenterX(), player.getCenterY());
-
-        PathfindingDebugger.setCamera(cam);
-        FlowFieldDebugger.setCamera(cam);
     }
 
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
-        hud.resize(width, height);
     }
 
     @Override
     public void setUpInterface(Table table) {
-        switch(Gdx.app.getType()) {
-            case Android:
-            case iOS:
-                hud = new HudMobileInput(game, this);
-                break;
-            case Desktop:
-            case WebGL:
-            case HeadlessDesktop:
-            default:
-                hud = new HudPCInput(game, this);
-        }
+        super.setUpInterface(table);
         waveSpawnManager = new WaveSpawnManager(this);
         dayManager = DayNightCycleManager.getInstance();
         waveSpawnManager.attach(dayManager);
         waveSpawnManager.attach(hud);
-
-        ((ScreenViewport) viewport).setUnitsPerPixel(1/(PixelsPerMeter*2));
-
-        fg.addActor(player);
-        stage.addActor(bg);
-        stage.addActor(fg);
-
-        inputMulti.addProcessor(hud.hud);
-        if(hud instanceof HudPCInput) inputMulti.addProcessor((HudPCInput) hud);
-        Gdx.input.setInputProcessor(inputMulti);
-
-        viewport.setWorldSize(viewport.getWorldWidth()/PixelsPerMeter, viewport.getWorldHeight()/PixelsPerMeter);
-
-        fps = new FPSLogger();
     }
 
     @Override
     public void pause() {
         super.pause();
         if(state != GAME_PAUSED){
-            hud.pause();
             waveSpawnManager.pause();
         }
-    }
-
-    private void handleCamera(){
-        if(Gdx.input.isKeyJustPressed(Input.Keys.K) && !waveSpawnManager.zombies.isEmpty()) camPlayer = !camPlayer;
-
-        if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT) && !camPlayer) ++iCamZombie;
-        if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT) && !camPlayer) --iCamZombie;
-        iCamZombie = MathUtils.clamp(iCamZombie, 0, waveSpawnManager.zombies.size()-1);
-
-        if(camPlayer || waveSpawnManager.zombies.isEmpty()){
-            cam.position.x = player.getCenterX();
-            cam.position.y = player.getCenterY();
-        } else{
-            cam.position.x = waveSpawnManager.zombies.get(iCamZombie).getCenterX();
-            cam.position.y = waveSpawnManager.zombies.get(iCamZombie).getCenterY();
-        }
-
-
-        if(Gdx.input.isKeyPressed(Input.Keys.UP)) cam.zoom -= 0.1f;
-        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) cam.zoom += 0.1f;
-        cam.update();
     }
 
     /**
@@ -146,45 +62,7 @@ public class Play extends BasicScreen{
     @Override
     public void render(float delta) {
         super.render(delta);
-        handleCamera();
-
-        // Map
-        if(state == GAME_RUNNING || state == GAME_WAITING) map.world.step(1/60f, 6, 2);
-        map.render(cam, (int) (player.getCenterX() - Constants.RENDER_WIDTH/2), (int) (player.getCenterY() - Constants.RENDER_WIDTH/2) ,
-                Constants.RENDER_WIDTH, Constants.RENDER_WIDTH);
-        //FlowFieldDebugger.drawFlow();
-
-        // Stage
-        if(state == GAME_RUNNING || state == GAME_WAITING) stage.act(delta);
-        stage.draw();
-
-        map.renderWalls(cam, (int) (player.getCenterX() - Constants.RENDER_WIDTH/2), (int) (player.getCenterY() - Constants.RENDER_WIDTH/2) ,
-                Constants.RENDER_WIDTH, Constants.RENDER_WIDTH);
-
-        // Render RayCast Light
-        map.renderRayHandler(cam);
-
-        viewport.apply();
-
-        // Render fore layers
-        map.renderTreesLayers(cam, (int) (player.getCenterX() - Constants.RENDER_WIDTH/2), (int) (player.getCenterY() - Constants.RENDER_WIDTH/2) ,
-                Constants.RENDER_WIDTH, Constants.RENDER_WIDTH);
-
-        mapHud.act(delta);
-        stage.getBatch().begin();
-        mapHud.draw(stage.getBatch(), 1);
-        stage.getBatch().end();
-
-        // Hud
-        hud.update(delta);
-
-        // Spawn control
         waveSpawnManager.update(delta);
-
-
-        // Debug
-//         fps.log();
-        hud.timeToNextSpawn.setText("" + Gdx.graphics.getFramesPerSecond());
     }
 
 
@@ -202,12 +80,12 @@ public class Play extends BasicScreen{
     @Override
     public void dispose() {
         super.dispose();
-        hud.dispose();
     }
 
+    @Override
     public void clearScene() {
         waveSpawnManager.clearScene();
-        game.setScreen(new Menu(game));
+        super.clearScene();
     }
 
 

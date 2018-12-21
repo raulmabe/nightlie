@@ -40,13 +40,13 @@ public class PistolBullet extends BasicBullet {
 
         setRaycast();
 
-        float delay = .05f; // seconds
-        Timer.schedule(new Timer.Task(){
+        Timer timer = new Timer();
+        timer.scheduleTask(new Timer.Task(){
             @Override
             public void run() {
                 dispose();
             }
-        }, delay);
+        }, .05f);
     }
 
     private void setRaycast(){
@@ -56,8 +56,6 @@ public class PistolBullet extends BasicBullet {
                 if(fixture.getBody().getUserData() instanceof Zombie){
                     ((Zombie) fixture.getBody().getUserData()).TakeDamage(DAMAGE, MathStatic.V2minusV2(p2,p1).nor());
                 }
-                remove();
-
                 return fraction;
             }
         };
@@ -69,7 +67,8 @@ public class PistolBullet extends BasicBullet {
     @Override
     public void act(float delta) {
         super.act(delta);
-        p1 = new Vector2(getX(), getY());
+        p1.x = getX();
+        p1.y = getY();
     }
 
     public void dispose(){

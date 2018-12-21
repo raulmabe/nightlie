@@ -10,7 +10,7 @@ public class HudMobileInput extends Hud {
 
     private Touchpad touchpad, touchpad2;
 
-    public HudMobileInput(MainGame game, Play playScreen) {
+    public HudMobileInput(MainGame game, BasicPlay playScreen) {
         super(game, playScreen);
 
         touchpad2 = new Touchpad(10, game.getSkin());
