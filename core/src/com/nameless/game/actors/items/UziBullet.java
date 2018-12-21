@@ -85,7 +85,6 @@ public class UziBullet extends BasicBullet {
     }
 
     public void dispose(){
-        System.out.println("Disposed " + this);
         shaper.dispose();
         remove();
     }

@@ -6,7 +6,7 @@ public interface ISubject {
 
     void dettach(IObserver o);
 
-    public enum type{
+    enum type{
         PLAYER_DEAD,ZOMBIE_DEAD, ROUND_FINNISH, ROUND_START
     }
 }

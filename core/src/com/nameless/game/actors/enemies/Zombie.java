@@ -6,17 +6,15 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Pool;
 import com.nameless.game.*;
-import com.nameless.game.actors.Blinker;
 import com.nameless.game.actors.Character;
 import com.nameless.game.actors.Loot;
-import com.nameless.game.screens.Play;
+import com.nameless.game.screens.BasicPlay;
 
 import java.util.ArrayList;
 
@@ -42,10 +40,11 @@ public class Zombie extends Character implements Pool.Poolable, ISubject {
 
     public int distance = -1;
 
-    private Play play;
+    private BasicPlay play;
 
+    private Loot.Type typeLoot = Loot.Type.RANDOM;
 
-    public Zombie(Play play, World world, Actor target, float x, float y) {
+    public Zombie(BasicPlay play, World world, Actor target, float x, float y) {
         super(world, 100,100);
         this.play = play;
         this.target = target;
@@ -70,7 +69,7 @@ public class Zombie extends Character implements Pool.Poolable, ISubject {
         setBox2d();
 
         setPosition(body.getPosition().x - getWidth()/2, body.getPosition().y - getHeight()/2);
-        ChangeState(new FlowFieldState());
+        if(target != null) ChangeState(new FlowFieldState());
     }
 
     private void setBox2d() {
@@ -105,13 +104,15 @@ public class Zombie extends Character implements Pool.Poolable, ISubject {
     @Override
     public void act(float delta) {
         super.act(delta);
+        setPosition(body.getPosition().x - getWidth()/2, body.getPosition().y-getHeight()/2);
         if(setToDestroy) remove();
     }
 
     @Override
     public boolean remove() {
-        if(MathUtils.randomBoolean( .15f)){
-            Loot loot = new Loot(world, getX(), getY());
+        if((typeLoot == Loot.Type.WEAPON || typeLoot == Loot.Type.AMMO || typeLoot == Loot.Type.LIFE) ||
+                MathUtils.randomBoolean( .15f)) {
+            Loot loot = new Loot(world,typeLoot, getX(), getY());
             play.bg.addActor(loot);
         }
         world.destroyBody(body);
@@ -148,5 +149,9 @@ public class Zombie extends Character implements Pool.Poolable, ISubject {
         for (IObserver obs : observers) {
             obs.handleMessage(this, type.ZOMBIE_DEAD);
         }
+    }
+
+    public void setTypeLoot(Loot.Type type){
+        typeLoot = type;
     }
 }

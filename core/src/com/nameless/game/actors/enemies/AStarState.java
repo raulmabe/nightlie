@@ -34,6 +34,8 @@ public class AStarState implements IState, Pather<Node>{
     @Override
     public void Enter(Character parent) {
         zombie = (Zombie) parent;
+        if(((Zombie) parent).target == null) parent.ChangeState(null);
+
         pathFinder = new IndexedAStarPathFinder<Node>(LevelManager.graph, false);
         RequestPath();
         isRequested = false;

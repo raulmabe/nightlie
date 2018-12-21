@@ -60,8 +60,9 @@ public class BasicPlay extends BasicScreen{
         player = new Player(this, map.rayHandler, map.world, PlayerPos.x, PlayerPos.y);
         FlowFieldManager.calcDistanceForEveryNode(player.getCenterX(), player.getCenterY());
 
+        /*
         PathfindingDebugger.setCamera(cam);
-        FlowFieldDebugger.setCamera(cam);
+        FlowFieldDebugger.setCamera(cam);*/
     }
 
     @Override
@@ -83,12 +84,6 @@ public class BasicPlay extends BasicScreen{
             default:
                 hud = new HudPCInput(game, this);
         }
-
-        /*
-        waveSpawnManager = new WaveSpawnManager(this);
-        dayManager = DayNightCycleManager.getInstance();
-        waveSpawnManager.attach(dayManager);
-        waveSpawnManager.attach(hud);*/
 
         ((ScreenViewport) viewport).setUnitsPerPixel(1/(PixelsPerMeter*2));
 
@@ -128,7 +123,6 @@ public class BasicPlay extends BasicScreen{
     public void render(float delta) {
         super.render(delta);
         handleCamera();
-        //waveSpawnManager.update(delta);
 
         // Map
         if(state == GAME_RUNNING || state == GAME_WAITING) map.world.step(1/60f, 6, 2);
@@ -180,7 +174,6 @@ public class BasicPlay extends BasicScreen{
     }
 
     public void clearScene() {
-        //waveSpawnManager.clearScene();
         game.setScreen(new Menu(game));
     }
 

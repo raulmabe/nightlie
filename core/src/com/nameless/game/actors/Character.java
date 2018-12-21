@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Timer;
 import com.nameless.game.MathStatic;
 import com.nameless.game.actors.states.IState;
 import com.nameless.game.actors.states.InjuredState;
@@ -24,6 +25,8 @@ public class Character extends Actor {
 
     public boolean setToDestroy = false;
 
+    private Timer timer;
+
     public Character(World world,float SPEED, float HEALTH) {
         this.world = world;
         this.INI_SPEED = SPEED;
@@ -31,12 +34,13 @@ public class Character extends Actor {
         this.HEALTH = HEALTH;
 
         blinker = new Blinker();
+        timer = new Timer();
     }
 
     public void ChangeState(IState newState){
         if(currentState != null) currentState.Exit();
         currentState = newState;
-        currentState.Enter(this);
+        if(currentState != null) currentState.Enter(this);
     }
 
     public void TakeDamage(float value, Vector2 impulse){
@@ -51,6 +55,13 @@ public class Character extends Actor {
 
         this.blinker.setBlinking(true);
         body.applyLinearImpulse(MathStatic.V2xf(impulse, 3.5f), body.getPosition(), true);
+        timer.scheduleTask(new Timer.Task(){
+            @Override
+            public void run() {
+                body.setLinearVelocity(new Vector2(0,0));
+            }
+        }, .5f);
+
     }
 
     @Override
@@ -71,5 +82,10 @@ public class Character extends Actor {
         return HEALTH;
     }
 
-    // Still in process
+    public void transformTo(float x, float y){
+        body.setTransform(x,y,0);
+        setPosition(x,y);
+    }
+
+
 }

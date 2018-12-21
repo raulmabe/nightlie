@@ -15,6 +15,7 @@ import com.nameless.game.MainGame;
 import com.nameless.game.maps.BasicMap;
 import com.nameless.game.maps.TownMap;
 import com.nameless.game.screens.stages.*;
+import com.nameless.game.tutorial.TutorialPlay;
 
 /**
  * Created by Raul on 13/06/2017.
@@ -106,7 +107,7 @@ public class Menu extends BasicScreen {
                     stage.addAction(Actions.sequence(Actions.fadeOut(0.5f), Actions.run(new Runnable() {
                         @Override
                         public void run() {
-                            game.setScreen(new Play(game));
+                            game.setScreen(new TutorialPlay(game));
                         }
                     })));
                 }

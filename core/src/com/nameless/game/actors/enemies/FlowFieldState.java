@@ -22,6 +22,8 @@ public class FlowFieldState implements IState {
     @Override
     public void Enter(Character parent) {
         this.zombie = (Zombie) parent;
+        if(((Zombie) parent).target == null) parent.ChangeState(null);
+
         actualNode = LevelManager.graph.getIndexByXYEnemy( zombie.getCenterX(), zombie.getCenterY(), zombie.distance);
 
         timeSinceLastChange = TimeUtils.nanoTime();

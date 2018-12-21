@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.Timer;
 public class DayNightCycleManager implements IObserver{
 
 
-    // static variable single_instance of type Singleton
+    // static variable single_instance of Type Singleton
     private static DayNightCycleManager single_instance = null;
 
     /**

@@ -3,7 +3,7 @@ package com.nameless.game;
 
 public class VirtualController {
 
-    // static variable single_instance of type Singleton
+    // static variable single_instance of Type Singleton
     private static VirtualController single_instance = null;
 
     public boolean shoot = false;

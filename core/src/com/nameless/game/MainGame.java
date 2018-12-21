@@ -93,6 +93,7 @@ public class MainGame extends Game {
 		manager.load("weapons/shotgun.png", Texture.class, texParameters);
 		manager.load("weapons/grenade.png", Texture.class, texParameters);
 		manager.load("weapons/rocket.png", Texture.class, texParameters);
+		manager.load("weapons/loot.png", Texture.class, texParameters);
 
 
 		// Load Maps
