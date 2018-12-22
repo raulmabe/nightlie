@@ -5,10 +5,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.BitmapFontLoader;
+import com.badlogic.gdx.assets.loaders.ParticleEffectLoader;
 import com.badlogic.gdx.assets.loaders.TextureLoader;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -100,6 +102,15 @@ public class MainGame extends Game {
 		manager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
 		manager.load("tmx/town_map.tmx", TiledMap.class);
 		manager.load("tmx/town_map_final.tmx", TiledMap.class);
+
+		// Load particle effects
+
+		manager.setLoader(ParticleEffect.class, new ParticleEffectLoader(new InternalFileHandleResolver()));
+		manager.load("particles/lootEffect", ParticleEffect.class);
+		manager.load("particles/fireEffect", ParticleEffect.class);
+		manager.load("particles/loot.png", Texture.class, texParameters);
+		manager.load("particles/fire.png", Texture.class, texParameters);
+
 
 
 		// Load sounds

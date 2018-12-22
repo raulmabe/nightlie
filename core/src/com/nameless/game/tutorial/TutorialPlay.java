@@ -11,7 +11,6 @@ import com.nameless.game.ISubject;
 import com.nameless.game.MainGame;
 import com.nameless.game.actors.Loot;
 import com.nameless.game.actors.enemies.Zombie;
-import com.nameless.game.managers.WaveSpawnManager;
 import com.nameless.game.maps.LevelManager;
 import com.nameless.game.pathfinding.Node;
 import com.nameless.game.screens.BasicPlay;
@@ -32,15 +31,15 @@ public class TutorialPlay extends BasicPlay implements IObserver {
         float ang;
         for(int i = 0; i < size; ++i){
             ang = i * 360/size;
-            float x = player.getCenterX() + Constants.RENDER_WIDTH * MathUtils.sin(ang);
-            float y = player.getCenterY()+ Constants.RENDER_WIDTH  * MathUtils.cos(ang);
+            float x = player.getCenterX() + 5 * MathUtils.sin(ang);
+            float y = player.getCenterY()+ 5  * MathUtils.cos(ang);
 
             while(x < 0 || y < 0 || x > LevelManager.WIDTH_IN_PIXELS || y > LevelManager.HEIGHT_IN_PIXELS ||
                     LevelManager.graph.getNodeByXYFloat(player.getCenterX() + Constants.RENDER_WIDTH * MathUtils.sin(ang),
                             player.getCenterY()+ Constants.RENDER_WIDTH  * MathUtils.cos(ang)).type != Node.Type.REGULAR){
                 ang = MathUtils.random() * 360;
-                x = player.getCenterX() + Constants.RENDER_WIDTH * MathUtils.sin(ang);
-                y = player.getCenterY()+ Constants.RENDER_WIDTH  * MathUtils.cos(ang);
+                x = player.getCenterX() + 5 * MathUtils.sin(ang);
+                y = player.getCenterY()+ 5 * MathUtils.cos(ang);
             }
 
             Zombie zombie = new Zombie(this,map.world,player,x,y);

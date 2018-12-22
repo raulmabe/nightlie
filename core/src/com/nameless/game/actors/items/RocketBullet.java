@@ -22,15 +22,11 @@ import com.nameless.game.Weapons;
 import com.nameless.game.actors.Character;
 import com.nameless.game.actors.enemies.Zombie;
 import com.nameless.game.actors.player.Player;
+import com.nameless.game.managers.ParticleEffectManager;
 import com.nameless.game.screens.BasicPlay;
 import com.nameless.game.screens.Play;
 
 public class RocketBullet extends BasicBullet {
-
-    private final int NORMAL = 0;
-    private final int EXPLOSION = 1;
-    private int currentState = 0;
-
     private World world;
     private Body body;
 
@@ -46,7 +42,6 @@ public class RocketBullet extends BasicBullet {
     public Vector2 p1, p2;
     private float angle;
 
-    private PointLight light;
     private RayHandler rayHandler;
 
     public RocketBullet(RayHandler rayHandler, World world, float x, float y, float angle) {
@@ -106,82 +101,35 @@ public class RocketBullet extends BasicBullet {
         super.draw(batch, parentAlpha);
 
         batch.setColor(batch.getColor().r, batch.getColor().g, batch.getColor().b, getColor().a);
-        switch (currentState){
-            case NORMAL:
-                batch.end();
+        batch.end();
 
-                shaper.setProjectionMatrix(batch.getProjectionMatrix());
-                shaper.begin(ShapeRenderer.ShapeType.Filled);
-                shaper.setColor(new Color(1,1,1,1));
-                shaper.circle(getX(),getY(),getWidth(), 20);
-                shaper.end();
+        shaper.setProjectionMatrix(batch.getProjectionMatrix());
+        shaper.begin(ShapeRenderer.ShapeType.Filled);
+        shaper.setColor(new Color(1,1,1,1));
+        shaper.circle(getX(),getY(),getWidth(), 20);
+        shaper.end();
 
-                batch.begin();
-                break;
-            case EXPLOSION:
-                batch.draw(region,getX()-getWidth()/2,getY()-getHeight()/2,getWidth(),getHeight());
-        }
+        batch.begin();
     }
 
     @Override
     public void act(float delta) {
         super.act(delta);
-        switch (currentState){
-            case NORMAL:
-                body.setLinearVelocity(new Vector2(delta*800 * (float) Math.sin(Math.toRadians(-angle+90)),
-                        delta * 800 * (float) Math.cos(Math.toRadians(angle-90))));
-                setPosition(body.getPosition().x , body.getPosition().y);
-                break;
-            case EXPLOSION:
-                stateTime += delta;
-                region = explodeAnim.getKeyFrame(stateTime, false);
-                if(explodeAnim.isAnimationFinished(stateTime)) {
-                    light.remove();
-                    dispose();
-                }
-                break;
-        }
+        body.setLinearVelocity(new Vector2(delta*800 * (float) Math.sin(Math.toRadians(-angle+90)),
+                delta * 800 * (float) Math.cos(Math.toRadians(angle-90))));
+        setPosition(body.getPosition().x , body.getPosition().y);
         if(setToDestroy) explode();
 
     }
 
     private void explode(){
         setToDestroy = false;
-        currentState = EXPLOSION;
         setSize(region.getRegionWidth()*2/Constants.PixelsPerMeter, region.getRegionHeight()*2/Constants.PixelsPerMeter);
         world.destroyBody(body);
         body = null;
 
-
-        light = new PointLight(rayHandler, 20, new Color(1f,.8f,.5f,.65f), 10, getX(),getY());
-        light.setSoftnessLength(0f);
-        light.setActive(true);
-        light.setContactFilter(Constants.LOW_FURNITURES_BIT, (short) 0x0000, (short) (Constants.OBSTACLES_BIT));
-
-        // Raycast
-        final Vector2 p1;
-        Vector2[] p2;
-        p1 = new Vector2(getX(),getY());
-        p2 = new Vector2[180];
-        float angle = 0;
-        for(int i = 0; i < p2.length; ++i){
-            p2[i] =  MathStatic.RotateVector2(new Vector2(getX()+RANGE, getY()),angle , p1);
-            angle += 2;
-        }
-
-        RayCastCallback callback = new RayCastCallback() {
-            @Override
-            public float reportRayFixture(Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
-                if(fixture.getBody().getUserData() instanceof Zombie || fixture.getBody().getUserData() instanceof Player){
-                    ((Character) fixture.getBody().getUserData()).TakeDamage(Weapons.GRENADE_DAMAGE/2 * 1/fraction, MathStatic.V2xf(MathStatic.V2minusV2(point,p1).nor(), 1/fraction));
-                }
-                return 1;
-            }
-        };
-
-        for(int i = 0; i < p2.length; ++i){
-            world.rayCast(callback, p1, p2[i]);
-        }
+        new Explosion(world, rayHandler, RANGE, Weapons.GRENADE_DAMAGE/2, getX(), getY());
+        dispose();
     }
 
     private void dispose(){

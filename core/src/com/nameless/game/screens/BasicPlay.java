@@ -17,6 +17,7 @@ import com.nameless.game.VirtualController;
 import com.nameless.game.actors.player.Player;
 import com.nameless.game.flowfield.FlowFieldDebugger;
 import com.nameless.game.flowfield.FlowFieldManager;
+import com.nameless.game.managers.ParticleEffectManager;
 import com.nameless.game.managers.WaveSpawnManager;
 import com.nameless.game.maps.BasicMap;
 import com.nameless.game.maps.TownMap;
@@ -41,6 +42,8 @@ public class BasicPlay extends BasicScreen{
     public Hud hud;
 
     private InputMultiplexer inputMulti;
+
+    private ParticleEffectManager particleEffectManager;
 
     public BasicPlay(MainGame game) {
         super(game);
@@ -86,6 +89,9 @@ public class BasicPlay extends BasicScreen{
         }
 
         ((ScreenViewport) viewport).setUnitsPerPixel(1/(PixelsPerMeter*2));
+
+        particleEffectManager = ParticleEffectManager.getInstance();
+        bg.addActor(particleEffectManager);
 
         fg.addActor(player);
         stage.addActor(bg);
@@ -174,6 +180,7 @@ public class BasicPlay extends BasicScreen{
     }
 
     public void clearScene() {
+        particleEffectManager.clean();
         game.setScreen(new Menu(game));
     }
 

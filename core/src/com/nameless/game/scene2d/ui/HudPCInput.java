@@ -3,9 +3,11 @@ package com.nameless.game.scene2d.ui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.nameless.game.MainGame;
 import com.nameless.game.VirtualController;
+import com.nameless.game.managers.ParticleEffectManager;
 import com.nameless.game.screens.BasicPlay;
 import com.nameless.game.screens.Play;
 import net.dermetfan.utils.math.MathUtils;
@@ -84,7 +86,7 @@ public class HudPCInput extends Hud implements InputProcessor {
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         mouseMoved(screenX, screenY);
-        return false;
+        return true;
     }
 
     @Override

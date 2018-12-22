@@ -2,22 +2,13 @@
 <items version="2" >
 
     <item
-        is-multidex="true"
-        jar="/Users/raulmateobeneyto/Documents/nightlie/android/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="/Users/raulmateobeneyto/Documents/nightlie/core/build/libs/core-1.0.jar"
+        jumboMode="false"
         optimize="true"
         revision="25.0.3"
-        sha1="02890836b60a345f401d2e5d5803fdc79c2f9c73">
-        <dex dex="/Users/raulmateobeneyto/Documents/nightlie/android/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_fa449c4a45463e00b389f5b7791076d34c4b3c75/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/raulmateobeneyto/Documents/nightlie/android/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.3"
-        sha1="c323c36ecc68965c4cfb460f7721113d2b61ed03">
-        <dex dex="/Users/raulmateobeneyto/Documents/nightlie/android/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_c34eee9abc2aeea57bcf8bfca92d451a08d9f33b/classes.dex" />
+        sha1="dd8285ee31c620aeffeb704e45b26c4ab7f25076">
+        <dex dex="/Users/raulmateobeneyto/Documents/nightlie/android/build/intermediates/pre-dexed/debug/core-1.0_a6aba69ec554a9e754f456fc9568d4632d08e17f.jar" />
     </item>
 
 </items>

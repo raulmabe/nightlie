@@ -1,8 +1,10 @@
 package com.nameless.game.actors;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -10,9 +12,15 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.nameless.game.Constants;
+import com.nameless.game.IObserver;
+import com.nameless.game.ISubject;
 import com.nameless.game.MainGame;
+import com.nameless.game.managers.ParticleEffectManager;
+
+import java.util.ArrayList;
 
 public class Loot extends Actor {
+
     private final float WIDTH = .7f;
     private final float HEIGHT = .7f;
     private final Color color;
@@ -20,19 +28,19 @@ public class Loot extends Actor {
     private World world;
     private Body body;
 
-    private ShapeRenderer shaper;
-
     public boolean setToDestroy = false;
 
     private Type type;
 
     private Texture texture;
 
+
     public Loot(World world, Type type, float x, float y) {
         this.world = world;
         this.type = getType(type);
+        this.setZIndex(50);
 
-        shaper = new ShapeRenderer();
+
         color = new Color();
 
         switch (this.type){
@@ -51,13 +59,13 @@ public class Loot extends Actor {
         setSize(WIDTH, HEIGHT);
         setOrigin(WIDTH/2, HEIGHT/2);
         setRotation(MathUtils.random() * 360);
+        setColor(color);
         this.addAction(Actions.forever(Actions.sequence(Actions.sizeBy(-.05f, -.05f, .8f), Actions.sizeBy(.05f, .05f, .8f))));
 
         setBox2d();
 
         texture = MainGame.manager.get("weapons/loot.png");
 
-        setColor(color);
     }
 
     private Type getType(Type type) {
@@ -100,7 +108,6 @@ public class Loot extends Actor {
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
 
-
         batch.setColor(batch.getColor().r, batch.getColor().g, batch.getColor().b, getColor().a);
         batch.setColor(color);
         batch.draw(texture, getX(), getY(), getOriginX(), getOriginY(), getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation(),
@@ -111,10 +118,13 @@ public class Loot extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta);
-        if(setToDestroy) collected();
+        if(setToDestroy){
+            collected();
+        }
     }
 
-    private void collected(){
+    private void collected() {
+        ParticleEffectManager.getInstance().addParticle(ParticleEffectManager.Type.LOOT, body.getPosition(), color);
         world.destroyBody(body);
         remove();
     }
