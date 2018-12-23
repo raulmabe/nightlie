@@ -54,7 +54,7 @@ public class BasicPlay extends BasicScreen{
         bg = new Group();
         fg = new Group();
 
-        map = new TownMap(game, 1/PixelsPerMeter);
+        map = new TownMap(1/PixelsPerMeter);
 
         Vector2 PlayerPos = map.getPositionPlayer();
 

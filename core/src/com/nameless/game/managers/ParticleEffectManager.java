@@ -8,9 +8,11 @@ import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool.PooledEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.graphics.ParticleEmitterBox2D;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.nameless.game.*;
+import com.nameless.game.maps.BasicMap;
 
 public class ParticleEffectManager extends Actor {
 
@@ -26,11 +28,17 @@ public class ParticleEffectManager extends Actor {
 
     public ParticleEffectManager() {
         ParticleEffect lootPrototype = MainGame.manager.get("particles/lootEffect");
+        for (int i = 0; i < lootPrototype.getEmitters().size; ++i){
+            lootPrototype.getEmitters().set(i,new ParticleEmitterBox2D(BasicMap.world,lootPrototype.getEmitters().get(i)));
+        }
         lootPool = new ParticleEffectPool(lootPrototype,0,5);
         lootEffects = new Array<PooledEffect>();
 
 
         ParticleEffect firePrototype = MainGame.manager.get("particles/fireEffect");
+        for (int i = 0; i < firePrototype.getEmitters().size; ++i){
+            firePrototype.getEmitters().set(i,new ParticleEmitterBox2D(BasicMap.world,firePrototype.getEmitters().get(i)));
+        }
         firePool = new ParticleEffectPool(firePrototype,0,5);
         fireEffects = new Array<PooledEffect>();
     }

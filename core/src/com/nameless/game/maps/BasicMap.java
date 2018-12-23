@@ -27,6 +27,7 @@ import java.util.ArrayList;
  */
 public abstract class BasicMap {
 
+
     /*
     Must-have layers:
     - ActorPosition
@@ -44,17 +45,15 @@ public abstract class BasicMap {
     public RayHandler rayHandler = null;
     private ArrayList<PointLight> lights;
 
-    public World world;
+    public static World world;
     CollisionManager collisionManager;
     Box2DDebugRenderer worldRenderer;
 
     float unitScale = 1f;
 
-    private MainGame game;
-
-    BasicMap(MainGame game, String filename, float unitScale) {
+    BasicMap(String filename, float unitScale) {
         this.unitScale = unitScale;
-        tiledmap = game.manager.get(filename);
+        tiledmap = MainGame.manager.get(filename);
         tiledMapRenderer = new OrthogonalTiledMapRendererWithSprites(tiledmap, unitScale);
 
         // Atributs
@@ -99,7 +98,7 @@ public abstract class BasicMap {
 
 
         // Debug
-        //worldRenderer.render(world, camera.combined);
+        worldRenderer.render(world, camera.combined);
     }
 
     public void renderWalls(OrthographicCamera camera, int x, int y, int w, int h){

@@ -243,7 +243,7 @@ public class Menu extends BasicScreen {
         }
 
         if(map == null) {
-            map = new TownMap(game, 1f);
+            map = new TownMap(1f);
             //camMap = new OrthographicCamera(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
             camMap = new OrthographicCamera(viewport.getWorldWidth(), viewport.getWorldHeight());
             camMap.setToOrtho(false, Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);

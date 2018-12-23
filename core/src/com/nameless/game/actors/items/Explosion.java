@@ -21,7 +21,7 @@ public class Explosion {
     public Explosion(World world, RayHandler rayHandler, float range, final float DAMAGE, float x, float y) {
         ParticleEffectManager.getInstance().addParticle(ParticleEffectManager.Type.FIRE, new Vector2(x,y), null);
 
-        final PointLight light = new PointLight(rayHandler, 20, new Color(1f,.8f,.5f,.65f), 10, x,y);
+        final PointLight light = new PointLight(rayHandler, 20, new Color(1f,.8f,.5f,.65f), 15, x,y);
         light.setSoftnessLength(0f);
         light.setActive(true);
         light.setContactFilter(Constants.LOW_FURNITURES_BIT, (short) 0x0000, (short) (Constants.OBSTACLES_BIT));

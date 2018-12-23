@@ -18,8 +18,8 @@ import com.nameless.game.MainGame;
 public class TownMap extends BasicMap {
 
 
-    public TownMap(MainGame game, float unitScale) {
-        super(game, "tmx/town_map_final.tmx", unitScale);
+    public TownMap(float unitScale) {
+        super("tmx/town_map_final.tmx", unitScale);
 
         /*
         Must have layers:
