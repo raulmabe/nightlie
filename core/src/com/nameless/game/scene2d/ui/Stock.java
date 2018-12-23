@@ -8,10 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
-import com.nameless.game.Constants;
-import com.nameless.game.MainGame;
-import com.nameless.game.VirtualController;
-import com.nameless.game.Weapons;
+import com.nameless.game.*;
+
 public class Stock extends Table {
 
     private ImageButton pistolButton, uziButton, shotgunButton, grenadeButton, rocketButton;
@@ -46,31 +44,31 @@ public class Stock extends Table {
         pistolButton.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                EnableWeapon(Weapons.PISTOL);
+                EnableWeapon(WeaponsInfo.PISTOL);
             }
         });
         uziButton.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                EnableWeapon(Weapons.UZI);
+                EnableWeapon(WeaponsInfo.UZI);
             }
         });
         shotgunButton.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                EnableWeapon(Weapons.SHOTGUN);
+                EnableWeapon(WeaponsInfo.SHOTGUN);
             }
         });
         grenadeButton.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                EnableWeapon(Weapons.GRENADE);
+                EnableWeapon(WeaponsInfo.GRENADE);
             }
         });
         rocketButton.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                EnableWeapon(Weapons.ROCKET);
+                EnableWeapon(WeaponsInfo.ROCKET);
             }
         });
     }
@@ -85,19 +83,19 @@ public class Stock extends Table {
 
         {
             switch (weapon){
-                case Weapons.ROCKET:
+                case WeaponsInfo.ROCKET:
                     rocketButton.getColor().a = 1;
                     break;
-                case Weapons.GRENADE:
+                case WeaponsInfo.GRENADE:
                     grenadeButton.getColor().a = 1;
                     break;
-                case Weapons.SHOTGUN:
+                case WeaponsInfo.SHOTGUN:
                     shotgunButton.getColor().a = 1;
                     break;
-                case Weapons.UZI:
+                case WeaponsInfo.UZI:
                     uziButton.getColor().a = 1;
                     break;
-                case Weapons.PISTOL:
+                case WeaponsInfo.PISTOL:
                     pistolButton.getColor().a = 1;
                     break;
                 default:
@@ -118,19 +116,19 @@ public class Stock extends Table {
         shaper.setColor(Color.WHITE);
 
         switch (VirtualController.ACTUAL_WEAPON){
-            case Weapons.ROCKET:
+            case WeaponsInfo.ROCKET:
                 shaper.box(rocketButton.getX(), rocketButton.getY(), 0, SIZE_ICONS,SIZE_ICONS,0);
                 break;
-            case Weapons.GRENADE:
+            case WeaponsInfo.GRENADE:
                 shaper.box(grenadeButton.getX(), grenadeButton.getY(), 0, SIZE_ICONS,SIZE_ICONS,0);
                 break;
-            case Weapons.SHOTGUN:
+            case WeaponsInfo.SHOTGUN:
                 shaper.box(shotgunButton.getX(), shotgunButton.getY(), 0, SIZE_ICONS,SIZE_ICONS,0);
                 break;
-            case Weapons.UZI:
+            case WeaponsInfo.UZI:
                 shaper.box(uziButton.getX(), uziButton.getY(), 0, SIZE_ICONS,SIZE_ICONS,0);
                 break;
-            case Weapons.PISTOL:
+            case WeaponsInfo.PISTOL:
                 shaper.box(pistolButton.getX(), pistolButton.getY(), 0, SIZE_ICONS,SIZE_ICONS,0);
                 break;
             default:
@@ -146,17 +144,17 @@ public class Stock extends Table {
     }
 
     public void UpdateWeapon(int i){
-        Weapons.LevelUp(i);
+        WeaponsInfo.LevelUp(i);
         switch (i){
-            case Weapons.ROCKET:
+            case WeaponsInfo.ROCKET:
                 break;
-            case Weapons.GRENADE:
+            case WeaponsInfo.GRENADE:
                 break;
-            case Weapons.SHOTGUN:
+            case WeaponsInfo.SHOTGUN:
                 break;
-            case Weapons.UZI:
+            case WeaponsInfo.UZI:
                 break;
-            case Weapons.PISTOL:
+            case WeaponsInfo.PISTOL:
                 break;
             default:
         }

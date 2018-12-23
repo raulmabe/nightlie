@@ -1,19 +1,14 @@
 package com.nameless.game.actors.items;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.Timer;
-import com.nameless.game.Constants;
 import com.nameless.game.MathStatic;
-import com.nameless.game.Weapons;
+import com.nameless.game.WeaponsInfo;
 import com.nameless.game.actors.enemies.Zombie;
-
-import static com.nameless.game.Constants.PixelsPerMeter;
 
 /**
  * Created by Raul on 02/07/2017.
@@ -26,7 +21,7 @@ public class UziBullet extends BasicBullet {
     private Vector2 p1, p2;
 
     public UziBullet(World world, float x, float y, float angle) {
-        super(Weapons.UZI_DAMAGE,24,.25f, .25f);
+        super(WeaponsInfo.UZI_DAMAGE,24,.25f, .25f);
         this.world = world;
 
         shaper = new ShapeRenderer();

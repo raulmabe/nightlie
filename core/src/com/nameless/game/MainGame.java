@@ -88,8 +88,7 @@ public class MainGame extends Game {
 		manager.load("players/anim/zombie1_attack.png", Texture.class, texParameters);
 		manager.load("players/anim/zombie2_attack.png", Texture.class, texParameters);
 
-		// Weapons
-		manager.load("players/anim/explosion.png", Texture.class, texParameters);
+		// WeaponsInfo
 		manager.load("weapons/pistol.png", Texture.class, texParameters);
 		manager.load("weapons/uzi.png", Texture.class, texParameters);
 		manager.load("weapons/shotgun.png", Texture.class, texParameters);

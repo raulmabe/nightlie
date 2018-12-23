@@ -1,6 +1,5 @@
 package com.nameless.game.actors.items;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -8,15 +7,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.RayCastCallback;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.Timer;
 import com.nameless.game.MathStatic;
-import com.nameless.game.Weapons;
+import com.nameless.game.WeaponsInfo;
 import com.nameless.game.actors.enemies.Zombie;
-import com.nameless.game.screens.Play;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ShotgunBullet extends BasicBullet {
 
@@ -27,7 +21,7 @@ public class ShotgunBullet extends BasicBullet {
     private Vector2[] p2;
 
     public ShotgunBullet(World world, float x, float y, float angle) {
-        super( Weapons.SHOTGUN_DAMAGE,10,.25f, .25f);
+        super( WeaponsInfo.SHOTGUN_DAMAGE,10,.25f, .25f);
         this.world = world;
 
         shaper = new ShapeRenderer();

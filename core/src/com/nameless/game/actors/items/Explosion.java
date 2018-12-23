@@ -10,7 +10,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Timer;
 import com.nameless.game.Constants;
 import com.nameless.game.MathStatic;
-import com.nameless.game.Weapons;
 import com.nameless.game.actors.Character;
 import com.nameless.game.actors.enemies.Zombie;
 import com.nameless.game.actors.player.Player;
@@ -51,6 +50,9 @@ public class Explosion {
             public float reportRayFixture(Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
                 if(fixture.getBody().getUserData() instanceof Zombie || fixture.getBody().getUserData() instanceof Player){
                     ((Character) fixture.getBody().getUserData()).TakeDamage(DAMAGE * 1/fraction, MathStatic.V2xf(MathStatic.V2minusV2(point,p1).nor(), 1/fraction));
+                }
+                if(fixture.getBody().getUserData() instanceof GrenadeBullet){
+                    ((GrenadeBullet) fixture.getBody().getUserData()).setToDestroy = true;
                 }
                 return 1;
             }

@@ -1,27 +1,15 @@
 package com.nameless.game.actors.items;
 
-import box2dLight.PointLight;
 import box2dLight.RayHandler;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.nameless.game.Constants;
-import com.nameless.game.MainGame;
-import com.nameless.game.MathStatic;
-import com.nameless.game.Weapons;
-import com.nameless.game.actors.Character;
-import com.nameless.game.actors.enemies.Zombie;
-import com.nameless.game.actors.player.Player;
-import com.nameless.game.managers.ParticleEffectManager;
-import com.nameless.game.screens.BasicPlay;
-import com.nameless.game.screens.Play;
+import com.nameless.game.WeaponsInfo;
 
 public class GrenadeBullet extends BasicBullet {
 
@@ -30,19 +18,12 @@ public class GrenadeBullet extends BasicBullet {
 
     private ShapeRenderer shaper;
 
-    // Attack animation
-    public Animation<TextureRegion> explodeAnim;
-    public Texture explodeSheet;
-    public float stateTime;
-
-    private TextureRegion region;
-
     private float time = TimeUtils.nanoTime();
 
     private RayHandler rayHandler;
 
     public GrenadeBullet(RayHandler rayHandler, World world, float x, float y, float angle) {
-        super( Weapons.GRENADE_DAMAGE,3,.25f, .25f);
+        super( WeaponsInfo.GRENADE_DAMAGE,3,.25f, .25f);
         this.world = world;
         this.rayHandler = rayHandler;
 
@@ -58,18 +39,6 @@ public class GrenadeBullet extends BasicBullet {
         body.applyLinearImpulse(new Vector2(16 * (float) Math.sin(Math.toRadians(-angle+90)),
                 16 * (float) Math.cos(Math.toRadians(angle-90))), body.getPosition(), true);
         body.setLinearDamping(2.5f);
-
-
-        // Explode animation
-        explodeSheet = MainGame.manager.get("players/anim/explosion.png");
-        TextureRegion[][] tmp = TextureRegion.split(explodeSheet, explodeSheet.getWidth()/5,
-                explodeSheet.getHeight());
-        TextureRegion[] attackFrames = new TextureRegion[5];
-        for (int i = 0; i < 5; ++i)
-            attackFrames[i] = tmp[0][i];
-        explodeAnim = new Animation<TextureRegion>(1/30f, attackFrames);
-        stateTime = 0f;
-        region = attackFrames[0];
     }
 
 
@@ -125,7 +94,6 @@ public class GrenadeBullet extends BasicBullet {
     }
 
     private void explode(){
-        setSize(region.getRegionWidth()*2/Constants.PixelsPerMeter, region.getRegionHeight()*2/Constants.PixelsPerMeter);
         world.destroyBody(body);
 
         new Explosion(world, rayHandler, RANGE, DAMAGE, getX(), getY());

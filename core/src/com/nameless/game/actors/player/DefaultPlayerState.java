@@ -51,47 +51,47 @@ public class DefaultPlayerState implements IState {
         else parent.SPEED = parent.INI_SPEED;
 
         // Shoot
-        if(parent.play.controller.shoot && parent.weapons[VirtualController.ACTUAL_WEAPON] > 0) {
+        if(parent.play.controller.shoot && parent.weapons.getAmmo(VirtualController.ACTUAL_WEAPON) > 0) {
             Vector2 MuzzlePosAux = MathStatic.RotateVector2(parent.MuzzlePos, parent.getRotation(), aux.set(parent.getCenterX(), parent.getCenterY()));
             switch (VirtualController.ACTUAL_WEAPON){
-                case Weapons.ROCKET:
-                    if(System.currentTimeMillis() - parent.play.controller.lastTimeShot > Weapons.ROCKET_DELAY){
+                case WeaponsInfo.ROCKET:
+                    if(System.currentTimeMillis() - parent.play.controller.lastTimeShot > WeaponsInfo.ROCKET_DELAY){
                         RocketBullet bullet = new RocketBullet(parent.rayHandler, parent.world, MuzzlePosAux.x, MuzzlePosAux.y, parent.getRotation());
                         parent.play.bg.addActor(bullet);
-                        parent.weapons[VirtualController.ACTUAL_WEAPON]--;
+                        parent.weapons.removeAmmo(VirtualController.ACTUAL_WEAPON,1);
                         parent.play.controller.lastTimeShot = System.currentTimeMillis();
                     }
                     break;
-                case Weapons.GRENADE:
-                    if(System.currentTimeMillis() - parent.play.controller.lastTimeShot > Weapons.GRENADE_DELAY){
+                case WeaponsInfo.GRENADE:
+                    if(System.currentTimeMillis() - parent.play.controller.lastTimeShot > WeaponsInfo.GRENADE_DELAY){
                         GrenadeBullet bullet = new GrenadeBullet( parent.rayHandler,parent.world, MuzzlePosAux.x,MuzzlePosAux.y, parent.getRotation());
                         parent.play.bg.addActor(bullet);
-                        parent.weapons[VirtualController.ACTUAL_WEAPON]--;
-                        if(parent.weapons[VirtualController.ACTUAL_WEAPON] == 0) parent.region = parent.atlas.findRegion(Constants.character + "_punch");
+                        parent.weapons.removeAmmo(VirtualController.ACTUAL_WEAPON,1);
                         parent.play.controller.lastTimeShot = System.currentTimeMillis();
+                        if(parent.weapons.getAmmo(VirtualController.ACTUAL_WEAPON) == 0) parent.region = parent.atlas.findRegion(Constants.character + "_punch");
                     }
                     break;
-                case Weapons.SHOTGUN:
-                    if(System.currentTimeMillis() - parent.play.controller.lastTimeShot > Weapons.SHOTGUN_DELAY){
+                case WeaponsInfo.SHOTGUN:
+                    if(System.currentTimeMillis() - parent.play.controller.lastTimeShot > WeaponsInfo.SHOTGUN_DELAY){
                         ShotgunBullet bullet = new ShotgunBullet(parent.world, MuzzlePosAux.x,MuzzlePosAux.y, parent.getRotation());
                         parent.play.bg.addActor(bullet);
-                        parent.weapons[VirtualController.ACTUAL_WEAPON]--;
+                        parent.weapons.removeAmmo(VirtualController.ACTUAL_WEAPON,1);
                         parent.play.controller.lastTimeShot = System.currentTimeMillis();
                     }
                     break;
-                case Weapons.PISTOL:
-                    if(System.currentTimeMillis() - parent.play.controller.lastTimeShot > Weapons.PISTOL_DELAY){
+                case WeaponsInfo.PISTOL:
+                    if(System.currentTimeMillis() - parent.play.controller.lastTimeShot > WeaponsInfo.PISTOL_DELAY){
                         PistolBullet bullet = new PistolBullet(parent.world, MuzzlePosAux.x,MuzzlePosAux.y, parent.getRotation());
                         parent.play.bg.addActor(bullet);
-                        parent.weapons[VirtualController.ACTUAL_WEAPON]--;
+                        parent.weapons.removeAmmo(VirtualController.ACTUAL_WEAPON,1);
                         parent.play.controller.lastTimeShot = System.currentTimeMillis();
                     }
                     break;
-                case Weapons.UZI:
-                    if(System.currentTimeMillis() - parent.play.controller.lastTimeShot > Weapons.UZI_DELAY) {
+                case WeaponsInfo.UZI:
+                    if(System.currentTimeMillis() - parent.play.controller.lastTimeShot > WeaponsInfo.UZI_DELAY) {
                         UziBullet bullet = new UziBullet(parent.world, MuzzlePosAux.x,MuzzlePosAux.y, parent.getRotation());
                         parent.play.bg.addActor(bullet);
-                        parent.weapons[VirtualController.ACTUAL_WEAPON]--;
+                        parent.weapons.removeAmmo(VirtualController.ACTUAL_WEAPON,1);
                         parent.play.controller.lastTimeShot = System.currentTimeMillis();
                     }
                     break;

@@ -4,10 +4,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.nameless.game.MathStatic;
-import com.nameless.game.Weapons;
+import com.nameless.game.WeaponsInfo;
 import com.nameless.game.actors.Character;
 import com.nameless.game.actors.Loot;
-import com.nameless.game.actors.enemies.Zombie;
 import com.nameless.game.actors.items.BasicBullet;
 import com.nameless.game.actors.items.RocketBullet;
 import com.nameless.game.actors.player.Player;
@@ -60,7 +59,7 @@ public class CollisionManager implements ContactListener {
             if(fixtureB.getBody().getUserData() instanceof Character) {
                 Vector2 p1 = ((RocketBullet) contact.getFixtureA().getBody().getUserData()).p1;
                 Vector2 p2 = ((RocketBullet) contact.getFixtureA().getBody().getUserData()).p2;
-                ((Character) contact.getFixtureB().getBody().getUserData()).TakeDamage(Weapons.ROCKET_DAMAGE, MathStatic.V2minusV2(p2, p1).nor());
+                ((Character) contact.getFixtureB().getBody().getUserData()).TakeDamage(WeaponsInfo.ROCKET_DAMAGE, MathStatic.V2minusV2(p2, p1).nor());
             }
             ((RocketBullet) contact.getFixtureA().getBody().getUserData()).setToDestroy = true;
         }
@@ -68,7 +67,7 @@ public class CollisionManager implements ContactListener {
             if(contact.getFixtureA().getBody().getUserData() instanceof Character) {
                 Vector2 p1 = ((RocketBullet) contact.getFixtureB().getBody().getUserData()).p1;
                 Vector2 p2 = ((RocketBullet) contact.getFixtureB().getBody().getUserData()).p2;
-                ((Character) contact.getFixtureA().getBody().getUserData()).TakeDamage(Weapons.ROCKET_DAMAGE, MathStatic.V2minusV2(p2, p1).nor());
+                ((Character) contact.getFixtureA().getBody().getUserData()).TakeDamage(WeaponsInfo.ROCKET_DAMAGE, MathStatic.V2minusV2(p2, p1).nor());
             }
             ((RocketBullet) contact.getFixtureB().getBody().getUserData()).setToDestroy = true;
         }
