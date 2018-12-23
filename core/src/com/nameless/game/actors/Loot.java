@@ -11,13 +11,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.nameless.game.Constants;
-import com.nameless.game.IObserver;
-import com.nameless.game.ISubject;
-import com.nameless.game.MainGame;
+import com.nameless.game.*;
 import com.nameless.game.managers.ParticleEffectManager;
 
 import java.util.ArrayList;
+import java.util.Timer;
 
 public class Loot extends Actor {
 
@@ -88,7 +86,9 @@ public class Loot extends Actor {
     private void setBox2d() {
         BodyDef bdef = new BodyDef();
         bdef.position.set(getX() + getWidth()/2, getY()+getHeight()/2);
-        bdef.type = BodyDef.BodyType.KinematicBody;
+        bdef.type = BodyDef.BodyType.DynamicBody;
+        bdef.linearDamping = 20f;
+        bdef.angle = getRotation()*MathUtils.degRad;
         body = world.createBody(bdef);
         body.setUserData(this);
 
@@ -97,9 +97,9 @@ public class Loot extends Actor {
         shape.setAsBox(getWidth()/2, getHeight()/2, new Vector2(0,0), getRotation()*MathUtils.degRad);
 
         fdef.shape = shape;
-        fdef.isSensor = true;
+        //fdef.isSensor = true;
         fdef.filter.categoryBits = Constants.LOW_FURNITURES_BIT;
-        fdef.filter.maskBits = Constants.PLAYER_BIT;
+        fdef.filter.maskBits = Constants.EVERYTHING_BIT; //Constants.PLAYER_BIT;
         body.createFixture(fdef);
         shape.dispose();
     }
@@ -118,6 +118,8 @@ public class Loot extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta);
+        setPosition(body.getPosition().x - getWidth()/2, body.getPosition().y - getHeight()/2);
+        setRotation(body.getAngle()*MathUtils.radDeg);
         if(setToDestroy){
             collected();
         }
@@ -127,6 +129,10 @@ public class Loot extends Actor {
         ParticleEffectManager.getInstance().addParticle(ParticleEffectManager.Type.LOOT, body.getPosition(), color);
         world.destroyBody(body);
         remove();
+    }
+
+    public void applyImpulse(Vector2 impulse) {
+        body.applyLinearImpulse(MathStatic.V2xf(impulse, .1f), body.getPosition(), true);
     }
 
     public enum Type {

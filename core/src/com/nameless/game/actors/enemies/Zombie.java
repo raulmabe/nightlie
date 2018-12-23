@@ -11,9 +11,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Pool;
+import com.badlogic.gdx.utils.Timer;
 import com.nameless.game.*;
 import com.nameless.game.actors.Character;
 import com.nameless.game.actors.Loot;
+import com.nameless.game.scene2d.ui.HealthBar;
 import com.nameless.game.screens.BasicPlay;
 
 import java.util.ArrayList;
@@ -44,6 +46,21 @@ public class Zombie extends Character implements Pool.Poolable, ISubject {
 
     private Loot.Type typeLoot = Loot.Type.RANDOM;
 
+    private HealthBar healthBar;
+    private Timer timer;
+
+    @Override
+    public void TakeDamage(float value, Vector2 impulse) {
+        super.TakeDamage(value, impulse);
+        play.mapHud.addActor(healthBar);
+        timer.scheduleTask(new Timer.Task() {
+            @Override
+            public void run() {
+                play.mapHud.removeActor(healthBar);
+            }
+        }, 1f);
+    }
+
     public Zombie(BasicPlay play, World world, Actor target, float x, float y) {
         super(world, 100,100);
         this.play = play;
@@ -70,6 +87,9 @@ public class Zombie extends Character implements Pool.Poolable, ISubject {
 
         setPosition(body.getPosition().x - getWidth()/2, body.getPosition().y - getHeight()/2);
         if(target != null) ChangeState(new FlowFieldState());
+
+        healthBar = new HealthBar(this);
+        timer = new Timer();
     }
 
     private void setBox2d() {

@@ -12,9 +12,9 @@ import com.nameless.game.screens.Play;
 public class HealthBar extends Actor {
 
     private ShapeRenderer sr;
-    private Player character;
+    private Character character;
 
-    public HealthBar(Player character){
+    public HealthBar(Character character){
         this.character = character;
         sr = new ShapeRenderer();
         sr.setAutoShapeType(true);

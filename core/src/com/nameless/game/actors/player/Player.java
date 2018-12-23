@@ -21,9 +21,6 @@ import static com.nameless.game.Constants.PixelsPerMeter;
 
 
 public class Player extends Character {
-
-    public float MAX_HEALTH;
-
     public BasicPlay play;
 
     public TextureAtlas atlas;
@@ -41,7 +38,6 @@ public class Player extends Character {
         super(world, 300, 999999999);
         this.rayHandler = rayHandler;
         this.play = play;
-        MAX_HEALTH = HEALTH;
 
         weapons = new Weapons();
         weapons.addWeapon(WeaponsInfo.NONE, 1);

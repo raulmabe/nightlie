@@ -14,6 +14,7 @@ import com.nameless.game.actors.states.InjuredState;
 public class Character extends Actor {
     public float INI_SPEED;
     public float SPEED;
+    public float MAX_HEALTH;
     public float HEALTH;
 
     public World world;
@@ -32,6 +33,7 @@ public class Character extends Actor {
         this.INI_SPEED = SPEED;
         this.SPEED = SPEED;
         this.HEALTH = HEALTH;
+        this.MAX_HEALTH = HEALTH;
 
         blinker = new Blinker();
         timer = new Timer();
