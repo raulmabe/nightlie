@@ -107,7 +107,7 @@ public class Menu extends BasicScreen {
                     stage.addAction(Actions.sequence(Actions.fadeOut(0.5f), Actions.run(new Runnable() {
                         @Override
                         public void run() {
-                            game.setScreen(new TutorialPlay(game));
+                            game.setScreen(new Play(game));
                         }
                     })));
                 }

@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.Timer;
 import com.nameless.game.*;
 import com.nameless.game.actors.Character;
 import com.nameless.game.actors.items.Flashlight;
@@ -33,6 +34,11 @@ public class Player extends Character {
     public Weapons weapons;
 
     public RayHandler rayHandler;
+
+    @Override
+    public void TakeDamage(float value, Vector2 impulse) {
+        super.TakeDamage(value, impulse);
+    }
 
     public Player(BasicPlay play, RayHandler rayHandler, World world, float x, float y) {
         super(world, 300, 999999999);
@@ -87,7 +93,6 @@ public class Player extends Character {
         WeaponsLabel weaponLabel = new WeaponsLabel(this);
         play.mapHud.addActor(healthbar);
         play.mapHud.addActor(weaponLabel);
-
     }
 
     private void setBox2d() {

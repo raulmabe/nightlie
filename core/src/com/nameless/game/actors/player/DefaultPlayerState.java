@@ -1,5 +1,6 @@
 package com.nameless.game.actors.player;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -60,6 +61,7 @@ public class DefaultPlayerState implements IState {
                         parent.play.bg.addActor(bullet);
                         parent.weapons.removeAmmo(VirtualController.ACTUAL_WEAPON,1);
                         parent.play.controller.lastTimeShot = System.currentTimeMillis();
+                        Gdx.input.vibrate(WeaponsInfo.ROCKET_DELAY/3);
                     }
                     break;
                 case WeaponsInfo.GRENADE:
@@ -69,6 +71,7 @@ public class DefaultPlayerState implements IState {
                         parent.weapons.removeAmmo(VirtualController.ACTUAL_WEAPON,1);
                         parent.play.controller.lastTimeShot = System.currentTimeMillis();
                         if(parent.weapons.getAmmo(VirtualController.ACTUAL_WEAPON) == 0) parent.region = parent.atlas.findRegion(Constants.character + "_punch");
+                        Gdx.input.vibrate(WeaponsInfo.GRENADE_DELAY/3);
                     }
                     break;
                 case WeaponsInfo.SHOTGUN:
@@ -77,6 +80,7 @@ public class DefaultPlayerState implements IState {
                         parent.play.bg.addActor(bullet);
                         parent.weapons.removeAmmo(VirtualController.ACTUAL_WEAPON,1);
                         parent.play.controller.lastTimeShot = System.currentTimeMillis();
+                        Gdx.input.vibrate(WeaponsInfo.SHOTGUN_DELAY/3);
                     }
                     break;
                 case WeaponsInfo.PISTOL:
@@ -85,6 +89,7 @@ public class DefaultPlayerState implements IState {
                         parent.play.bg.addActor(bullet);
                         parent.weapons.removeAmmo(VirtualController.ACTUAL_WEAPON,1);
                         parent.play.controller.lastTimeShot = System.currentTimeMillis();
+                        Gdx.input.vibrate(WeaponsInfo.PISTOL_DELAY/3);
                     }
                     break;
                 case WeaponsInfo.UZI:
@@ -93,6 +98,7 @@ public class DefaultPlayerState implements IState {
                         parent.play.bg.addActor(bullet);
                         parent.weapons.removeAmmo(VirtualController.ACTUAL_WEAPON,1);
                         parent.play.controller.lastTimeShot = System.currentTimeMillis();
+                        Gdx.input.vibrate(WeaponsInfo.UZI_DELAY/3);
                     }
                     break;
             }

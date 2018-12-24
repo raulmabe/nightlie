@@ -98,7 +98,7 @@ public abstract class BasicMap {
 
 
         // Debug
-        worldRenderer.render(world, camera.combined);
+        //worldRenderer.render(world, camera.combined);
     }
 
     public void renderWalls(OrthographicCamera camera, int x, int y, int w, int h){
