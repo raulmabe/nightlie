@@ -1,19 +1,18 @@
 package com.nameless.game.actors.player;
 
-import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.utils.Timer;
 import com.nameless.game.*;
 import com.nameless.game.actors.Character;
+import com.nameless.game.actors.Loot;
 import com.nameless.game.actors.items.Flashlight;
 import com.nameless.game.actors.items.Weapons;
 import com.nameless.game.scene2d.ui.HealthBar;
+import com.nameless.game.scene2d.ui.Info;
 import com.nameless.game.scene2d.ui.WeaponsLabel;
 import com.nameless.game.screens.BasicPlay;
 
@@ -21,7 +20,7 @@ import static com.nameless.game.Constants.ENEMY_OBSTACLES_BIT;
 import static com.nameless.game.Constants.PixelsPerMeter;
 
 
-public class Player extends Character {
+public class Player extends Character{
     public BasicPlay play;
 
     public TextureAtlas atlas;
@@ -33,16 +32,18 @@ public class Player extends Character {
 
     public Weapons weapons;
 
-    public RayHandler rayHandler;
-
     @Override
-    public void TakeDamage(float value, Vector2 impulse) {
-        super.TakeDamage(value, impulse);
+    public void takeDamage(float value, Vector2 impulse) {
+        super.takeDamage(value, impulse);
     }
 
-    public Player(BasicPlay play, RayHandler rayHandler, World world, float x, float y) {
-        super(world, 300, 999999999);
-        this.rayHandler = rayHandler;
+    @Override
+    public void setOnFire() {
+        super.setOnFire();
+    }
+
+    public Player(BasicPlay play, float x, float y) {
+        super(300, 999999999);
         this.play = play;
 
         weapons = new Weapons();
@@ -160,38 +161,25 @@ public class Player extends Character {
         return super.remove();
     }
 
-    public void LootCollected(){
-        switch (MathUtils.random(0,5)){
-            case 4:
-                if(weapons.getAmmo(WeaponsInfo.ROCKET) < WeaponsInfo.ROCKET_CAPACITY){
-                    weapons.fillAmmo(WeaponsInfo.ROCKET, WeaponsInfo.ROCKET_CAPACITY);
-                    break;
-                }
-            case 3:
-                if(weapons.getAmmo(WeaponsInfo.GRENADE) < WeaponsInfo.GRENADE_CAPACITY){
-                    weapons.fillAmmo(WeaponsInfo.GRENADE, WeaponsInfo.GRENADE_CAPACITY);
-                    break;
-                }
-            case 2:
-                if(weapons.getAmmo(WeaponsInfo.SHOTGUN) < WeaponsInfo.SHOTGUN_CAPACITY){
-                    weapons.fillAmmo(WeaponsInfo.SHOTGUN, WeaponsInfo.SHOTGUN_CAPACITY);
-                    break;
-                }
-            case 1:
-                if(weapons.getAmmo(WeaponsInfo.UZI) < WeaponsInfo.UZI_CAPACITY){
-                    weapons.fillAmmo(WeaponsInfo.UZI, WeaponsInfo.UZI_CAPACITY);
-                    break;
-                }
-            case 0:
-                if(weapons.getAmmo(WeaponsInfo.PISTOL) < WeaponsInfo.PISTOL_CAPACITY){
-                    weapons.fillAmmo(WeaponsInfo.PISTOL, WeaponsInfo.PISTOL_CAPACITY);
-                    break;
-                }
-            case 5:
+    public void LootCollected(Loot.Type type, float x, float y){
+        Info info = new Info(this, x, y, "None");
+        switch (type){
+            case WEAPON:
+                info.setText("+ FLAMETHROWER LVL-1");
+                //label.setColor(Color.valueOf("#006e82"));
+                break;
+            case LIFE:
+                HEALTH = MAX_HEALTH;
+                info.setText("+ LIFE");
+                //label.setColor(Color.CORAL);
+                break;
+            case AMMO:
+                weapons.fillAmmo(VirtualController.ACTUAL_WEAPON, 500);
+                info.setText("+ AMMO");
+                //label.setColor(Color.OLIVE);
+                break;
             default:
-                if(HEALTH < MAX_HEALTH){
-                    HEALTH = MAX_HEALTH;
-                }
         }
+        play.mapHud.addActor(info);
     }
 }

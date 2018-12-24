@@ -2,7 +2,6 @@ package com.nameless.game.actors.items;
 
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -19,8 +18,8 @@ import com.nameless.game.managers.ParticleEffectManager;
 
 public class Explosion {
 
-    public Explosion(World world, RayHandler rayHandler, float range, final float DAMAGE, float x, float y) {
-        ParticleEffectManager.getInstance().addParticle(ParticleEffectManager.Type.FIRE, new Vector2(x,y), null);
+    public Explosion(World world, final RayHandler rayHandler, float range, final float DAMAGE, final float x, final float y) {
+        ParticleEffectManager.getInstance().addParticle(ParticleEffectManager.Type.EXPLOSION, new Vector2(x,y), null);
 
         final PointLight light = new PointLight(rayHandler, 20, new Color(1f,.6f,.6f,.65f), 10, x,y);
         light.setSoftnessLength(0f);
@@ -51,7 +50,10 @@ public class Explosion {
             @Override
             public float reportRayFixture(Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
                 if(fixture.getBody().getUserData() instanceof Zombie || fixture.getBody().getUserData() instanceof Player){
-                    ((Character) fixture.getBody().getUserData()).TakeDamage(DAMAGE * 1/fraction, MathStatic.V2xf(MathStatic.V2minusV2(point,p1).nor(), 1/fraction));
+                    ((Character) fixture.getBody().getUserData()).takeDamage(DAMAGE * 1/fraction, MathStatic.V2xf(MathStatic.V2minusV2(point,p1).nor(), 1/fraction));
+                    if(!((Character) fixture.getBody().getUserData()).setToDestroy && !((Character) fixture.getBody().getUserData()).isOnFire()){
+                        ((Character) fixture.getBody().getUserData()).setOnFire();
+                    }
                 }
                 if(fixture.getBody().getUserData() instanceof GrenadeBullet){
                     ((GrenadeBullet) fixture.getBody().getUserData()).setToDestroy = true;

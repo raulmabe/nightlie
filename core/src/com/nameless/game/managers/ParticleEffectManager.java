@@ -1,12 +1,12 @@
 package com.nameless.game.managers;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool.PooledEffect;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.graphics.ParticleEmitterBox2D;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -20,8 +20,12 @@ public class ParticleEffectManager extends Actor {
     private ParticleEffectPool lootPool;
     private Array<PooledEffect> lootEffects;
 
+    private ParticleEffectPool explosionPool;
+    private Array<PooledEffect> explosionEffects;
+
     private ParticleEffectPool firePool;
     private Array<PooledEffect> fireEffects;
+    private Array<Actor> fireActors;
 
     // static variable single_instance of Type Singleton
     private static ParticleEffectManager single_instance = null;
@@ -35,12 +39,21 @@ public class ParticleEffectManager extends Actor {
         lootEffects = new Array<PooledEffect>();
 
 
+        ParticleEffect explosionPrototype = MainGame.manager.get("particles/explosionEffect");
+        for (int i = 0; i < explosionPrototype.getEmitters().size; ++i){
+            explosionPrototype.getEmitters().set(i,new ParticleEmitterBox2D(BasicMap.world,explosionPrototype.getEmitters().get(i)));
+        }
+        explosionPool = new ParticleEffectPool(explosionPrototype,0,5);
+        explosionEffects = new Array<PooledEffect>();
+
+
         ParticleEffect firePrototype = MainGame.manager.get("particles/fireEffect");
         for (int i = 0; i < firePrototype.getEmitters().size; ++i){
             firePrototype.getEmitters().set(i,new ParticleEmitterBox2D(BasicMap.world,firePrototype.getEmitters().get(i)));
         }
         firePool = new ParticleEffectPool(firePrototype,0,5);
         fireEffects = new Array<PooledEffect>();
+        fireActors = new Array<Actor>();
     }
 
     @Override
@@ -53,10 +66,23 @@ public class ParticleEffectManager extends Actor {
                 effect.free();
             }
         }
-        for(ParticleEffectPool.PooledEffect effect : fireEffects) {
+        for(ParticleEffectPool.PooledEffect effect : explosionEffects) {
+            effect.update(delta);
+            if(effect.isComplete()) {
+                explosionEffects.removeValue(effect, true);
+                effect.free();
+            }
+        }
+        for(int i = 0; i < fireEffects.size; ++i) {
+            PooledEffect effect = fireEffects.get(i);
+            effect.setPosition(fireActors.get(i).getX()+fireActors.get(i).getWidth()/2,
+                    fireActors.get(i).getY() + fireActors.get(i).getHeight()/2);
+            effect.getEmitters().first().getRotation().setHighMax(fireActors.get(i).getRotation());
+            effect.getEmitters().first().getWind().setHighMax(2 * MathUtils.sin(fireActors.get(i).getRotation() * 360));
             effect.update(delta);
             if(effect.isComplete()) {
                 fireEffects.removeValue(effect, true);
+                fireActors.removeValue(fireActors.get(i), true);
                 effect.free();
             }
         }
@@ -67,11 +93,15 @@ public class ParticleEffectManager extends Actor {
         super.draw(batch, parentAlpha);
 
         for(ParticleEffectPool.PooledEffect effect : lootEffects) {
-            this.setZIndex(50);
+            this.setZIndex(0);
+            effect.draw(batch);
+        }
+        for(ParticleEffectPool.PooledEffect effect : explosionEffects) {
+            this.setZIndex(this.getParent().getChildren().size-1);
             effect.draw(batch);
         }
         for(ParticleEffectPool.PooledEffect effect : fireEffects) {
-            this.setZIndex(1);
+            this.setZIndex(this.getParent().getChildren().size-1);
             effect.draw(batch);
         }
     }
@@ -99,26 +129,44 @@ public class ParticleEffectManager extends Actor {
             effect.start();
             lootEffects.add(effect);
         }
-        else if(type == Type.FIRE){
-            PooledEffect effect = firePool.obtain();
+        else if(type == Type.EXPLOSION){
+            PooledEffect effect = explosionPool.obtain();
             effect.setPosition(position.x, position.y);
             effect.scaleEffect(1/(Constants.PixelsPerMeter));
             effect.getEmitters().get(0).duration /= 2;
             effect.getEmitters().get(1).duration /= 2;
             effect.allowCompletion();
             effect.start();
-            fireEffects.add(effect);
+            explosionEffects.add(effect);
         }
+    }
+
+    public void addObjectInFire(Actor actor){
+        if(fireActors.contains(actor, true)) return;
+        System.out.println("adding fire");
+        PooledEffect effect = firePool.obtain();
+        effect.setPosition(actor.getX(),actor.getY());
+        effect.scaleEffect(1/(Constants.PixelsPerMeter));
+        effect.getEmitters().first().getWind().setHighMax(10 * MathUtils.sin(actor.getRotation()));
+        effect.getEmitters().first().getRotation().setHighMax(actor.getRotation());
+        //effect.getEmitters().first().getTransparency().scale(.5f);
+        effect.allowCompletion();
+        effect.start();
+        fireEffects.add(effect);
+        fireActors.add(actor);
     }
 
     public void clean() {
         lootPool.freeAll(lootEffects);
+        explosionPool.freeAll(explosionEffects);
         firePool.freeAll(fireEffects);
         lootEffects.clear();
+        explosionEffects.clear();
         fireEffects.clear();
+        fireActors.clear();
     }
 
     public enum Type{
-        LOOT,FIRE
+        LOOT, EXPLOSION
     }
 }

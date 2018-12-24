@@ -55,7 +55,7 @@ public class ShotgunBullet extends BasicBullet {
             @Override
             public float reportRayFixture(Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
                 if(fixture.getBody().getUserData() instanceof Zombie){
-                    ((Zombie) fixture.getBody().getUserData()).TakeDamage(DAMAGE, MathStatic.V2minusV2(point,p1).nor());
+                    ((Zombie) fixture.getBody().getUserData()).takeDamage(DAMAGE, MathStatic.V2minusV2(point,p1).nor());
                 }
                 return fraction;
             }

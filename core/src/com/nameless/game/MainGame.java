@@ -106,6 +106,7 @@ public class MainGame extends Game {
 
 		manager.setLoader(ParticleEffect.class, new ParticleEffectLoader(new InternalFileHandleResolver()));
 		manager.load("particles/lootEffect", ParticleEffect.class);
+		manager.load("particles/explosionEffect", ParticleEffect.class);
 		manager.load("particles/fireEffect", ParticleEffect.class);
 		manager.load("particles/loot.png", Texture.class, texParameters);
 		manager.load("particles/fire.png", Texture.class, texParameters);

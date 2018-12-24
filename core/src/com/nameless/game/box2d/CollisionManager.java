@@ -32,10 +32,16 @@ public class CollisionManager implements ContactListener {
         // Loot
         if(fixtureA.getBody().getUserData() instanceof Loot && fixtureB.getBody().getUserData() instanceof Player){
             ((Loot) fixtureA.getBody().getUserData()).setToDestroy = true;
-            ((Player) fixtureB.getBody().getUserData()).LootCollected();
+            Loot.Type type = ((Loot) fixtureA.getBody().getUserData()).getType();
+            float x = ((Loot) fixtureA.getBody().getUserData()).getX() + ((Loot) fixtureA.getBody().getUserData()).getWidth()/2;
+            float y = ((Loot) fixtureA.getBody().getUserData()).getY() + ((Loot) fixtureA.getBody().getUserData()).getHeight()/2;
+            ((Player) fixtureB.getBody().getUserData()).LootCollected(type, x, y);
         } else if(fixtureA.getBody().getUserData() instanceof Player && fixtureB.getBody().getUserData() instanceof Loot){
             ((Loot) fixtureB.getBody().getUserData()).setToDestroy = true;
-            ((Player) fixtureA.getBody().getUserData()).LootCollected();
+            Loot.Type type = ((Loot) fixtureB.getBody().getUserData()).getType();
+            float x = ((Loot) fixtureB.getBody().getUserData()).getX() + ((Loot) fixtureB.getBody().getUserData()).getWidth()/2;
+            float y = ((Loot) fixtureB.getBody().getUserData()).getY() + ((Loot) fixtureB.getBody().getUserData()).getHeight()/2;
+            ((Player) fixtureA.getBody().getUserData()).LootCollected( type, x, y);
         }
     }
 
@@ -59,7 +65,7 @@ public class CollisionManager implements ContactListener {
             if(fixtureB.getBody().getUserData() instanceof Character) {
                 Vector2 p1 = ((RocketBullet) contact.getFixtureA().getBody().getUserData()).p1;
                 Vector2 p2 = ((RocketBullet) contact.getFixtureA().getBody().getUserData()).p2;
-                ((Character) contact.getFixtureB().getBody().getUserData()).TakeDamage(WeaponsInfo.ROCKET_DAMAGE, MathStatic.V2minusV2(p2, p1).nor());
+                ((Character) contact.getFixtureB().getBody().getUserData()).takeDamage(WeaponsInfo.ROCKET_DAMAGE, MathStatic.V2minusV2(p2, p1).nor());
             }
             ((RocketBullet) contact.getFixtureA().getBody().getUserData()).setToDestroy = true;
         }
@@ -67,7 +73,7 @@ public class CollisionManager implements ContactListener {
             if(contact.getFixtureA().getBody().getUserData() instanceof Character) {
                 Vector2 p1 = ((RocketBullet) contact.getFixtureB().getBody().getUserData()).p1;
                 Vector2 p2 = ((RocketBullet) contact.getFixtureB().getBody().getUserData()).p2;
-                ((Character) contact.getFixtureA().getBody().getUserData()).TakeDamage(WeaponsInfo.ROCKET_DAMAGE, MathStatic.V2minusV2(p2, p1).nor());
+                ((Character) contact.getFixtureA().getBody().getUserData()).takeDamage(WeaponsInfo.ROCKET_DAMAGE, MathStatic.V2minusV2(p2, p1).nor());
             }
             ((RocketBullet) contact.getFixtureB().getBody().getUserData()).setToDestroy = true;
         }

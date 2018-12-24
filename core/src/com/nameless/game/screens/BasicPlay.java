@@ -60,7 +60,7 @@ public class BasicPlay extends BasicScreen{
 
         controller = VirtualController.getInstance();
 
-        player = new Player(this, map.rayHandler, map.world, PlayerPos.x, PlayerPos.y);
+        player = new Player(this, PlayerPos.x, PlayerPos.y);
         FlowFieldManager.calcDistanceForEveryNode(player.getCenterX(), player.getCenterY());
 
         /*
@@ -91,7 +91,7 @@ public class BasicPlay extends BasicScreen{
         ((ScreenViewport) viewport).setUnitsPerPixel(1/(PixelsPerMeter*2));
 
         particleEffectManager = ParticleEffectManager.getInstance();
-        bg.addActor(particleEffectManager);
+        fg.addActor(particleEffectManager);
 
         fg.addActor(player);
         stage.addActor(bg);

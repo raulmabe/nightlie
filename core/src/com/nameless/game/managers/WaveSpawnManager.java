@@ -78,7 +78,7 @@ public class WaveSpawnManager implements IObserver, ISubject{
                     y = parent.player.getCenterY()+ Constants.RENDER_WIDTH  * MathUtils.cos(ang);
                 }
 
-                Zombie zombie = new Zombie(parent, parent.map.world, parent.player,x,y);
+                Zombie zombie = new Zombie(parent, parent.player,x,y);
                 zombies.add(zombie);
                 zombie.attach(WaveSpawnManager.this);
                 parent.fg.addActor(zombie);

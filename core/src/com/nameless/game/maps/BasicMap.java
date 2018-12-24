@@ -42,7 +42,7 @@ public abstract class BasicMap {
     OrthogonalTiledMapRendererWithSprites tiledMapRenderer;
 
 
-    public RayHandler rayHandler = null;
+    public static RayHandler rayHandler = null;
     private ArrayList<PointLight> lights;
 
     public static World world;

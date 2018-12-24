@@ -35,7 +35,7 @@ public class ZombieAttackState implements IState {
             @Override
             public float reportRayFixture(Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
                 if(fixture.getBody().getUserData() instanceof Player){
-                    ((Player) fixture.getBody().getUserData()).TakeDamage(DAMAGE, MathStatic.V2minusV2(p2,p1).nor());
+                    ((Player) fixture.getBody().getUserData()).takeDamage(DAMAGE, MathStatic.V2minusV2(p2,p1).nor());
                 }
                 return 1;
             }

@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.nameless.game.Constants;
 import com.nameless.game.IObserver;
 import com.nameless.game.ISubject;
@@ -18,13 +19,17 @@ import static com.nameless.game.Constants.PLAYER_BIT;
 
 public class TutorialPlay extends BasicPlay implements IObserver {
 
-    public TutorialPlay(MainGame game) {
-        super(game);
+    @Override
+    public void setUpInterface(Table table) {
+        super.setUpInterface(table);
         player.transformTo(30,33);
         player.setRotation(90);
-
         setShield();
         addZombies(3);
+    }
+
+    public TutorialPlay(MainGame game) {
+        super(game);
     }
 
     private void addZombies(int size) {
@@ -42,7 +47,7 @@ public class TutorialPlay extends BasicPlay implements IObserver {
                 y = player.getCenterY()+ 5 * MathUtils.cos(ang);
             }
 
-            Zombie zombie = new Zombie(this,map.world,player,x,y);
+            Zombie zombie = new Zombie(this,player,x,y);
             zombie.setTypeLoot(Loot.Type.values()[i%3]);
             zombie.attach(this);
             fg.addActor(zombie);

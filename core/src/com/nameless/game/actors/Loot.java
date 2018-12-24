@@ -127,6 +127,7 @@ public class Loot extends Actor {
 
     private void collected() {
         ParticleEffectManager.getInstance().addParticle(ParticleEffectManager.Type.LOOT, body.getPosition(), color);
+        // Add Label
         world.destroyBody(body);
         remove();
     }

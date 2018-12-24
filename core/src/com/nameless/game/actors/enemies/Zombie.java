@@ -50,8 +50,8 @@ public class Zombie extends Character implements Pool.Poolable, ISubject {
     private Timer timer;
 
     @Override
-    public void TakeDamage(float value, Vector2 impulse) {
-        super.TakeDamage(value, impulse);
+    public void takeDamage(float value, Vector2 impulse) {
+        super.takeDamage(value, impulse);
         play.mapHud.addActor(healthBar);
         timer.scheduleTask(new Timer.Task() {
             @Override
@@ -61,8 +61,8 @@ public class Zombie extends Character implements Pool.Poolable, ISubject {
         }, 1f);
     }
 
-    public Zombie(BasicPlay play, World world, Actor target, float x, float y) {
-        super(world, 100,100);
+    public Zombie(BasicPlay play, Actor target, float x, float y) {
+        super(100,100);
         this.play = play;
         this.target = target;
         observers = new ArrayList<IObserver>();
