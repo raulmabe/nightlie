@@ -20,7 +20,7 @@ public class RocketBullet extends BasicBullet {
     private RayHandler rayHandler;
 
     public RocketBullet(RayHandler rayHandler, World world, float x, float y, float angle) {
-        super(WeaponsInfo.ROCKET_DAMAGE,3,.25f, .25f);
+        super(WeaponsInfo.ROCKET_DAMAGE,2,.25f, .25f);
         this.world = world;
         this.angle = angle;
         this.rayHandler = rayHandler;

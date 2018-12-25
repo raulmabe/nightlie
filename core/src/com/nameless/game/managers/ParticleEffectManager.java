@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.graphics.ParticleEmitterBox2D;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.nameless.game.*;
+import com.nameless.game.actors.Character;
 import com.nameless.game.maps.BasicMap;
 
 public class ParticleEffectManager extends Actor {
@@ -25,7 +26,9 @@ public class ParticleEffectManager extends Actor {
 
     private ParticleEffectPool firePool;
     private Array<PooledEffect> fireEffects;
-    private Array<Actor> fireActors;
+    private Array<Character> fireActors;
+
+    public int timeFire = 5; //seconds
 
     // static variable single_instance of Type Singleton
     private static ParticleEffectManager single_instance = null;
@@ -53,7 +56,7 @@ public class ParticleEffectManager extends Actor {
         }
         firePool = new ParticleEffectPool(firePrototype,0,5);
         fireEffects = new Array<PooledEffect>();
-        fireActors = new Array<Actor>();
+        fireActors = new Array<Character>();
     }
 
     @Override
@@ -80,7 +83,7 @@ public class ParticleEffectManager extends Actor {
             effect.getEmitters().first().getRotation().setHighMax(fireActors.get(i).getRotation());
             effect.getEmitters().first().getWind().setHighMax(2 * MathUtils.sin(fireActors.get(i).getRotation() * 360));
             effect.update(delta);
-            if(effect.isComplete()) {
+            if(effect.isComplete() || fireActors.get(i).setToDestroy) {
                 fireEffects.removeValue(effect, true);
                 fireActors.removeValue(fireActors.get(i), true);
                 effect.free();
@@ -141,19 +144,18 @@ public class ParticleEffectManager extends Actor {
         }
     }
 
-    public void addObjectInFire(Actor actor){
-        if(fireActors.contains(actor, true)) return;
-        System.out.println("adding fire");
+    public void addObjectInFire(Character character){
+        if(fireActors.contains(character, true)) return;
         PooledEffect effect = firePool.obtain();
-        effect.setPosition(actor.getX(),actor.getY());
+        effect.setPosition(character.getX(),character.getY());
         effect.scaleEffect(1/(Constants.PixelsPerMeter));
-        effect.getEmitters().first().getWind().setHighMax(10 * MathUtils.sin(actor.getRotation()));
-        effect.getEmitters().first().getRotation().setHighMax(actor.getRotation());
-        //effect.getEmitters().first().getTransparency().scale(.5f);
+        effect.getEmitters().first().getWind().setHighMax(10 * MathUtils.sin(character.getRotation()));
+        effect.getEmitters().first().getRotation().setHighMax(character.getRotation());
+        effect.setDuration(timeFire * 1000);
         effect.allowCompletion();
         effect.start();
         fireEffects.add(effect);
-        fireActors.add(actor);
+        fireActors.add(character);
     }
 
     public void clean() {

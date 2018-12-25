@@ -1,6 +1,7 @@
 package com.nameless.game.actors.player;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -31,16 +32,6 @@ public class Player extends Character{
     public Vector2 MuzzlePos;
 
     public Weapons weapons;
-
-    @Override
-    public void takeDamage(float value, Vector2 impulse) {
-        super.takeDamage(value, impulse);
-    }
-
-    @Override
-    public void setOnFire() {
-        super.setOnFire();
-    }
 
     public Player(BasicPlay play, float x, float y) {
         super(300, 999999999);
@@ -120,8 +111,10 @@ public class Player extends Character{
         if(blinker.shouldBlink(Gdx.graphics.getDeltaTime())) return;
 
         batch.setColor(batch.getColor().r, batch.getColor().g, batch.getColor().b, getColor().a);
+        batch.setColor(getColor());
         batch.draw(region, getX(), getY(), getOriginX(),getOriginY(), region.getRegionWidth()/PixelsPerMeter,
                 region.getRegionHeight()/PixelsPerMeter, getScaleX(), getScaleY(), getRotation());
+        batch.setColor(Color.WHITE);
     }
 
     @Override
@@ -165,7 +158,7 @@ public class Player extends Character{
         Info info = new Info(this, x, y, "None");
         switch (type){
             case WEAPON:
-                info.setText("+ FLAMETHROWER LVL-1");
+                info.setText("+ PISTOL");
                 //label.setColor(Color.valueOf("#006e82"));
                 break;
             case LIFE:

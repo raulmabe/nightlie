@@ -63,9 +63,12 @@ public class BasicPlay extends BasicScreen{
         player = new Player(this, PlayerPos.x, PlayerPos.y);
         FlowFieldManager.calcDistanceForEveryNode(player.getCenterX(), player.getCenterY());
 
-        /*
+
+        /**
+         * DEBUG
+         */
         PathfindingDebugger.setCamera(cam);
-        FlowFieldDebugger.setCamera(cam);*/
+        FlowFieldDebugger.setCamera(cam);
     }
 
     @Override

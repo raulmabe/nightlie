@@ -32,8 +32,8 @@ public class InjuredState implements IState{
         if(parent instanceof Zombie) if(((Zombie) parent).direction.angle() != 0) parent.setRotation(((Zombie) parent).direction.angle());
         parent.setPosition(parent.body.getPosition().x - parent.getWidth()/2, parent.body.getPosition().y - parent.getHeight()/2);
         if(TimeUtils.nanoTime() - enterTime > 200000000){
-            if(parent instanceof Player) parent.ChangeState(new DefaultPlayerState());
-            else if(parent instanceof Zombie) parent.ChangeState(new FlowFieldState());
+            if(parent instanceof Player) parent.changeState(new DefaultPlayerState());
+            else if(parent instanceof Zombie) parent.changeState(new FlowFieldState());
         }
     }
 

@@ -19,13 +19,13 @@ public class DefaultPlayerState implements IState {
     Vector2 touchpad, touchpad2, aux;
 
     //private int actualNode = 0;
-    private int actualSector = 0;
+    private static int actualSector = -1;
 
     @Override
     public void Enter(Character parent) {
         this.parent = (Player) parent;
 
-        actualSector = LevelManager.graph.getNodeByXYFloat(parent.getCenterX(), parent.getCenterY()).sector;
+        if(actualSector < 0) actualSector = LevelManager.graph.getNodeByXYFloat(parent.getCenterX(), parent.getCenterY()).sector;
 
         touchpad = new Vector2(0,0);
         touchpad2 = new Vector2(0,0);

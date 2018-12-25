@@ -82,17 +82,17 @@ public class WaveSpawnManager implements IObserver, ISubject{
                 zombies.add(zombie);
                 zombie.attach(WaveSpawnManager.this);
                 parent.fg.addActor(zombie);
-                delay[0] = MathUtils.random(.1f, 1f); // seconds
+                delay[0] = MathUtils.random(.1f, 3f); // seconds
                 System.out.println("Zombies: " + zombies.size());
             }
-        }, 0, delay[0], (round*2 + 30));
+        }, 4, delay[0], (round*2 + 30));
     }
 
     @Override
     public void handleMessage(Object obj, ISubject.type type) {
         if(type == ISubject.type.ZOMBIE_DEAD){
             zombies.remove(obj);
-            if(zombies.size() < 6 && !alreadyFinnished){
+            if(zombies.size() < MathUtils.random(4,12) && !alreadyFinnished){
                 sendMessage(ISubject.type.ROUND_FINNISH);
                 alreadyFinnished = true;
             }

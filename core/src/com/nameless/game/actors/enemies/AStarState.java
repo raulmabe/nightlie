@@ -34,7 +34,7 @@ public class AStarState implements IState, Pather<Node>{
     @Override
     public void Enter(Character parent) {
         zombie = (Zombie) parent;
-        if(((Zombie) parent).target == null) parent.ChangeState(null);
+        if(((Zombie) parent).target == null) parent.changeState(null);
 
         pathFinder = new IndexedAStarPathFinder<Node>(LevelManager.graph, false);
         RequestPath();
@@ -46,7 +46,7 @@ public class AStarState implements IState, Pather<Node>{
     @Override
     public void Update(float dt) {
         if(TimeUtils.nanoTime() - timeEntered > timeToChangePathfinding*2){
-            zombie.ChangeState(new FlowFieldState());
+            zombie.changeState(new FlowFieldState());
         }
 
         if(zombie.target != null){
@@ -74,7 +74,7 @@ public class AStarState implements IState, Pather<Node>{
         if(MathStatic.getDistancePointToPoint(zombie.body.getPosition(),new Vector2(zombie.target.getX() + zombie.target.getWidth()/2,
                 zombie.target.getY() + zombie.target.getHeight()/2)) <= zombie.RANGE){
             zombie.direction = Vector2.Zero;
-            zombie.ChangeState(new ZombieAttackState());
+            zombie.changeState(new ZombieAttackState());
         }
     }
 
@@ -113,7 +113,7 @@ public class AStarState implements IState, Pather<Node>{
             resultPath = null;
             waypoint = null;
             zombie.direction = Vector2.Zero;
-            zombie.ChangeState(new ZombieAttackState());
+            zombie.changeState(new ZombieAttackState());
         }
         else if(getDistanceFromWaypoint() < .5f) {
 //            Gdx.app.log("Pathfinding", "Next waypoint");
@@ -121,7 +121,7 @@ public class AStarState implements IState, Pather<Node>{
                 resultPath = null;
                 waypoint = null;
                 zombie.direction = Vector2.Zero;
-//                zombie.ChangeState(new ZombieAttackState());
+//                zombie.changeState(new ZombieAttackState());
             } else {
                 // Set next waypoint
                 int waypointIndex = resultPath.get(1).getIndex();

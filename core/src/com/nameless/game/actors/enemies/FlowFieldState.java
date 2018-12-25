@@ -1,6 +1,5 @@
 package com.nameless.game.actors.enemies;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -8,7 +7,6 @@ import com.nameless.game.MathStatic;
 import com.nameless.game.actors.Character;
 import com.nameless.game.actors.states.IState;
 import com.nameless.game.maps.LevelManager;
-import com.nameless.game.pathfinding.PathfindingDebugger;
 
 public class FlowFieldState implements IState {
 
@@ -22,7 +20,7 @@ public class FlowFieldState implements IState {
     @Override
     public void Enter(Character parent) {
         this.zombie = (Zombie) parent;
-        if(((Zombie) parent).target == null) parent.ChangeState(null);
+        if(((Zombie) parent).target == null) parent.changeState(null);
 
         actualNode = LevelManager.graph.getIndexByXYEnemy( zombie.getCenterX(), zombie.getCenterY(), zombie.distance);
 
@@ -38,7 +36,7 @@ public class FlowFieldState implements IState {
                     zombie.getCenterY() - .5f * MathUtils.sin(zombie.direction.angleRad()), zombie.distance);
             timeSinceLastChange = TimeUtils.nanoTime();
         } else if(TimeUtils.nanoTime() - timeSinceLastChange > timeToChangePathfinding*2){
-            zombie.ChangeState(new AStarState());
+            zombie.changeState(new AStarState());
         }
         //PathfindingDebugger.drawPositionNode(LevelManager.graph.getNode(actualNode), Color.GOLD);
 
@@ -63,7 +61,7 @@ public class FlowFieldState implements IState {
         if(MathStatic.getDistancePointToPoint(zombie.body.getPosition(),new Vector2(zombie.target.getX() + zombie.target.getWidth()/2,
                 zombie.target.getY() + zombie.target.getHeight()/2)) <= zombie.RANGE){
             zombie.direction = Vector2.Zero;
-            zombie.ChangeState(new ZombieAttackState());
+            zombie.changeState(new ZombieAttackState());
         }
     }
 

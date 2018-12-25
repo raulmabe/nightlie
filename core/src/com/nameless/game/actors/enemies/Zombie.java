@@ -1,6 +1,7 @@
 package com.nameless.game.actors.enemies;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -15,9 +16,11 @@ import com.badlogic.gdx.utils.Timer;
 import com.nameless.game.*;
 import com.nameless.game.actors.Character;
 import com.nameless.game.actors.Loot;
+import com.nameless.game.managers.ParticleEffectManager;
 import com.nameless.game.scene2d.ui.HealthBar;
 import com.nameless.game.screens.BasicPlay;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 import static com.nameless.game.Constants.PixelsPerMeter;
@@ -56,9 +59,22 @@ public class Zombie extends Character implements Pool.Poolable, ISubject {
         timer.scheduleTask(new Timer.Task() {
             @Override
             public void run() {
+                if(isOnFire()) return;
                 play.mapHud.removeActor(healthBar);
             }
         }, 1f);
+    }
+
+    @Override
+    public void setOnFire() {
+        super.setOnFire();
+        play.mapHud.addActor(healthBar);
+        timer.scheduleTask(new Timer.Task() {
+            @Override
+            public void run() {
+                play.mapHud.removeActor(healthBar);
+            }
+        }, ParticleEffectManager.getInstance().timeFire);
     }
 
     public Zombie(BasicPlay play, Actor target, float x, float y) {
@@ -86,7 +102,7 @@ public class Zombie extends Character implements Pool.Poolable, ISubject {
         setBox2d();
 
         setPosition(body.getPosition().x - getWidth()/2, body.getPosition().y - getHeight()/2);
-        if(target != null) ChangeState(new FlowFieldState());
+        if(target != null) changeState(new FlowFieldState());
 
         healthBar = new HealthBar(this);
         timer = new Timer();
@@ -117,8 +133,10 @@ public class Zombie extends Character implements Pool.Poolable, ISubject {
         if(blinker.shouldBlink(Gdx.graphics.getDeltaTime())) return;
 
         batch.setColor(batch.getColor().r, batch.getColor().g, batch.getColor().b, getColor().a);
+        batch.setColor(getColor());
         batch.draw(region, getX(), getY(), getOriginX(), getOriginY(), getWidth(),
                 getHeight(), getScaleX(), getScaleY(), getRotation());
+        batch.setColor(Color.WHITE);
     }
 
     @Override
