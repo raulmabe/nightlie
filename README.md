@@ -1,6 +1,6 @@
 # Nightlie
 
-_Zombie killing game for Android and Desktop. The player must survive as many nights as possible alive. Good luck :)_
+_Zombie killing game for Android and Desktop. The player must survive as many nights as possible. Good luck :)_
 
 ## Motivation
 
