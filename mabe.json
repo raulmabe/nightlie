@@ -2,7 +2,7 @@
   "title": "Nightlie",
   "version": "unfinished",
   "path_to_mocks": [
-    "/android/assets/mocks/Desktop.png",
+    "/android/assets/mocks/MacbookPro.png",
     "/android/assets/mocks/iPhoneXR.png"
   ],
   "tag_tools": ["java", "libgdx", "game"]
