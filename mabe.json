@@ -10,9 +10,8 @@
     "Desktop",
     "Android"
   ],
-  "link_images": [
-    "https://res.cloudinary.com/mabe-portfolio/image/upload/v1600532733/nightlie/desktop.png",
-    "https://res.cloudinary.com/mabe-portfolio/image/upload/v1600532733/nightlie/iphone.png"
-  ],
-  "private": false
+  "assets": ["https://res.cloudinary.com/mabe-portfolio/image/upload/v1607283478/nightlie/Screenshot_20201206-203611_jkb4xy.jpg"],
+  "assets_is_vertical": [false], // optional default false
+  "assets_is_image": [true], // optional default true
+  "assets_platform": ["desktop"]
 }
