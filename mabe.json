@@ -15,7 +15,7 @@
     "https://res.cloudinary.com/mabe-portfolio/image/upload/v1607283478/nightlie/Screenshot_20201206-203611_jkb4xy.jpg",
     "https://res.cloudinary.com/mabe-portfolio/image/upload/v1607357799/nightlie/desktop.png"
   ],
-  "assets_is_vertical": [false, false],
-  "assets_is_image": [false,true], 
+  "assets_is_vertical": [false, false, false],
+  "assets_is_image": [false,true, true], 
   "assets_platform": ["mobile","mobile","desktop"]
 }
