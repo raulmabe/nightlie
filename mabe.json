@@ -10,8 +10,12 @@
     "Desktop",
     "Android"
   ],
-  "assets": ["https://res.cloudinary.com/mabe-portfolio/image/upload/v1607283478/nightlie/Screenshot_20201206-203611_jkb4xy.jpg"],
-  "assets_is_vertical": [false],
-  "assets_is_image": [true], 
-  "assets_platform": ["desktop"]
+  "assets": [
+    "https://res.cloudinary.com/mabe-portfolio/video/upload/v1607356076/nightlie/nightlie_mhozhn.webm",
+    "https://res.cloudinary.com/mabe-portfolio/image/upload/v1607283478/nightlie/Screenshot_20201206-203611_jkb4xy.jpg",
+    "https://res.cloudinary.com/mabe-portfolio/image/upload/v1607357799/nightlie/desktop.png"
+  ],
+  "assets_is_vertical": [false, false],
+  "assets_is_image": [false,true], 
+  "assets_platform": ["mobile","mobile","desktop"]
 }
